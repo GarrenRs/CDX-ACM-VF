@@ -3,7 +3,7 @@
 {% block title %}Settings{% endblock %}
 
 {% block content %}
-<div class="container-fluid">
+<div class="container-fluid" data-demo-mode="{% if is_demo_mode %}true{% else %}false{% endif %}">
     <!-- Settings Header -->
     <div class="row mb-4">
         <div class="col-lg-12">
@@ -223,9 +223,15 @@
                                 {% endif %}
 
                                 <div class="d-flex gap-2 mt-3">
+                                    {% if not is_admin %}
                                     <button type="button" class="btn btn-info" id="testConnectionBtn" onclick="testTelegramConnection()" {% if is_demo_mode %}disabled title="Demo mode: Testing is disabled"{% endif %}>
                                         <i class="fas fa-plug me-2"></i>Test Connection
                                     </button>
+                                    {% else %}
+                                    <button type="button" class="btn btn-info" id="testAdminNotificationsBtn" onclick="testAdminNotifications()" {% if is_demo_mode %}disabled title="Demo mode: Testing is disabled"{% endif %}>
+                                        <i class="fas fa-bell me-2"></i>Test Admin Notifications
+                                    </button>
+                                    {% endif %}
                                 </div>
                             </form>
 
@@ -596,209 +602,5 @@
     }
 </style>
 
-<script>
-    function updateThemePreview(themeId) {
-        const themeInfo = {
-            'luxury-gold': { 
-                name: 'Luxury Gold', 
-                icon: 'fas fa-crown',
-                color: '#D4AF37',
-                secondary: '#8B7355',
-                desc: 'Premium & Classic design.'
-            },
-            'modern-dark': { 
-                name: 'Modern Dark',
-                icon: 'fas fa-zap',
-                color: '#00D9FF',
-                secondary: '#0066CC',
-                desc: 'Tech & Trendy design.'
-            },
-            'clean-light': { 
-                name: 'Clean Light',
-                icon: 'fas fa-sun',
-                color: '#4F46E5',
-                secondary: '#7C3AED',
-                desc: 'Minimal & Fresh design.'
-            },
-            'terracotta-red': {
-                name: 'Terracotta Red',
-                icon: 'fas fa-fire',
-                color: '#E07856',
-                secondary: '#C85A41',
-                desc: 'Warm & Modern design.'
-            },
-            'vibrant-green': {
-                name: 'Vibrant Green',
-                icon: 'fas fa-leaf',
-                color: '#10B981',
-                secondary: '#059669',
-                desc: 'Natural & Fresh design.'
-            },
-            'silver-grey': {
-                name: 'Silver Grey',
-                icon: 'fas fa-gem',
-                color: '#8B8B8B',
-                secondary: '#6B6B6B',
-                desc: 'Sophisticated design.'
-            }
-        };
-        
-        const theme = themeInfo[themeId];
-        if (theme) {
-            document.getElementById('themePreview').innerHTML = `
-                <div class="theme-preview-content">
-                    <div class="preview-icon">
-                        <i class="${theme.icon}"></i>
-                    </div>
-                    <h6 class="mt-3 mb-2">${theme.name}</h6>
-                    <p class="small text-secondary mb-3">${theme.desc}</p>
-                    <div class="d-flex gap-2 flex-wrap justify-content-center">
-                        <span class="badge" style="background: ${theme.color}; color: #000;">Primary</span>
-                        <span class="badge" style="background: ${theme.secondary}; color: #fff;">Secondary</span>
-                    </div>
-                </div>
-            `;
-        }
-    }
-
-    async function testEmailConnection() {
-        const btn = document.getElementById('testEmailBtn');
-        const originalText = btn.innerHTML;
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
-        
-        try {
-            const response = await fetch('/dashboard/email-test', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'}
-            });
-            const data = await response.json();
-            
-            if (data.success) {
-                alert('✅ Test email sent successfully! Check your inbox.');
-            } else {
-                alert('❌ Failed to send test email: ' + data.error);
-            }
-        } catch (error) {
-            alert('❌ Error: ' + error.message);
-        }
-        
-        btn.disabled = false;
-        btn.innerHTML = originalText;
-    }
-
-    async function testTelegramConnection() {
-        const btn = document.getElementById('testConnectionBtn');
-        const originalText = btn.innerHTML;
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Testing...';
-        
-        try {
-            const response = await fetch('/dashboard/telegram-test', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'}
-            });
-            const data = await response.json();
-            
-            if (data.success) {
-                alert('✅ Connection successful! Check your Telegram for a test message.');
-            } else {
-                alert('❌ Connection failed: ' + data.error);
-            }
-        } catch (error) {
-            alert('❌ Error: ' + error.message);
-        }
-        
-        btn.disabled = false;
-        btn.innerHTML = originalText;
-    }
-
-    // Initialize theme preview on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        const currentThemeRadio = document.querySelector('input[name="theme"]:checked');
-        if (currentThemeRadio) {
-            updateThemePreview(currentThemeRadio.value);
-        }
-        loadBackups();
-    });
-
-    async function loadBackups() {
-        try {
-            const response = await fetch('/api/backups');
-            const backups = await response.json();
-            const tbody = document.getElementById('backupsList');
-            const isDemoMode = {{ 'true' if is_demo_mode else 'false' }};
-            
-            if (backups.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-secondary">No backups available yet</td></tr>';
-                return;
-            }
-            
-            tbody.innerHTML = backups.map((backup, index) => `
-                <tr>
-                    <td>
-                        <small>${new Date(backup.timestamp).toLocaleString()}</small>
-                    </td>
-                    <td>
-                        <span class="badge ${backup.type === 'manual' ? 'bg-success' : 'bg-info'}">
-                            ${backup.type === 'manual' ? '📌 Manual' : '⚙️ Auto'}
-                        </span>
-                    </td>
-                    <td>${backup.size_kb}</td>
-                    <td>
-                        <div class="dropdown d-inline-block">
-                            <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" 
-                                    id="backupDropdown${index}" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="backupDropdown${index}">
-                                ${isDemoMode ? `
-                                <li>
-                                    <button type="button" class="dropdown-item disabled" disabled title="Demo mode: Restore disabled">
-                                        <i class="fas fa-lock me-2 icon-gray"></i><span class="icon-muted">Restore (Demo Disabled)</span>
-                                    </button>
-                                </li>
-                                ` : `
-                                <li>
-                                    <form method="POST" action="/backup/restore/${backup.filename}" class="d-inline"
-                                          onsubmit="return confirm('Restore this backup? Current data will be backed up first.')">
-                                        <button type="submit" class="dropdown-item btn-reset">
-                                            <i class="fas fa-undo me-2 icon-info"></i>Restore
-                                        </button>
-                                    </form>
-                                </li>
-                                `}
-                                <li>
-                                    <a class="dropdown-item" href="/backup/download/${backup.filename}">
-                                        <i class="fas fa-download me-2 icon-primary"></i>Download
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                ${isDemoMode ? `
-                                <li>
-                                    <button type="button" class="dropdown-item text-danger disabled" disabled title="Demo mode: Delete disabled">
-                                        <i class="fas fa-lock me-2"></i><span class="icon-muted">Delete (Demo Disabled)</span>
-                                    </button>
-                                </li>
-                                ` : `
-                                <li>
-                                    <form method="POST" action="/backup/delete/${backup.filename}" class="d-inline"
-                                          onsubmit="return confirm('Delete this backup permanently?')">
-                                        <button type="submit" class="dropdown-item text-danger btn-reset">
-                                            <i class="fas fa-trash me-2"></i>Delete
-                                        </button>
-                                    </form>
-                                </li>
-                                `}
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
-        } catch (error) {
-            console.error('Error loading backups:', error);
-        }
-    }
-    
-</script>
+<script src="/static/js/settings.js"></script>
 {% endblock %}
