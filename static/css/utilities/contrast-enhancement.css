@@ -1,0 +1,525 @@
+/* 
+   ================================================================
+   CONTRAST ENHANCEMENT - تحسين التباين
+   ================================================================
+   تحسين وضوح النصوص على الخلفيات الداكنة
+   ضمان توافق WCAG AAA (نسبة تباين 7:1)
+   
+   التطبيق على:
+   - صفحة المشاريع (Portfolio)
+   - بطاقات المشاريع (Project Cards)
+   - قوائم المهارات (Skill Lists)
+   - نصوص البطاقات (Card Text)
+   ================================================================
+*/
+
+/* ========== TEXT COLOR IMPROVEMENTS ========== */
+
+/* Enhanced Text Colors for Dark Backgrounds */
+.text-contrast-primary {
+    color: #FFFFFF !important;
+    font-weight: 500;
+}
+
+.text-contrast-secondary {
+    color: #E8E8E8 !important;
+    font-weight: 500;
+    opacity: 1 !important;
+}
+
+.text-contrast-accent {
+    color: #D4AF37 !important;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.text-contrast-muted {
+    color: #B0B0B0 !important;
+    opacity: 1 !important;
+}
+
+/* ========== DESCRIPTION TEXT IMPROVEMENTS ========== */
+
+/* Project/Portfolio Descriptions */
+.project-description,
+.portfolio-description {
+    color: #D0D0D0 !important;
+    opacity: 1 !important;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.project-title,
+.portfolio-title {
+    color: #FFFFFF !important;
+    font-weight: 700;
+}
+
+/* ========== TABLE IMPROVEMENTS ========== */
+
+/* Table Body Text */
+table.table-dark tbody td {
+    color: #E0E0E0 !important;
+    opacity: 1 !important;
+}
+
+table.table-dark tbody .text-muted {
+    color: #B8B8B8 !important;
+    opacity: 1 !important;
+}
+
+table.table-dark thead th {
+    color: #FFD700 !important;
+    opacity: 1 !important;
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* Table Hover State */
+table.table-dark tbody tr:hover {
+    background-color: rgba(212, 175, 55, 0.1) !important;
+}
+
+table.table-dark tbody tr:hover td {
+    color: #FFFFFF !important;
+}
+
+/* ========== BADGE IMPROVEMENTS ========== */
+
+.badge {
+    font-weight: 600;
+    padding: 0.5rem 0.75rem !important;
+    opacity: 1 !important;
+}
+
+.badge.bg-soft-gold {
+    background-color: rgba(212, 175, 55, 0.25) !important;
+    color: #FFD700 !important;
+    border: 1px solid #D4AF37 !important;
+}
+
+.badge.bg-gold {
+    background-color: #D4AF37 !important;
+    color: #000000 !important;
+    font-weight: 700;
+}
+
+.badge.bg-success {
+    background-color: #28a745 !important;
+    color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545 !important;
+    color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+/* ========== CARD IMPROVEMENTS ========== */
+
+.card {
+    background-color: rgba(26, 26, 26, 0.95) !important;
+    border: 1px solid rgba(212, 175, 55, 0.15) !important;
+}
+
+.card-body {
+    color: #E0E0E0;
+}
+
+.card-title {
+    color: #FFFFFF !important;
+    font-weight: 700;
+}
+
+.card-subtitle {
+    color: #B8B8B8 !important;
+    font-weight: 500;
+}
+
+.card-text {
+    color: #D0D0D0 !important;
+    opacity: 1 !important;
+}
+
+/* ========== LABEL & FORM TEXT ========== */
+
+label {
+    color: #FFFFFF !important;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.form-label {
+    color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+.form-text {
+    color: #B0B0B0 !important;
+    opacity: 1 !important;
+}
+
+.input-group-text {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(212, 175, 55, 0.2) !important;
+    color: #D4AF37 !important;
+}
+
+/* ========== BUTTON TEXT ========== */
+
+.btn {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
+    color: #FFFFFF !important; /* Ensure button text is light on dark backgrounds */
+}
+
+.btn-gold-gradient {
+    color: #FFFFFF !important; /* Use light text for contrast */
+    text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+    font-weight: 700;
+}
+
+.btn-primary {
+    color: #FFFFFF !important;
+    font-weight: 700;
+}
+
+.btn-secondary {
+    color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+.btn-outline-gold {
+    color: #FFD958 !important;
+    border-color: #D4AF37 !important;
+}
+
+.btn-outline-gold:hover {
+    background-color: #D4AF37 !important;
+    color: #000000 !important;
+}
+
+/* Keep outline buttons readable on dark backgrounds */
+.btn-outline-primary, .btn-outline-secondary, .btn-outline-info, .btn-outline-danger, .btn-outline-success {
+    color: #FFFFFF !important;
+    border-color: rgba(255,255,255,0.08) !important;
+}
+
+.btn-outline-primary:hover, .btn-outline-secondary:hover, .btn-outline-info:hover, .btn-outline-danger:hover, .btn-outline-success:hover {
+    color: #000 !important;
+}
+
+
+/* ========== HEADING IMPROVEMENTS ========== */
+
+h1, h2, h3, h4, h5, h6 {
+    color: #FFFFFF !important;
+    font-weight: 700;
+}
+
+.display-6,
+.display-5,
+.display-4,
+.display-3 {
+    color: #FFFFFF !important;
+    font-weight: 800;
+}
+
+/* ========== PORTFOLIO-SPECIFIC STYLES ========== */
+
+.portfolio-card {
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    transition: all 0.3s ease;
+}
+
+.portfolio-card:hover {
+    background: linear-gradient(135deg, rgba(32, 32, 32, 0.98) 0%, rgba(26, 26, 26, 1) 100%);
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+}
+
+.portfolio-title {
+    color: #FFFFFF !important;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.portfolio-description {
+    color: #D0D0D0 !important;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 1 !important;
+}
+
+.portfolio-meta {
+    color: #B8B8B8 !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* ========== PROJECT SHOWCASE ========== */
+
+.project-showcase {
+    background-color: rgba(10, 10, 10, 0.8);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.project-showcase h5 {
+    color: #FFFFFF !important;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.project-showcase p {
+    color: #D0D0D0 !important;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* ========== SKILL DISPLAY ========== */
+
+.skill-item {
+    background-color: rgba(26, 26, 26, 0.9);
+    border-left: 3px solid #D4AF37;
+    padding: 1rem;
+}
+
+.skill-name {
+    color: #FFFFFF !important;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.skill-level {
+    color: #FFD700 !important;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.skill-description {
+    color: #C0C0C0 !important;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-top: 0.5rem;
+}
+
+/* ========== PROGRESS & STATS ========== */
+
+.stat-value {
+    color: #FFD700 !important;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.stat-label {
+    color: #B8B8B8 !important;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.progress-bar {
+    background-color: #D4AF37 !important;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* ========== LINK IMPROVEMENTS ========== */
+
+a {
+    color: #FFD700 !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #D4AF37 !important;
+    text-decoration: underline;
+}
+
+.link-dark,
+.link-secondary {
+    color: #B0B0B0 !important;
+}
+
+.link-dark:hover,
+.link-secondary:hover {
+    color: #FFD700 !important;
+}
+
+/* ========== EMPHASIS & HIGHLIGHTS ========== */
+
+.text-highlight {
+    color: #FFD700 !important;
+    font-weight: 700;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.accent-text {
+    color: #D4AF37 !important;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* ========== RESPONSIVE ADJUSTMENTS ========== */
+
+@media (max-width: 768px) {
+    .portfolio-title {
+        font-size: 1.1rem;
+    }
+    
+    .portfolio-description {
+        font-size: 0.9rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    table.table-dark {
+        font-size: 0.9rem;
+    }
+}
+
+/* ========== ACCESSIBILITY - HIGH CONTRAST MODE ========== */
+
+@media (prefers-contrast: more) {
+    body {
+        --bs-gray-600: #999999;
+    }
+    
+    .text-muted {
+        color: #A0A0A0 !important;
+        opacity: 1 !important;
+    }
+    
+    .table-dark {
+        --bs-table-bg: rgba(20, 20, 20, 0.95);
+    }
+}
+
+/* ========== PRINT STYLES ========== */
+
+@media print {
+    body {
+        background-color: #FFFFFF;
+        color: #000000;
+    }
+    
+    .card,
+    .portfolio-card,
+    .project-showcase {
+        page-break-inside: avoid;
+        border: 1px solid #000000;
+        background-color: #FFFFFF;
+    }
+}
+
+/* ========== ANIMATION ENHANCEMENTS ========== */
+
+@keyframes textHighlight {
+    0% {
+        text-shadow: 0 0 0 rgba(212, 175, 55, 0);
+    }
+    50% {
+        text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+    }
+    100% {
+        text-shadow: 0 0 0 rgba(212, 175, 55, 0);
+    }
+}
+
+.text-highlight-animation {
+    animation: textHighlight 2s ease-in-out infinite;
+}
+
+/* ========== FOOTER STYLES - PORTFOLIO & PROJECT FOOTERS ========== */
+
+.portfolio-footer {
+    background: linear-gradient(180deg, rgba(13,13,13,0.96) 0%, rgba(8,8,8,0.96) 100%);
+    border-top: 1px solid rgba(212,175,55,0.08);
+    padding: 2.25rem 0;
+    color: #D8D8D8;
+}
+
+.portfolio-footer .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.portfolio-footer .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.portfolio-footer .brand-sm {
+    height: 40px;
+}
+
+.portfolio-footer .footer-legal {
+    color: #B8B8B8;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.portfolio-footer .footer-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.portfolio-footer .footer-links a {
+    color: #CFCFCF;
+    font-weight: 600;
+}
+
+.portfolio-footer .footer-links a:hover {
+    color: #FFD700;
+}
+
+.portfolio-footer .footer-right {
+    text-align: right;
+}
+
+.portfolio-footer .footer-right .tagline {
+    color: #FFD700;
+    font-weight: 700;
+}
+
+.portfolio-footer .back-to-top {
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.portfolio-footer .back-to-top:hover {
+    transform: translateY(-3px);
+    background: rgba(212,175,55,0.12);
+}
+
+@media (max-width: 768px) {
+    .portfolio-footer .footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+    .portfolio-footer .footer-right { text-align: center; }
+}
+

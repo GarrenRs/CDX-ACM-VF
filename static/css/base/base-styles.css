@@ -1,0 +1,384 @@
+/* 
+   ================================================================
+   BASE TEMPLATE STYLES
+   ================================================================
+   الأنماط الأساسية للقوالب base.html و public_base.html
+   تم نقلها من الأنماط الداخلية (inline styles) في القوالب
+   
+   هذا الملف يحتوي على:
+   - أنماط Navbar
+   - أنماط Footer
+   - أنماط Main Content
+   - أنماط عامة للصفحات
+   ================================================================
+*/
+
+/* ========== ROOT VARIABLES (for base templates) ========== */
+:root {
+    /* Base template colors */
+    --base-primary-gold: #D4AF37;
+    --base-bg-black: #0d0d0d;
+    --base-card-bg: #1a1a1a;
+    --base-gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B8941F 100%);
+}
+
+/* ========== BODY BASE STYLES ========== */
+body.base-template {
+    background-color: var(--base-bg-black);
+    color: var(--color-white);
+    font-family: var(--font-family-primary);
+}
+
+/* ========== NAVBAR STYLES ========== */
+
+/* Navbar - Base Template */
+.navbar-base {
+    background: rgba(13, 13, 13, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: var(--border-width-thin) solid rgba(212, 175, 55, 0.2);
+    padding: var(--spacing-4) 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: var(--z-index-fixed);
+}
+
+/* Navbar Brand */
+.navbar-brand-base {
+    font-weight: var(--font-weight-black);
+    color: var(--base-primary-gold) !important;
+    font-size: var(--font-size-xl);
+    letter-spacing: var(--letter-spacing-widest);
+    text-transform: uppercase;
+}
+
+/* ========== MAIN CONTENT STYLES ========== */
+
+/* Main container */
+.main-base {
+    min-height: 80vh;
+    padding-top: 100px;
+}
+
+/* Section padding utility */
+.section-padding {
+    padding: var(--spacing-16) var(--spacing-5);
+}
+
+.min-vh-50 {
+    min-height: 50vh;
+}
+
+/* ========== FOOTER STYLES ========== */
+
+/* Footer - Base Template */
+.footer-base {
+    background: #050505;
+    padding: var(--spacing-20) 0 var(--spacing-10);
+    border-top: var(--border-width-thin) solid rgba(212, 175, 55, 0.1);
+    margin-top: var(--spacing-24);
+}
+
+/* Footer Heading */
+.footer-heading-base {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-6);
+    position: relative;
+    padding-bottom: var(--spacing-3);
+    color: var(--color-white);
+}
+
+.footer-heading-base::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: var(--border-width-base);
+    background: var(--base-primary-gold);
+}
+
+/* Footer Navigation Links */
+.footer-nav a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: var(--transition-base);
+}
+
+.footer-nav a:hover {
+    color: var(--base-primary-gold);
+}
+
+/* ========== GOLD TEXT & ELEMENTS ========== */
+
+.gold-text {
+    color: var(--base-primary-gold);
+}
+
+/* ========== BUTTONS - BASE TEMPLATE ========== */
+
+/* Gold Outline Button */
+.btn-outline-gold-base {
+    border: var(--border-width-thin) solid var(--base-primary-gold);
+    color: var(--base-primary-gold);
+    padding: var(--spacing-3) var(--spacing-6);
+    border-radius: var(--border-radius-md);
+    font-weight: var(--font-weight-semibold);
+    transition: var(--transition-base);
+    background: transparent;
+}
+
+.btn-outline-gold-base:hover {
+    background: var(--base-gold-gradient);
+    color: var(--color-black);
+    border-color: transparent;
+}
+
+/* ========== ERROR CONTENT STYLES ========== */
+
+.error-content {
+    animation: fadeInUp 0.5s ease-in;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(var(--spacing-5));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== CV PREVIEW SPECIFIC STYLES ========== */
+
+.cv-preview-container {
+    font-family: var(--font-family-primary);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    color: var(--color-white);
+    line-height: var(--line-height-normal);
+}
+
+/* Print styles for CV */
+@media print {
+    .cv-preview-container {
+        background: var(--color-white);
+        color: var(--color-black);
+    }
+    
+    .navbar-base,
+    .footer-base {
+        display: none;
+    }
+}
+
+/* ========== HERO SECTION STYLES ========== */
+
+.hero-section {
+    background: linear-gradient(
+        135deg, 
+        rgba(20, 20, 20, 0.5) 0%, 
+        rgba(35, 35, 35, 0.3) 100%
+    );
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-16) var(--spacing-4);
+}
+
+.hero-title {
+    letter-spacing: var(--letter-spacing-tight);
+    font-weight: var(--font-weight-black);
+}
+
+.hero-description {
+    font-weight: var(--font-weight-bold);
+}
+
+.hero-text {
+    line-height: var(--line-height-loose);
+    font-weight: var(--font-weight-normal);
+}
+
+/* ========== BADGE STYLES ========== */
+
+.badge-gold {
+    background: var(--base-gold-gradient);
+    color: var(--color-black);
+    font-weight: var(--font-weight-semibold);
+    display: inline-block;
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--border-radius-full);
+    box-shadow: var(--shadow-gold-md);
+}
+
+/* ========== VERIFIED BADGE ========== */
+
+.verified-badge-floating {
+    position: absolute;
+    bottom: var(--spacing-4);
+    right: var(--spacing-4);
+    background: var(--base-gold-gradient);
+    color: var(--color-black);
+    width: 50px;
+    height: 50px;
+    border-radius: var(--border-radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-gold-lg);
+    font-size: var(--font-size-xl);
+}
+
+/* ========== SECTION DIVIDER ========== */
+
+.section-divider {
+    text-align: center;
+    padding: var(--spacing-8) 0;
+    color: var(--base-primary-gold);
+    font-size: var(--font-size-2xl);
+}
+
+.divider-icon {
+    opacity: var(--opacity-50);
+}
+
+/* ========== IMAGE STYLES ========== */
+
+.hero-image-blob {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(
+        circle,
+        rgba(212, 175, 55, 0.15) 0%,
+        transparent 70%
+    );
+    border-radius: var(--border-radius-full);
+    animation: blob-pulse 3s ease-in-out infinite;
+    z-index: 0;
+}
+
+@keyframes blob-pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: var(--opacity-50);
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: var(--opacity-30);
+    }
+}
+
+/* ========== RESPONSIVE STYLES ========== */
+
+@media (max-width: 768px) {
+    .navbar-brand-base {
+        font-size: var(--font-size-lg);
+    }
+    
+    .main-base {
+        padding-top: 80px;
+    }
+    
+    .footer-base {
+        padding: var(--spacing-12) 0 var(--spacing-6);
+    }
+    
+    .hero-section {
+        padding: var(--spacing-10) var(--spacing-3);
+    }
+    
+    .hero-image-blob {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-brand-base {
+        font-size: var(--font-size-base);
+    }
+    
+    .section-padding {
+        padding: var(--spacing-10) var(--spacing-3);
+    }
+    
+    .hero-image-blob {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+/* ========== TEXT CLARITY ON BASE TEMPLATES ========== */
+
+.text-on-dark {
+    color: var(--color-white) !important;
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+}
+
+.text-on-dark-secondary {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+}
+
+.text-on-dark-tertiary {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+}
+
+.text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* ========== UTILITY CLASSES ========== */
+
+.z-index-1 {
+    z-index: 1;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.bg-black-opacity-50 {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* ========== ANIMATION UTILITIES ========== */
+
+.fade-in {
+    animation: fadeIn var(--duration-500) ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ========== NOTES ========== */
+/*
+هذا الملف يحتوي على جميع الأنماط التي كانت موجودة في:
+- templates/base.html (inline styles)
+- templates/public_base.html (inline styles)
+- templates/cv_preview.html (inline styles)
+
+الفوائد:
+✅ لا توجد أنماط داخلية في القوالب
+✅ سهولة الصيانة والتحديث
+✅ استخدام Design Tokens
+✅ أداء أفضل (caching)
+
+للاستخدام في القوالب:
+- أضف class="navbar-base" بدلاً من style="..."
+- أضف class="footer-base" بدلاً من الأنماط الداخلية
+- استخدم الفئات المحددة أعلاه
+*/

@@ -1,0 +1,189 @@
+/* 
+   ================================================================
+   UTILITIES: BACKGROUNDS & OVERLAYS
+   Semi-transparent backgrounds and gradient utilities
+   ================================================================
+*/
+
+/* ========== SEMI-TRANSPARENT BACKGROUNDS ========== */
+
+.bg-dark-overlay-light {
+    background: rgba(20, 20, 20, 0.8) !important;
+}
+
+.bg-dark-overlay {
+    background: rgba(20, 20, 20, 0.9) !important;
+}
+
+.bg-dark-heavy {
+    background: rgba(13, 13, 13, 0.9) !important;
+}
+
+.bg-black-50 {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.bg-black-20 {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* ========== CARD BACKGROUNDS ========== */
+
+.bg-card {
+    background: var(--card-bg);
+}
+
+.bg-card-light {
+    background: #1a1a1a;
+}
+
+.bg-card-secondary {
+    background: var(--bg-secondary);
+}
+
+/* ========== GRADIENT BACKGROUNDS ========== */
+
+.bg-gradient-hero {
+    background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+}
+
+.bg-gradient-gold-subtle {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+}
+
+.bg-gradient-success-subtle {
+    background: linear-gradient(90deg, rgba(40, 167, 69, 0.08) 0%, var(--bg-secondary) 100%);
+}
+
+.bg-gradient-danger-subtle {
+    background: linear-gradient(90deg, rgba(220, 53, 69, 0.08) 0%, var(--bg-secondary) 100%);
+}
+
+/* ========== BACKDROP FILTERS ========== */
+
+.backdrop-blur {
+    backdrop-filter: blur(10px);
+}
+
+.backdrop-blur-medium {
+    backdrop-filter: blur(12px);
+}
+
+.backdrop-blur-light {
+    backdrop-filter: blur(5px);
+}
+
+/* ========== COMBINED STYLES ========== */
+
+.bg-panel-dark {
+    background: rgba(20, 20, 20, 0.9);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.bg-panel-card {
+    background: rgba(13, 13, 13, 0.9);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.bg-translucent-gold {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+    border: 2px solid var(--primary-gold);
+}
+
+.bg-dark-subtle {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.bg-table-header {
+    background: var(--gold-gradient);
+}
+
+/* ========== MESSAGES: DARK ROW BACKGROUNDS ========== */
+.messages-dark-rows tbody tr {
+    background: rgba(12, 12, 12, 0.9);
+    color: #f7f7f7;
+}
+/* Force TD cells to inherit the dark background to override Bootstrap table cell backgrounds */
+.messages-dark-rows tbody tr td,
+.messages-dark-rows tbody tr th {
+    background-color: rgba(12,12,12,0.9) !important;
+    color: #f7f7f7 !important;
+}
+.messages-dark-rows tbody tr.table-light {
+    background: rgba(255,255,255,0.02);
+}
+.messages-dark-rows tbody tr.table-light td,
+.messages-dark-rows tbody tr.table-light th {
+    background-color: rgba(255,255,255,0.02) !important;
+    color: #f7f7f7 !important;
+}
+.messages-dark-rows tbody tr.table-warning {
+    /* subtle dark gold tint for unread rows */
+    background: rgba(46, 36, 6, 0.06);
+}
+.messages-dark-rows tbody tr.table-warning td,
+.messages-dark-rows tbody tr.table-warning th {
+    background-color: rgba(46, 36, 6, 0.06) !important;
+    color: #f7f7f7 !important;
+}
+.messages-dark-rows .text-secondary, .messages-dark-rows .text-muted {
+    color: rgba(255,255,255,0.82) !important;
+}
+.messages-dark-rows a.link-primary {
+    color: #ffd958;
+}
+.messages-dark-rows .badge {
+    opacity: 0.95;
+}
+
+/* Preview column sizing */
+.messages-dark-rows .preview-col {
+    width: 18%;
+    min-width: 160px;
+}
+
+/* Ensure link hover is visible */
+.messages-dark-rows a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.bg-soft-gold {
+    background: rgba(212, 175, 55, 0.12) !important;
+}
+
+/* ========== TRANSPARENCY BOXES ========== */
+
+.transparency-box {
+    background: rgba(212, 175, 55, 0.03);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.transparency-box-medium {
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* ========== SUBTLE BACKGROUNDS ========== */
+
+.bg-info-subtle {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.bg-info-subtle-bordered {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bg-info-gradient {
+    background: var(--info-gradient);
+}
+
+/* ========== LIST ITEM DIVIDERS ========== */
+
+.list-item-divider {
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}

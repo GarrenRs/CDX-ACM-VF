@@ -1,0 +1,137 @@
+/* 
+   ================================================================
+   COMPONENT: FORMS - Unified Form Styles
+   ================================================================
+*/
+
+/* Base Form Controls */
+.form-control,
+.form-select {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    background: rgba(20, 20, 20, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-3) var(--spacing-4);
+    transition: var(--transition-fast);
+    width: 100%;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #D4AF37 !important;
+    background: rgba(30, 30, 30, 0.9) !important;
+    color: #fff !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15) !important;
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Form Labels */
+.form-label {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: var(--spacing-2);
+    display: block;
+}
+
+/* Textarea */
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+    line-height: var(--line-height-relaxed);
+}
+
+/* Form Groups */
+.form-group,
+.mb-3 {
+    margin-bottom: var(--spacing-4);
+}
+
+/* Validation States */
+.is-invalid {
+    border-color: var(--color-danger) !important;
+}
+
+.is-valid {
+    border-color: var(--color-success) !important;
+}
+
+.invalid-feedback {
+    color: var(--color-danger);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-top: var(--spacing-1);
+}
+
+.valid-feedback {
+    color: var(--color-success);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-top: var(--spacing-1);
+}
+
+/* Checkboxes and Radios */
+.form-check-input {
+    width: 18px;
+    height: 18px;
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius-sm);
+}
+
+.form-check-input:checked {
+    background-color: #D4AF37;
+    border-color: #D4AF37;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.form-check-label {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: var(--spacing-2);
+}
+
+/* Input Groups */
+.input-group .form-control {
+    border-radius: 0;
+}
+
+.input-group .form-control:first-child,
+.input-group > :first-child {
+    border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+}
+
+.input-group .form-control:last-child,
+.input-group > :last-child {
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+}
+
+.input-group-text {
+    background: rgba(30, 30, 30, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #D4AF37;
+    padding: var(--spacing-3) var(--spacing-4);
+}
+
+/* Form Floating Labels */
+.form-floating > .form-control,
+.form-floating > .form-select {
+    height: calc(3.5rem + 2px);
+    padding: 1rem var(--spacing-4);
+}
+
+.form-floating > label {
+    color: rgba(255, 255, 255, 0.5);
+    padding: 1rem var(--spacing-4);
+}

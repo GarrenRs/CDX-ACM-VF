@@ -1,0 +1,37 @@
+/* ==========================================
+   THEME: MODERN DARK (Tech & Trendy)
+   ========================================== */
+
+:root[data-portfolio-theme="modern-dark"],
+html[data-portfolio-theme="modern-dark"] {
+    --primary-color: #00D9FF;
+    --primary-rgb: 0, 217, 255;
+    --primary-dark: #00A8CC;
+    --primary-light: #00F0FF;
+    --secondary-color: #0066CC;
+    --accent-color: #00FFFF;
+    --gold-gradient: linear-gradient(135deg, #00D9FF 0%, #00F0FF 50%, #0066CC 100%);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-rgb: 255, 255, 255;
+    --border-color: rgba(0, 217, 255, 0.3);
+    --shadow: 0 8px 32px rgba(0, 217, 255, 0.1);
+    --shadow-lg: 0 16px 48px rgba(0, 217, 255, 0.15);
+    --navbar-bg: rgba(255, 255, 255, 0.9);
+    --sidebar-bg: #050510;
+}
+
+html[data-portfolio-theme="modern-dark"][data-theme="dark"] {
+    --text-primary: #e0e0ff;
+    --text-secondary: #94a3b8;
+    --bg-primary: #050510;
+    --bg-secondary: #0a0a1a;
+    --bg-rgb: 5, 5, 16;
+    --border-color: rgba(0, 217, 255, 0.25);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.9);
+    --navbar-bg: rgba(5, 5, 16, 0.9);
+    --sidebar-bg: #02020a;
+}

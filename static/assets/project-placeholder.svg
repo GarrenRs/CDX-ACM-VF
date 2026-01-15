@@ -1,0 +1,52 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6c63ff;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#4834d4;stop-opacity:0.2" />
+    </linearGradient>
+    <linearGradient id="codeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6c63ff;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#4834d4;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bgGrad)"/>
+  
+  <!-- Monitor/Screen -->
+  <rect x="50" y="50" width="300" height="180" rx="10" fill="#2c2c54"/>
+  <rect x="60" y="60" width="280" height="140" rx="5" fill="url(#screenGrad)"/>
+  
+  <!-- Monitor Stand -->
+  <rect x="180" y="230" width="40" height="30" fill="#6c757d"/>
+  <rect x="160" y="260" width="80" height="8" rx="4" fill="#6c757d"/>
+  
+  <!-- Code Lines -->
+  <rect x="80" y="80" width="60" height="4" rx="2" fill="url(#codeGrad)"/>
+  <rect x="80" y="95" width="120" height="4" rx="2" fill="url(#codeGrad)" opacity="0.7"/>
+  <rect x="80" y="110" width="90" height="4" rx="2" fill="url(#codeGrad)" opacity="0.8"/>
+  <rect x="80" y="125" width="140" height="4" rx="2" fill="url(#codeGrad)" opacity="0.6"/>
+  <rect x="80" y="140" width="100" height="4" rx="2" fill="url(#codeGrad)" opacity="0.9"/>
+  <rect x="80" y="155" width="160" height="4" rx="2" fill="url(#codeGrad)" opacity="0.5"/>
+  <rect x="80" y="170" width="80" height="4" rx="2" fill="url(#codeGrad)" opacity="0.7"/>
+  
+  <!-- Browser Window Elements -->
+  <circle cx="75" cy="75" r="3" fill="#ff6b6b"/>
+  <circle cx="90" cy="75" r="3" fill="#ffd93d"/>
+  <circle cx="105" cy="75" r="3" fill="#6bcf7f"/>
+  
+  <!-- Decorative Code Symbols -->
+  <text x="290" y="90" font-family="monospace" font-size="16" fill="#6c63ff" opacity="0.4">&lt;/&gt;</text>
+  <text x="270" y="120" font-family="monospace" font-size="14" fill="#4834d4" opacity="0.5">{}</text>
+  <text x="280" y="150" font-family="monospace" font-size="12" fill="#6c63ff" opacity="0.6">( )</text>
+  
+  <!-- Floating Elements -->
+  <circle cx="320" cy="40" r="4" fill="#6c63ff" opacity="0.3"/>
+  <circle cx="30" cy="100" r="3" fill="#4834d4" opacity="0.4"/>
+  <circle cx="370" cy="180" r="5" fill="#6c63ff" opacity="0.2"/>
+  <circle cx="20" cy="250" r="3" fill="#4834d4" opacity="0.5"/>
+</svg>

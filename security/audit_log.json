@@ -1,0 +1,14 @@
+[
+  {
+    "event": "password_changed",
+    "username": "Codexx",
+    "details": "Password changed via change_password",
+    "timestamp": "2026-01-12 17:57:04"
+  },
+  {
+    "event": "password_changed",
+    "username": "Codexx",
+    "details": "Password changed via change_password",
+    "timestamp": "2026-01-12 17:57:46"
+  }
+]

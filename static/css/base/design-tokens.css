@@ -1,0 +1,303 @@
+/* 
+   ================================================================
+   DESIGN TOKENS - Central Design System Configuration
+   ================================================================
+   هذا الملف يحتوي على جميع التوكنات المركزية للتصميم
+   أي تغيير هنا يؤثر على كامل المنصة
+   
+   التصنيفات:
+   1. Typography (الخطوط والنصوص)
+   2. Spacing (المسافات)
+   3. Borders (الحدود)
+   4. Shadows (الظلال)
+   5. Transitions (الانتقالات)
+   6. Layout (التخطيط)
+   7. Z-Index (الطبقات)
+   8. Colors (الألوان الثابتة)
+   ================================================================
+*/
+
+:root {
+    /* ========== 1. TYPOGRAPHY TOKENS ========== */
+    
+    /* Font Families */
+    --font-family-primary: 'Poppins', sans-serif;
+    --font-family-fallback: 'Arial', sans-serif;
+    --font-family-code: 'Courier New', monospace;
+    
+    /* Font Sizes - Mobile First Approach */
+    --font-size-xs: 0.75rem;        /* 12px */
+    --font-size-sm: 0.875rem;       /* 14px */
+    --font-size-base: 1rem;         /* 16px */
+    --font-size-lg: 1.125rem;       /* 18px */
+    --font-size-xl: 1.25rem;        /* 20px */
+    --font-size-2xl: 1.5rem;        /* 24px */
+    --font-size-3xl: 1.875rem;      /* 30px */
+    --font-size-4xl: 2.25rem;       /* 36px */
+    --font-size-5xl: 3rem;          /* 48px */
+    --font-size-6xl: 3.75rem;       /* 60px */
+    --font-size-7xl: 4.5rem;        /* 72px */
+    
+    /* Font Weights */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    --font-weight-black: 900;
+    
+    /* Line Heights */
+    --line-height-tight: 1.2;
+    --line-height-snug: 1.375;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.625;
+    --line-height-loose: 1.8;
+    
+    /* Letter Spacing */
+    --letter-spacing-tighter: -0.05em;
+    --letter-spacing-tight: -0.02em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.025em;
+    --letter-spacing-wider: 0.05em;
+    --letter-spacing-widest: 0.1em;
+    
+    /* ========== 2. SPACING TOKENS ========== */
+    
+    /* Base spacing unit: 4px (0.25rem) */
+    --spacing-0: 0;
+    --spacing-px: 1px;
+    --spacing-0-5: 0.125rem;    /* 2px */
+    --spacing-1: 0.25rem;       /* 4px */
+    --spacing-1-5: 0.375rem;    /* 6px */
+    --spacing-2: 0.5rem;        /* 8px */
+    --spacing-2-5: 0.625rem;    /* 10px */
+    --spacing-3: 0.75rem;       /* 12px */
+    --spacing-3-5: 0.875rem;    /* 14px */
+    --spacing-4: 1rem;          /* 16px */
+    --spacing-5: 1.25rem;       /* 20px */
+    --spacing-6: 1.5rem;        /* 24px */
+    --spacing-7: 1.75rem;       /* 28px */
+    --spacing-8: 2rem;          /* 32px */
+    --spacing-9: 2.25rem;       /* 36px */
+    --spacing-10: 2.5rem;       /* 40px */
+    --spacing-11: 2.75rem;      /* 44px */
+    --spacing-12: 3rem;         /* 48px */
+    --spacing-14: 3.5rem;       /* 56px */
+    --spacing-16: 4rem;         /* 64px */
+    --spacing-20: 5rem;         /* 80px */
+    --spacing-24: 6rem;         /* 96px */
+    --spacing-28: 7rem;         /* 112px */
+    --spacing-32: 8rem;         /* 128px */
+    --spacing-36: 9rem;         /* 144px */
+    --spacing-40: 10rem;        /* 160px */
+    --spacing-44: 11rem;        /* 176px */
+    --spacing-48: 12rem;        /* 192px */
+    --spacing-52: 13rem;        /* 208px */
+    --spacing-56: 14rem;        /* 224px */
+    --spacing-60: 15rem;        /* 240px */
+    --spacing-64: 16rem;        /* 256px */
+    --spacing-72: 18rem;        /* 288px */
+    --spacing-80: 20rem;        /* 320px */
+    --spacing-96: 24rem;        /* 384px */
+    
+    /* ========== 3. BORDER TOKENS ========== */
+    
+    /* Border Widths */
+    --border-width-0: 0;
+    --border-width-thin: 1px;
+    --border-width-base: 2px;
+    --border-width-medium: 3px;
+    --border-width-thick: 4px;
+    --border-width-heavy: 8px;
+    
+    /* Border Radius */
+    --border-radius-none: 0;
+    --border-radius-xs: 0.125rem;   /* 2px */
+    --border-radius-sm: 0.25rem;    /* 4px */
+    --border-radius-base: 0.375rem; /* 6px */
+    --border-radius-md: 0.5rem;     /* 8px */
+    --border-radius-lg: 0.75rem;    /* 12px */
+    --border-radius-xl: 1rem;       /* 16px */
+    --border-radius-2xl: 1.5rem;    /* 24px */
+    --border-radius-3xl: 2rem;      /* 32px */
+    --border-radius-full: 9999px;
+    
+    /* ========== 4. SHADOW TOKENS ========== */
+    
+    /* Elevation shadows */
+    --shadow-none: none;
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    
+    /* Colored shadows (for gold theme) */
+    --shadow-gold-sm: 0 4px 15px rgba(212, 175, 55, 0.15);
+    --shadow-gold-md: 0 8px 25px rgba(212, 175, 55, 0.2);
+    --shadow-gold-lg: 0 12px 35px rgba(212, 175, 55, 0.25);
+    --shadow-gold-xl: 0 16px 48px rgba(212, 175, 55, 0.3);
+    
+    /* ========== 5. TRANSITION TOKENS ========== */
+    
+    /* Durations */
+    --duration-75: 75ms;
+    --duration-100: 100ms;
+    --duration-150: 150ms;
+    --duration-200: 200ms;
+    --duration-300: 300ms;
+    --duration-500: 500ms;
+    --duration-700: 700ms;
+    --duration-1000: 1000ms;
+    
+    /* Easing functions */
+    --ease-linear: linear;
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Combined transitions */
+    --transition-fastest: all 75ms ease;
+    --transition-faster: all 100ms ease;
+    --transition-fast: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slower: all 700ms ease;
+    --transition-slowest: all 1000ms ease;
+    
+    /* ========== 6. LAYOUT TOKENS ========== */
+    
+    /* Container widths */
+    --container-xs: 20rem;      /* 320px */
+    --container-sm: 24rem;      /* 384px */
+    --container-md: 28rem;      /* 448px */
+    --container-lg: 32rem;      /* 512px */
+    --container-xl: 36rem;      /* 576px */
+    --container-2xl: 42rem;     /* 672px */
+    --container-3xl: 48rem;     /* 768px */
+    --container-4xl: 56rem;     /* 896px */
+    --container-5xl: 64rem;     /* 1024px */
+    --container-6xl: 72rem;     /* 1152px */
+    --container-7xl: 80rem;     /* 1280px */
+    --container-full: 100%;
+    
+    /* Sidebar & Navigation */
+    --sidebar-width: 260px;
+    --sidebar-width-collapsed: 70px;
+    --navbar-height: 70px;
+    --navbar-height-sm: 60px;
+    
+    /* Content widths */
+    --content-max-width: 1200px;
+    --content-max-width-narrow: 800px;
+    --content-max-width-wide: 1400px;
+    
+    /* ========== 7. Z-INDEX TOKENS ========== */
+    
+    /* Layer management */
+    --z-index-base: 0;
+    --z-index-behind: -1;
+    --z-index-dropdown: 1000;
+    --z-index-sticky: 1020;
+    --z-index-fixed: 1030;
+    --z-index-modal-backdrop: 1040;
+    --z-index-modal: 1050;
+    --z-index-popover: 1060;
+    --z-index-tooltip: 1070;
+    --z-index-notification: 1080;
+    --z-index-max: 9999;
+    
+    /* ========== 8. COLOR TOKENS (Neutral & Semantic) ========== */
+    
+    /* Pure colors - لا تتغير مع الثيمات */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-transparent: transparent;
+    
+    /* Gray scale - للعناصر المحايدة */
+    --color-gray-50: #f9fafb;
+    --color-gray-100: #f3f4f6;
+    --color-gray-200: #e5e7eb;
+    --color-gray-300: #d1d5db;
+    --color-gray-400: #9ca3af;
+    --color-gray-500: #6b7280;
+    --color-gray-600: #4b5563;
+    --color-gray-700: #374151;
+    --color-gray-800: #1f2937;
+    --color-gray-900: #111827;
+    
+    /* Semantic colors - يمكن استخدامها عبر الثيمات */
+    --color-success: #10b981;
+    --color-success-light: #34d399;
+    --color-success-dark: #059669;
+    
+    --color-danger: #ef4444;
+    --color-danger-light: #f87171;
+    --color-danger-dark: #dc2626;
+    
+    --color-warning: #f59e0b;
+    --color-warning-light: #fbbf24;
+    --color-warning-dark: #d97706;
+    
+    --color-info: #3b82f6;
+    --color-info-light: #60a5fa;
+    --color-info-dark: #2563eb;
+    
+    /* Opacity levels */
+    --opacity-0: 0;
+    --opacity-5: 0.05;
+    --opacity-10: 0.1;
+    --opacity-20: 0.2;
+    --opacity-25: 0.25;
+    --opacity-30: 0.3;
+    --opacity-40: 0.4;
+    --opacity-50: 0.5;
+    --opacity-60: 0.6;
+    --opacity-70: 0.7;
+    --opacity-75: 0.75;
+    --opacity-80: 0.8;
+    --opacity-90: 0.9;
+    --opacity-95: 0.95;
+    --opacity-100: 1;
+    
+    /* ========== 9. BREAKPOINT TOKENS ========== */
+    
+    /* Responsive breakpoints */
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --breakpoint-xxl: 1400px;
+    
+    /* ========== 10. ANIMATION TOKENS ========== */
+    
+    /* Keyframe durations */
+    --animation-spin: 1s linear infinite;
+    --animation-ping: 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    --animation-pulse: 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animation-bounce: 1s infinite;
+}
+
+/* ========== NOTES ========== */
+/*
+هذا الملف يحتوي على جميع Design Tokens الثابتة.
+الألوان الديناميكية (التي تتغير مع الثيمات) موجودة في:
+- static/themes/luxury-gold.css
+- static/themes/modern-dark.css
+- إلخ...
+
+الاستخدام:
+- استخدم هذه المتغيرات في جميع ملفات CSS
+- لا تستخدم قيم ثابتة مباشرة
+- مثال: استخدم var(--spacing-4) بدلاً من 1rem
+
+التحديث:
+- أي تغيير هنا يؤثر على كامل المنصة
+- اختبر التغييرات على جميع الصفحات
+- وثق أي تغييرات مهمة
+*/

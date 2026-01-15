@@ -1,0 +1,125 @@
+{
+  "name": "Demo Portfolio - Codexx",
+  "title": "Web Developer & Designer",
+  "description": "Experience the power of Codexx Academy Platform with this interactive demo",
+  "photo": "static/assets/profile-placeholder.svg",
+  "about": "Welcome to the Codexx Academy Platform! This is a live demo showcasing all the features available in our professional portfolio management system. Feel free to explore and customize this demo to see how your portfolio would look.",
+  "skills": [
+    {
+      "name": "Web Development",
+      "level": 90
+    },
+    {
+      "name": "UI/UX Design",
+      "level": 85
+    },
+    {
+      "name": "JavaScript",
+      "level": 88
+    },
+    {
+      "name": "React.js",
+      "level": 85
+    },
+    {
+      "name": "Python",
+      "level": 80
+    }
+  ],
+  "projects": [],
+  "contact": {
+    "email": "demo@codexx.com",
+    "phone": "+1 234 567 8900",
+    "location": "San Francisco, CA"
+  },
+  "social": {},
+  "messages": [
+    {
+      "id": "10f75d3d-8883-42c8-9451-fdcbc11cd9ac",
+      "name": "Codexx",
+      "email": "",
+      "message": "hI ADMIN",
+      "date": "2026-01-13 23:34:04",
+      "read": false,
+      "category": "internal",
+      "sender_id": "1",
+      "receiver_id": "admin",
+      "sender_role": "user",
+      "display_name": "Codexx",
+      "display_email": ""
+    }
+  ],
+  "visitors": {
+    "total": 0,
+    "today": [],
+    "unique_ips": []
+  },
+  "settings": {
+    "theme": "luxury-gold"
+  },
+  "clients": [],
+  "users": [
+    {
+      "id": "ef268425-0e23-4efe-9512-984cc7b937bc",
+      "username": "Codexx",
+      "email": "Raesondark@gmail.com",
+      "password_hash": "scrypt:32768:8:1$YenvT1WE47Z9Y8Cz$b64df44cb4abde2fe8baac4e1cfbec822ff16f09aa5293c34ecfd750ced62a47a77127e1dd513119d8c80eb589a0d29b5757c34adcc5b864788e79d95d9c9c65",
+      "role": "user",
+      "is_demo": true,
+      "is_verified": false,
+      "must_change_password": false,
+      "created_at": "2026-01-03 13:35:41"
+    },
+    {
+      "id": "bbfd0079-1ddd-4f4c-8e7f-9820399b0558",
+      "username": "Raeson",
+      "email": "sarah@example.com",
+      "password_hash": "scrypt:32768:8:1$TRiCeZPXBW2KiFGD$46927bcffa4b797e10a68b688259df4e7ad383cee82718101d94142b7414f6e914318cb7fd4ecaef0a43d5ce15f4bab4fbd79d2aca053f8cdfb8a1ca59394649",
+      "role": "user",
+      "is_demo": true,
+      "is_verified": false,
+      "must_change_password": false,
+      "created_at": "2026-01-04 16:45:21"
+    },
+    {
+      "id": "38d3b7fc-0958-4d1e-995b-934de055ec66",
+      "username": "admin",
+      "email": "admin_4d061436@example.com",
+      "password_hash": "scrypt:32768:8:1$uvy8cJ8eS0t2TtKe$c26080f3ac9c735ae483257e060bd090be96f0790798ec529621ac8dd4ca1f27fa3a5f6eaf8d8cdaa74f4220fd2945f12f3ebf3c1ebae3e65602587c8eaeeda5",
+      "role": "admin",
+      "is_demo": false,
+      "is_verified": false,
+      "must_change_password": false,
+      "created_at": "2026-01-05 20:23:18"
+    }
+  ],
+  "portfolios": {
+    "Codexx": {
+      "name": "Dr_Codexx — Founder & System Architect, Codexx Academy",
+      "title": "Digital Systems Architecture, AI-Driven Platforms, and Scalable Knowledge Infrastructures",
+      "description": "Designing disciplined digital systems that transform knowledge into sustainable value.",
+      "about": "I operate at the intersection of system architecture, knowledge design, and applied artificial intelligence.\r\nMy professional journey is rooted in building digital platforms not as isolated products, but as coherent ecosystems designed to evolve, scale, and retain long-term value.\r\n\r\nMy methodology begins with structural clarity. I do not start with features or tools; I start by defining the system’s purpose, constraints, and internal logic. From there, I design modular architectures that separate concerns, enforce discipline, and allow intelligent automation to be integrated without destabilizing the core.\r\n\r\nWhat differentiates my approach is the prioritization of thinking before building. Every project is treated as a living system: knowledge flows are mapped, user roles are precisely defined, and operational layers are aligned with the business or educational objective. Artificial intelligence is introduced only where it creates leverage, not complexity.\r\n\r\nClients and collaborators work with me when they need more than execution. They seek a partner who can translate abstract vision into structured digital reality—systems that are maintainable, extensible, and intellectually sound. The value I deliver is not speed alone, but direction, coherence, and long-term viability.",
+      "photo": "static/assets/uploads/profile_Codexx_20260111_003223_photo_2025-12-01_18-53-08.jpg",
+      "username": "Codexx",
+      "is_verified": false
+    },
+    "Raeson": {
+      "name": "",
+      "title": "",
+      "description": "",
+      "about": "",
+      "photo": "",
+      "username": "Raeson",
+      "is_verified": false
+    },
+    "admin": {
+      "name": "",
+      "title": "",
+      "description": "",
+      "about": "",
+      "photo": "",
+      "username": "admin",
+      "is_verified": false
+    }
+  }
+}

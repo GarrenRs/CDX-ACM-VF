@@ -1,0 +1,227 @@
+/* 
+   ================================================================
+   DASHBOARD PAGE STYLES
+   ================================================================
+   الأنماط الخاصة بصفحات لوحة التحكم (Dashboard Blueprint)
+   
+   هذا الملف يُحمَّل تلقائيًا عند زيارة أي صفحة من Dashboard
+   ================================================================
+*/
+
+/* ========== DASHBOARD CONTAINER ========== */
+
+.dashboard-container {
+    padding: var(--spacing-6);
+    background: var(--bg-primary);
+    min-height: 100vh;
+}
+
+/* ========== DASHBOARD HEADER ========== */
+
+.dashboard-header {
+    padding: var(--spacing-6);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-lg);
+    margin-bottom: var(--spacing-6);
+    box-shadow: var(--shadow-md);
+}
+
+.dashboard-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-2);
+}
+
+.dashboard-subtitle {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+}
+
+/* ========== DASHBOARD STATS CARDS ========== */
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-6);
+    margin-bottom: var(--spacing-8);
+}
+
+.stat-card {
+    padding: var(--spacing-6);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-lg);
+    border: var(--border-width-thin) solid var(--border-color);
+    transition: var(--transition-base);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.stat-icon {
+    font-size: var(--font-size-3xl);
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-3);
+}
+
+.stat-value {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-1);
+}
+
+.stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+}
+
+/* ========== DASHBOARD CONTENT SECTION ========== */
+
+.dashboard-section {
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-6);
+    margin-bottom: var(--spacing-6);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-4);
+    border-bottom: var(--border-width-thin) solid var(--border-color);
+}
+
+.section-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+}
+
+/* ========== DASHBOARD TABLES ========== */
+
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dashboard-table thead {
+    background: rgba(var(--primary-rgb), 0.1);
+}
+
+.dashboard-table th {
+    padding: var(--spacing-4);
+    text-align: left;
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    border-bottom: var(--border-width-base) solid var(--border-color);
+}
+
+.dashboard-table td {
+    padding: var(--spacing-4);
+    border-bottom: var(--border-width-thin) solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.dashboard-table tr:hover {
+    background: rgba(var(--primary-rgb), 0.05);
+}
+
+/* ========== DASHBOARD WIDGETS ========== */
+
+.dashboard-widget {
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-5);
+    border: var(--border-width-thin) solid var(--border-color);
+}
+
+.widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-4);
+}
+
+.widget-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+}
+
+/* ========== DASHBOARD QUICK ACTIONS ========== */
+
+.quick-actions {
+    display: flex;
+    gap: var(--spacing-3);
+    flex-wrap: wrap;
+}
+
+.quick-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3) var(--spacing-5);
+    background: var(--primary-color);
+    color: var(--color-black);
+    border-radius: var(--border-radius-md);
+    font-weight: var(--font-weight-semibold);
+    transition: var(--transition-base);
+    text-decoration: none;
+}
+
+.quick-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    color: var(--color-black);
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: var(--spacing-4);
+    }
+    
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+    }
+    
+    .dashboard-table {
+        font-size: var(--font-size-sm);
+    }
+    
+    .dashboard-table th,
+    .dashboard-table td {
+        padding: var(--spacing-2);
+    }
+}
+
+/* ========== NOTES ========== */
+/*
+هذا الملف يُحمَّل فقط عند زيارة صفحات Dashboard
+استخدم الفئات أعلاه لبناء صفحات Dashboard
+
+مثال:
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">لوحة التحكم</h1>
+    </div>
+    <div class="dashboard-stats">
+        <div class="stat-card">...</div>
+    </div>
+</div>
+*/

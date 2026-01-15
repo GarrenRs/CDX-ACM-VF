@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Sitemap: {{ url_for('landing', _external=True) }}sitemap.xml

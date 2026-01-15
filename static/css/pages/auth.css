@@ -1,0 +1,338 @@
+/* 
+   ================================================================
+   AUTH PAGE STYLES
+   ================================================================
+   الأنماط الخاصة بصفحات المصادقة (Auth Blueprint)
+   Login, Register, Password Reset, etc.
+   
+   هذا الملف يُحمَّل تلقائيًا عند زيارة صفحات المصادقة
+   ================================================================
+*/
+
+/* ========== AUTH CONTAINER ========== */
+
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    padding: var(--spacing-6);
+}
+
+/* ========== AUTH CARD ========== */
+
+.auth-card {
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-2xl);
+    padding: var(--spacing-10);
+    max-width: 450px;
+    width: 100%;
+    box-shadow: var(--shadow-2xl);
+    border: var(--border-width-thin) solid var(--border-color);
+}
+
+/* ========== AUTH HEADER ========== */
+
+.auth-header {
+    text-align: center;
+    margin-bottom: var(--spacing-8);
+}
+
+.auth-logo {
+    width: 80px;
+    height: auto;
+    margin-bottom: var(--spacing-4);
+}
+
+.auth-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-2);
+}
+
+.auth-subtitle {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+}
+
+/* ========== AUTH FORM ========== */
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-5);
+}
+
+.auth-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+}
+
+.auth-label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+}
+
+.auth-input {
+    padding: var(--spacing-4);
+    background: var(--bg-primary);
+    border: var(--border-width-thin) solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+    transition: var(--transition-base);
+}
+
+.auth-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+.auth-input::placeholder {
+    color: var(--text-secondary);
+    opacity: var(--opacity-50);
+}
+
+/* ========== AUTH BUTTON ========== */
+
+.auth-button {
+    width: 100%;
+    padding: var(--spacing-4);
+    background: var(--gold-gradient);
+    color: var(--color-black);
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-wide);
+    cursor: pointer;
+    transition: var(--transition-base);
+    text-transform: uppercase;
+}
+
+.auth-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-gold-lg);
+}
+
+.auth-button:active {
+    transform: translateY(0);
+}
+
+.auth-button:disabled {
+    opacity: var(--opacity-50);
+    cursor: not-allowed;
+}
+
+/* ========== AUTH DIVIDER ========== */
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin: var(--spacing-6) 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    height: var(--border-width-thin);
+    background: var(--border-color);
+}
+
+.auth-divider-text {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+/* ========== AUTH FOOTER ========== */
+
+.auth-footer {
+    text-align: center;
+    margin-top: var(--spacing-6);
+    padding-top: var(--spacing-6);
+    border-top: var(--border-width-thin) solid var(--border-color);
+}
+
+.auth-footer-text {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.auth-footer-link {
+    color: var(--primary-color);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    transition: var(--transition-base);
+}
+
+.auth-footer-link:hover {
+    text-decoration: none !important;
+}
+
+/* ========== AUTH ALERTS ========== */
+
+.auth-alert {
+    padding: var(--spacing-4);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-5);
+    font-size: var(--font-size-sm);
+}
+
+.auth-alert-success {
+    background: rgba(16, 185, 129, 0.1);
+    border: var(--border-width-thin) solid var(--color-success);
+    color: var(--color-success-light);
+}
+
+.auth-alert-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: var(--border-width-thin) solid var(--color-danger);
+    color: var(--color-danger-light);
+}
+
+.auth-alert-info {
+    background: rgba(59, 130, 246, 0.1);
+    border: var(--border-width-thin) solid var(--color-info);
+    color: var(--color-info-light);
+}
+
+/* ========== PASSWORD STRENGTH ========== */
+
+.password-strength {
+    margin-top: var(--spacing-2);
+}
+
+.password-strength-bar {
+    height: 4px;
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-full);
+    overflow: hidden;
+}
+
+.password-strength-fill {
+    height: 100%;
+    transition: var(--transition-base);
+}
+
+.password-strength-weak {
+    background: var(--color-danger);
+    width: 33%;
+}
+
+.password-strength-medium {
+    background: var(--color-warning);
+    width: 66%;
+}
+
+.password-strength-strong {
+    background: var(--color-success);
+    width: 100%;
+}
+
+/* ========== CHECKBOX & REMEMBER ME ========== */
+
+.auth-checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+.auth-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.auth-checkbox-label {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+}
+
+/* ========== FORGOT PASSWORD ========== */
+
+.forgot-password-link {
+    color: var(--primary-color);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    transition: var(--transition-base);
+}
+
+.forgot-password-link:hover {
+    text-decoration: none !important;
+}
+
+/* ========== SOCIAL LOGIN ========== */
+
+.social-login-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.social-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4);
+    background: var(--bg-primary);
+    border: var(--border-width-thin) solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    color: var(--text-primary);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.social-login-btn:hover {
+    border-color: var(--primary-color);
+    background: rgba(var(--primary-rgb), 0.05);
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 576px) {
+    .auth-container {
+        padding: var(--spacing-4);
+    }
+    
+    .auth-card {
+        padding: var(--spacing-6);
+    }
+    
+    .auth-title {
+        font-size: var(--font-size-2xl);
+    }
+}
+
+/* ========== NOTES ========== */
+/*
+هذا الملف يُحمَّل فقط عند زيارة صفحات المصادقة
+
+مثال استخدام:
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1 class="auth-title">تسجيل الدخول</h1>
+        </div>
+        <form class="auth-form">
+            <div class="auth-form-group">
+                <label class="auth-label">البريد الإلكتروني</label>
+                <input type="email" class="auth-input">
+            </div>
+            <button class="auth-button">دخول</button>
+        </form>
+    </div>
+</div>
+*/

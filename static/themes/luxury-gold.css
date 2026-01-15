@@ -1,0 +1,37 @@
+/* ==========================================
+   THEME: LUXURY GOLD (Premium & Classic)
+   ========================================== */
+
+:root[data-portfolio-theme="luxury-gold"],
+html[data-portfolio-theme="luxury-gold"] {
+    --primary-color: #D4AF37;
+    --primary-rgb: 212, 175, 55;
+    --primary-dark: #B8941F;
+    --primary-light: #F4D03F;
+    --secondary-color: #8B7355;
+    --accent-color: #FFD700;
+    --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B8941F 100%);
+    --text-primary: #111111;
+    --text-secondary: #444444;
+    --bg-primary: #ffffff;
+    --bg-secondary: #fdfaf3;
+    --bg-rgb: 255, 255, 255;
+    --border-color: rgba(212, 175, 55, 0.3);
+    --shadow: 0 8px 32px rgba(212, 175, 55, 0.1);
+    --shadow-lg: 0 16px 48px rgba(212, 175, 55, 0.15);
+    --navbar-bg: rgba(255, 255, 255, 0.9);
+    --sidebar-bg: #0a0a0a;
+}
+
+html[data-portfolio-theme="luxury-gold"][data-theme="dark"] {
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #121212;
+    --bg-rgb: 10, 10, 10;
+    --border-color: rgba(212, 175, 55, 0.2);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.8);
+    --navbar-bg: rgba(10, 10, 10, 0.9);
+    --sidebar-bg: #050505;
+}

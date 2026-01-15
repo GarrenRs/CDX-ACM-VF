@@ -1,0 +1,37 @@
+/* ==========================================
+   THEME: SILVER GREY (Sophisticated & Modern)
+   ========================================== */
+
+:root[data-portfolio-theme="silver-grey"],
+html[data-portfolio-theme="silver-grey"] {
+    --primary-color: #A8A8A8;
+    --primary-rgb: 168, 168, 168;
+    --primary-dark: #888888;
+    --primary-light: #D0D0D0;
+    --secondary-color: #707070;
+    --accent-color: #E8E8E8;
+    --gold-gradient: linear-gradient(135deg, #A8A8A8 0%, #D0D0D0 50%, #888888 100%);
+    --text-primary: #1a1a1a;
+    --text-secondary: #555555;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f2f2f2;
+    --bg-rgb: 255, 255, 255;
+    --border-color: rgba(168, 168, 168, 0.4);
+    --shadow: 0 8px 32px rgba(168, 168, 168, 0.1);
+    --shadow-lg: 0 16px 48px rgba(168, 168, 168, 0.15);
+    --navbar-bg: rgba(255, 255, 255, 0.95);
+    --sidebar-bg: #1a1a1a;
+}
+
+html[data-portfolio-theme="silver-grey"][data-theme="dark"] {
+    --text-primary: #ffffff;
+    --text-secondary: #d8d8d8;
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-rgb: 26, 26, 26;
+    --border-color: rgba(168, 168, 168, 0.3);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.7);
+    --navbar-bg: rgba(26, 26, 26, 0.9);
+    --sidebar-bg: #111111;
+}

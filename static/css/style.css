@@ -1,0 +1,47 @@
+/* 
+   ================================================================
+   MAIN STYLE SHEET - Import All CSS Modules
+   ================================================================
+   This file aggregates all CSS modules for the application.
+   Individual styles are organized by type and location for 
+   better maintainability and modularity.
+   
+   ⚠️ IMPORTANT: Import order matters!
+   1. design-tokens.css MUST be first (contains all base tokens)
+   2. variables.css (backward compatibility layer)
+   3. Other base styles
+   4. Components, pages, utilities
+   ================================================================
+*/
+
+/* ---- DESIGN TOKENS (MUST BE FIRST) ---- */
+@import url('base/design-tokens.css');
+
+/* ---- BASE CONFIGURATION ---- */
+@import url('base/variables.css');
+@import url('base/typography.css');
+@import url('base/text-clarity.css');
+@import url('base/base-styles.css');
+
+/* ---- COMPONENTS ---- */
+@import url('components/buttons.css');
+@import url('components/forms.css');
+@import url('components/cards.css');
+@import url('components/navbar.css');
+@import url('components/footer.css');
+@import url('components/common-patterns.css');
+@import url('components/unified-components.css');
+
+/* ---- PAGE STYLES ---- */
+@import url('pages/portfolio.css');
+
+/* ---- LANDING PAGE ---- */
+@import url('landing.css');
+
+/* ---- UTILITIES ---- */
+@import url('utilities/design-system.css');
+@import url('utilities/alerts-footer.css');
+@import url('utilities/colors-and-borders.css');
+@import url('utilities/backgrounds.css');
+@import url('utilities/spacing.css');
+

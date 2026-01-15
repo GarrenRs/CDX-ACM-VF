@@ -1,0 +1,37 @@
+/* ==========================================
+   THEME: TERRACOTTA RED (Warm & Modern)
+   ========================================== */
+
+:root[data-portfolio-theme="terracotta-red"],
+html[data-portfolio-theme="terracotta-red"] {
+    --primary-color: #C1440E;
+    --primary-rgb: 193, 68, 14;
+    --primary-dark: #A83609;
+    --primary-light: #E86A3C;
+    --secondary-color: #8B2E0B;
+    --accent-color: #F4A373;
+    --gold-gradient: linear-gradient(135deg, #C1440E 0%, #E86A3C 50%, #A83609 100%);
+    --text-primary: #2d1a0e;
+    --text-secondary: #5c3821;
+    --bg-primary: #ffffff;
+    --bg-secondary: #faf7f2;
+    --bg-rgb: 255, 255, 255;
+    --border-color: rgba(193, 68, 14, 0.3);
+    --shadow: 0 8px 32px rgba(193, 68, 14, 0.1);
+    --shadow-lg: 0 16px 48px rgba(193, 68, 14, 0.15);
+    --navbar-bg: rgba(255, 255, 255, 0.95);
+    --sidebar-bg: #1a0f06;
+}
+
+html[data-portfolio-theme="terracotta-red"][data-theme="dark"] {
+    --text-primary: #ffffff;
+    --text-secondary: #d8d8d8;
+    --bg-primary: #1a0f06;
+    --bg-secondary: #2d1a0e;
+    --bg-rgb: 26, 15, 6;
+    --border-color: rgba(193, 68, 14, 0.25);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.8);
+    --navbar-bg: rgba(26, 15, 6, 0.9);
+    --sidebar-bg: #110904;
+}

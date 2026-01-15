@@ -1,0 +1,37 @@
+/* ==========================================
+   THEME: CLEAN LIGHT (Minimal & Fresh)
+   ========================================== */
+
+:root[data-portfolio-theme="clean-light"],
+html[data-portfolio-theme="clean-light"] {
+    --primary-color: #4F46E5;
+    --primary-rgb: 79, 70, 229;
+    --primary-dark: #4338CA;
+    --primary-light: #6366F1;
+    --secondary-color: #7C3AED;
+    --accent-color: #8B5CF6;
+    --gold-gradient: linear-gradient(135deg, #4F46E5 0%, #6366F1 50%, #4338CA 100%);
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-rgb: 255, 255, 255;
+    --border-color: #e5e7eb;
+    --shadow: 0 8px 32px rgba(79, 70, 229, 0.1);
+    --shadow-lg: 0 16px 48px rgba(79, 70, 229, 0.15);
+    --navbar-bg: rgba(255, 255, 255, 0.9);
+    --sidebar-bg: #111827;
+}
+
+html[data-portfolio-theme="clean-light"][data-theme="dark"] {
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af;
+    --bg-primary: #0f1419;
+    --bg-secondary: #1a2332;
+    --bg-rgb: 15, 20, 25;
+    --border-color: rgba(79, 70, 229, 0.2);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.7);
+    --navbar-bg: rgba(15, 20, 25, 0.9);
+    --sidebar-bg: #080a0d;
+}

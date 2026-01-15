@@ -1,0 +1,268 @@
+/* 
+   ================================================================
+   UTILITIES: SPACING & LAYOUT
+   Margins, padding, and layout utilities
+   ================================================================
+*/
+
+/* ========== MAX-WIDTHS ========== */
+
+.max-width-800 {
+    max-width: 800px;
+}
+
+.max-width-600 {
+    max-width: 600px;
+}
+
+/* ========== LINE HEIGHT ========== */
+
+.line-height-relaxed {
+    line-height: 1.8;
+}
+
+.line-height-normal {
+    line-height: 1.6;
+}
+
+/* ========== STICKY POSITIONING ========== */
+
+.sticky-top-100 {
+    position: sticky;
+    top: 100px;
+    z-index: 10;
+}
+
+.sticky-top-20 {
+    position: sticky;
+    top: 20px;
+    z-index: 10;
+}
+
+/* ========== Z-INDEX ========== */
+
+.z-index-2000 {
+    z-index: 2000;
+}
+
+.z-index-1060 {
+    z-index: 1060;
+}
+
+/* ========== BORDER RADIUS ========== */
+
+.radius-12 {
+    border-radius: 12px;
+}
+
+.radius-15 {
+    border-radius: 15px;
+}
+
+.radius-24 {
+    border-radius: 24px;
+}
+
+.radius-pill {
+    border-radius: 50px;
+}
+
+/* ========== DISPLAY UTILITIES ========== */
+
+.display-inline-block {
+    display: inline-block;
+}
+
+.display-inline {
+    display: inline;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
+/* ========== HEIGHT UTILITIES ========== */
+
+.height-500px {
+    height: 500px;
+}
+
+.height-300px {
+    height: 300px;
+}
+
+.height-240px {
+    height: 240px;
+}
+
+.height-auto {
+    height: auto;
+}
+
+.min-height-80vh {
+    min-height: 80vh;
+}
+
+.min-height-100vh {
+    min-height: 100vh;
+}
+
+/* ========== WIDTH UTILITIES ========== */
+
+.width-45px {
+    width: 45px;
+}
+
+.width-60px {
+    width: 60px;
+}
+
+.width-100px {
+    width: 100px;
+}
+
+.width-130px {
+    width: 130px;
+}
+
+/* ========== TABLE CELL WIDTH ========== */
+
+.w-40 {
+    width: 40% !important;
+}
+
+/* ========== WHITE SPACE UTILITIES ========== */
+
+.whitespace-pre-wrap {
+    white-space: pre-wrap;
+}
+
+/* ========== BORDER WIDTH UTILITIES ========== */
+
+.border-left-width-4 {
+    border-left-width: 4px !important;
+}
+
+/* ========== BORDER RADIUS UTILITIES ========== */
+
+.radius-24 {
+    border-radius: 24px;
+}
+
+.width-160px {
+    width: 160px;
+}
+
+.width-auto {
+    width: auto;
+}
+
+/* ========== ASPECT RATIO ========== */
+
+.aspect-ratio-square {
+    aspect-ratio: 1 / 1;
+}
+
+.aspect-ratio-16-9 {
+    aspect-ratio: 16 / 9;
+}
+
+/* ========== OBJECT FIT ========== */
+
+.object-fit-cover {
+    object-fit: cover;
+}
+
+.object-fit-contain {
+    object-fit: contain;
+}
+/* ========== OPACITY UTILITIES ========== */
+
+.opacity-50 {
+    opacity: 0.5;
+}
+
+.opacity-75 {
+    opacity: 0.75;
+}
+
+/* ========== FONT SIZE UTILITIES ========== */
+
+.font-size-65 {
+    font-size: 0.65rem;
+}
+
+.font-size-70 {
+    font-size: 0.7rem;
+}
+
+.font-size-90 {
+    font-size: 0.9rem;
+}
+
+.font-size-120 {
+    font-size: 1.2rem;
+}
+
+/* ========== HEIGHT UTILITIES ========== */
+
+.height-10px {
+    height: 10px;
+}
+
+.height-38px {
+    width: 38px !important;
+    height: 38px !important;
+}
+
+/* ========== STICKY TOP WITH OFFSET ========== */
+
+.sticky-top-100 {
+    position: sticky;
+    top: 100px;
+}
+
+/* ========== TABLE CELL WIDTH ========== */
+
+.w-160px {
+    width: 160px !important;
+}
+
+/* ========== IMAGE SIZING ========== */
+
+.img-130x80 {
+    width: 130px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.img-120x120 {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+/* ========== AVATAR SIZE UTILITIES ========== */
+
+.avatar-80 {
+    width: 80px !important;
+    height: 80px !important;
+}
+
+/* ========== PROGRESS BAR UTILITIES ========== */
+
+.progress-6px {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ========== STICKY POSITIONING ========== */
+
+.sticky-top-custom {
+    position: sticky;
+    top: 20px;
+}

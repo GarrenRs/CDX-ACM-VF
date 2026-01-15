@@ -1,0 +1,358 @@
+/* 
+   ================================================================
+   COMPONENT: BUTTONS - Professional Button System
+   ================================================================
+*/
+
+/* ========== BASE BUTTON STYLES ========== */
+
+.btn {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 10px 24px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid transparent;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* ========== PRIMARY GOLD BUTTON ========== */
+
+.btn-gold,
+.btn-gold-gradient {
+    background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+    color: #000 !important;
+    border: none;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+}
+
+.btn-gold:hover,
+.btn-gold-gradient:hover {
+    background: linear-gradient(135deg, #E5C158 0%, #D4AF37 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+    color: #000 !important;
+}
+
+.btn-gold:active,
+.btn-gold-gradient:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+}
+
+/* ========== OUTLINE GOLD BUTTON ========== */
+
+.btn-outline-gold {
+    background: transparent;
+    color: #D4AF37 !important;
+    border: 2px solid #D4AF37;
+}
+
+.btn-outline-gold:hover {
+    background: rgba(212, 175, 55, 0.1);
+    color: #D4AF37 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+}
+
+.btn-outline-gold:active,
+.btn-outline-gold.active {
+    background: #D4AF37;
+    color: #000 !important;
+}
+
+/* ========== DARK BUTTON ========== */
+
+.btn-dark {
+    background: rgba(30, 30, 30, 0.95);
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-dark:hover {
+    background: rgba(50, 50, 50, 0.95);
+    border-color: rgba(212, 175, 55, 0.3);
+    transform: translateY(-2px);
+    color: #fff !important;
+}
+
+/* ========== OUTLINE LIGHT BUTTON ========== */
+
+.btn-outline-light {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff !important;
+}
+
+/* ========== PRIMARY BUTTON (Bootstrap Override) ========== */
+
+.btn-primary {
+    background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+    border: none;
+    color: #000 !important;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #E5C158 0%, #D4AF37 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+    color: #000 !important;
+}
+
+.btn-outline-primary {
+    background: transparent;
+    border: 2px solid #D4AF37;
+    color: #D4AF37 !important;
+}
+
+.btn-outline-primary:hover {
+    background: #D4AF37;
+    color: #000 !important;
+}
+
+/* ========== SECONDARY BUTTON ========== */
+
+.btn-secondary {
+    background: rgba(108, 117, 125, 0.2);
+    border: 1px solid rgba(108, 117, 125, 0.3);
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.btn-secondary:hover {
+    background: rgba(108, 117, 125, 0.3);
+    border-color: rgba(108, 117, 125, 0.5);
+    color: #fff !important;
+}
+
+/* ========== SUCCESS BUTTON ========== */
+
+.btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none;
+    color: #fff !important;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+/* ========== DANGER BUTTON ========== */
+
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border: none;
+    color: #fff !important;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+}
+
+/* ========== BUTTON SIZES ========== */
+
+.btn-xs {
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    border-radius: 6px;
+}
+
+.btn-sm {
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    border-radius: 8px;
+}
+
+.btn-lg {
+    padding: 14px 32px;
+    font-size: 1rem;
+    border-radius: 12px;
+}
+
+.btn-xl {
+    padding: 18px 40px;
+    font-size: 1.1rem;
+    border-radius: 14px;
+}
+
+/* ========== ICON BUTTONS ========== */
+
+.btn-icon {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 10px;
+}
+
+.btn-icon-sm {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+}
+
+.btn-icon-lg {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+}
+
+/* ========== PREMIUM ACTION BUTTONS ========== */
+
+.btn-premium-action {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(30, 30, 30, 0.8);
+    color: #D4AF37;
+}
+
+.btn-premium-action:hover {
+    background: #D4AF37;
+    color: #000 !important;
+    border-color: #D4AF37;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+}
+
+.btn-premium-danger {
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+.btn-premium-danger:hover {
+    background: #ef4444 !important;
+    color: #fff !important;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+/* ========== PILL BUTTONS ========== */
+
+.rounded-pill {
+    border-radius: 50px !important;
+}
+
+/* Hero Section Buttons */
+.hero-buttons .btn {
+    border-radius: 50px;
+    font-weight: 700;
+    padding: 14px 35px;
+    transition: all var(--transition-base);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.hero-buttons .btn-primary {
+    background: var(--gold-gradient);
+    border: none;
+    color: #000 !important;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+
+.hero-buttons .btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.45);
+}
+
+.hero-buttons .btn-outline-primary {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color) !important;
+    box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.hero-buttons .btn-outline-primary:hover {
+    background: var(--gold-gradient);
+    color: #000 !important;
+    border-color: transparent;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+/* About Section Button */
+.about-content .btn {
+    background: var(--gold-gradient);
+    border: none;
+    color: #000 !important;
+    font-weight: 700;
+    padding: 12px 30px;
+    border-radius: 8px;
+    transition: all var(--transition-base);
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+}
+
+.about-content .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35);
+}
+
+/* Project Overlay Buttons */
+.project-overlay .btn {
+    background: var(--gold-gradient);
+    color: #000 !important;
+    border: none;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    transition: all var(--transition-fast);
+}
+
+.project-overlay .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Contact Submit Button */
+.contact-submit-btn {
+    background: var(--gold-gradient);
+    border: none;
+    color: #000 !important;
+    font-weight: 700;
+    padding: 16px;
+    border-radius: 8px;
+    transition: all var(--transition-base);
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+
+.contact-submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+}
+
+.contact-submit-btn:active {
+    transform: translateY(-1px);
+}

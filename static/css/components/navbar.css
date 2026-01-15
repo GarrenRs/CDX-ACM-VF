@@ -1,0 +1,396 @@
+/* 
+   ================================================================
+   COMPONENT: NAVBAR & SIDEBAR
+   ================================================================
+   تصميم احترافي للشريط الجانبي وشريط التنقل العلوي
+   مع إصلاح مشكلة التداخل والتجاوب الكامل
+   ================================================================
+*/
+
+/* ========== SIDEBAR - Professional Design ========== */
+
+.sidebar {
+    width: var(--sidebar-width, 260px);
+    height: 100vh;
+    background: var(--sidebar-bg, #0a0a0a);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    border-right: var(--border-width, 1px) solid var(--border-color, rgba(212, 175, 55, 0.2));
+    transition: var(--transition-base, all 0.3s ease);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-header {
+    padding: 1.25rem 1rem;
+    border-bottom: var(--border-width, 1px) solid var(--border-color, rgba(212, 175, 55, 0.2));
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    background: rgba(var(--primary-rgb, 212, 175, 55), 0.03);
+}
+
+.sidebar-content {
+    padding: 1rem 0.75rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1 1 auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--primary-rgb, 212, 175, 55), 0.3) transparent;
+}
+
+.sidebar-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+    background: rgba(var(--primary-rgb, 212, 175, 55), 0.3);
+    border-radius: 3px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--primary-rgb, 212, 175, 55), 0.5);
+}
+
+.sidebar-footer {
+    padding: 1rem;
+    border-top: var(--border-width, 1px) solid var(--border-color, rgba(212, 175, 55, 0.2));
+    flex-shrink: 0;
+    background: rgba(var(--primary-rgb, 212, 175, 55), 0.02);
+}
+
+/* Sidebar brand (logo + name) */
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-fast, all 0.2s ease);
+    padding: 0.5rem;
+    border-radius: var(--border-radius-md, 8px);
+}
+
+.brand-logo:hover {
+    background: rgba(var(--primary-rgb, 212, 175, 55), 0.1);
+    transform: translateX(2px);
+}
+
+.brand-logo img,
+.navbar-logo {
+    width: 42px;
+    height: 42px;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    /* Keep logo always gold */
+    filter: sepia(100%) saturate(300%) brightness(1) hue-rotate(5deg);
+}
+
+.brand-name {
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #D4AF37;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+/* ========== UNIFIED NAVBAR BRAND ========== */
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    padding: 0.25rem 0;
+}
+
+.navbar-brand .navbar-logo {
+    width: 40px;
+    height: 40px;
+    filter: sepia(100%) saturate(300%) brightness(1) hue-rotate(5deg);
+}
+
+.navbar-brand .brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-brand .brand-text .brand-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #D4AF37;
+    line-height: 1.2;
+    letter-spacing: 0.3px;
+}
+
+.navbar-brand .brand-text .brand-subtitle {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Portfolio page navbar brand adjustments */
+.navbar .navbar-brand {
+    color: #D4AF37 !important;
+}
+
+.navbar .navbar-brand:hover {
+    color: #E5C158 !important;
+}
+
+/* Navigation Links */
+.nav-section-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary, rgba(255, 255, 255, 0.5));
+    padding: 1rem 1rem 0.5rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(var(--primary-rgb, 212, 175, 55), 0.1);
+}
+
+.nav-section-title:first-child {
+    border-top: none;
+    margin-top: 0;
+}
+
+.nav-link {
+    color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+    border-radius: var(--border-radius-md, 8px);
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: var(--transition-fast, all 0.2s ease);
+    text-decoration: none;
+    position: relative;
+}
+
+.nav-link i {
+    width: 20px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--primary-color, #D4AF37);
+    transition: var(--transition-fast, all 0.2s ease);
+}
+
+.nav-link span {
+    flex: 1;
+    transition: var(--transition-fast, all 0.2s ease);
+}
+
+.nav-link:hover {
+    color: var(--text-primary, #ffffff);
+    background: rgba(var(--primary-rgb, 212, 175, 55), 0.1);
+    transform: translateX(4px);
+}
+
+.nav-link:hover i {
+    color: var(--accent-color, var(--primary-light, #FFD700));
+    transform: scale(1.1);
+}
+
+.nav-link.active {
+    background: var(--gold-gradient, linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B8941F 100%));
+    color: #000 !important;
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb, 212, 175, 55), 0.3);
+    font-weight: 600;
+}
+
+.nav-link.active i {
+    color: #000 !important;
+}
+
+.nav-link.text-danger {
+    color: #dc3545 !important;
+}
+
+.nav-link.text-danger:hover {
+    background: rgba(220, 53, 69, 0.1);
+    color: #ff6b7a !important;
+}
+
+.nav-link.text-danger i {
+    color: #dc3545;
+}
+
+.nav-link.text-danger:hover i {
+    color: #ff6b7a;
+}
+
+/* Icon Color Enforcement */
+.sidebar .nav-link i,
+.top-navbar i,
+.card i {
+    color: var(--primary-color, #D4AF37);
+    transition: var(--transition-fast, all 0.2s ease);
+}
+
+/* ========== MAIN CONTENT WRAPPER ========== */
+
+.main-wrapper {
+    margin-left: var(--sidebar-width, 260px);
+    width: calc(100% - var(--sidebar-width, 260px));
+    min-height: 100vh;
+    background: var(--bg-primary, #0a0a0a);
+    position: relative;
+    transition: margin-left var(--transition-base, all 0.3s ease), width var(--transition-base, all 0.3s ease);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========== TOP NAVBAR ========== */
+
+.top-navbar {
+    height: 70px;
+    background: var(--navbar-bg, rgba(10, 10, 10, 0.95));
+    backdrop-filter: blur(10px);
+    border-bottom: var(--border-width, 1px) solid var(--border-color, rgba(212, 175, 55, 0.2));
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    flex-shrink: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ========== CONTENT BODY ========== */
+
+.content-body {
+    padding: var(--spacing-6, 1.5rem);
+    position: relative;
+    flex: 1;
+    min-height: calc(100vh - 70px);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.page-title-section {
+    margin-bottom: var(--spacing-6, 1.5rem);
+    padding-bottom: var(--spacing-4, 1rem);
+    border-bottom: 1px solid var(--border-color, rgba(212, 175, 55, 0.2));
+}
+
+.page-title-section h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-primary, #ffffff);
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+/* ========== PORTFOLIO NAVBAR (for portfolio pages) ========== */
+
+.navbar {
+    background: var(--navbar-bg, rgba(10, 10, 10, 0.95)) !important;
+    border-bottom: 1px solid var(--border-color, rgba(212, 175, 55, 0.2));
+    backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+    color: var(--primary-color, #D4AF37) !important;
+    font-weight: 900;
+    letter-spacing: 1px;
+    transition: var(--transition-fast, all 0.2s ease);
+}
+
+.navbar-brand:hover {
+    color: var(--primary-light, #FFD700) !important;
+}
+
+.nav-link {
+    color: var(--text-secondary, rgba(255, 255, 255, 0.8)) !important;
+    transition: var(--transition-fast, all 0.2s ease);
+}
+
+.nav-link:hover {
+    color: var(--primary-color, #D4AF37) !important;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+@media (max-width: 991.98px) {
+    .sidebar {
+        transform: translateX(-100%);
+        z-index: 1050;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-wrapper {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    .content-body {
+        padding: var(--spacing-4, 1rem);
+    }
+    
+    .top-navbar {
+        z-index: 1051;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .sidebar {
+        width: 280px;
+    }
+    
+    .content-body {
+        padding: var(--spacing-3, 0.75rem);
+    }
+    
+    .page-title-section h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* ========== ACCESSIBILITY ========== */
+
+@media (prefers-reduced-motion: reduce) {
+    .sidebar,
+    .main-wrapper,
+    .nav-link,
+    .brand-logo {
+        transition: none;
+    }
+}
+
+/* ========== PRINT STYLES ========== */
+
+@media print {
+    .sidebar,
+    .top-navbar {
+        display: none;
+    }
+    
+    .main-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+}

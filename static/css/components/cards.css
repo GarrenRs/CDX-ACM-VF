@@ -1,0 +1,185 @@
+/* 
+   ================================================================
+   COMPONENT: CARDS - Unified Card Styles
+   ================================================================
+*/
+
+/* Base Card System */
+.card {
+    background: rgba(25, 25, 25, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-xl);
+    backdrop-filter: blur(12px);
+    transition: var(--transition-base);
+    overflow: hidden;
+}
+
+.card:hover {
+    border-color: rgba(212, 175, 55, 0.2);
+}
+
+.card-header {
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: var(--spacing-4) var(--spacing-5);
+}
+
+.card-body {
+    padding: var(--spacing-5);
+}
+
+.card-footer {
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: var(--spacing-4) var(--spacing-5);
+}
+
+/* Project Card Styles */
+.project-card {
+    background: rgba(25, 25, 25, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--border-radius-xl);
+    overflow: hidden;
+    transition: var(--transition-base);
+    cursor: pointer;
+    position: relative;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #D4AF37 0%, #B8860B 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+    z-index: 2;
+}
+
+.project-card:hover {
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: var(--shadow-gold-md);
+    transform: translateY(-6px);
+}
+
+.project-card:hover::before {
+    transform: scaleX(1);
+}
+
+.project-image {
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-base);
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.05);
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(212, 175, 55, 0.1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-4);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    backdrop-filter: blur(4px);
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-content {
+    padding: var(--spacing-5);
+}
+
+.project-content h5 {
+    color: #fff;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-2);
+    font-size: var(--font-size-lg);
+}
+
+.project-content p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-4);
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+}
+
+.project-tech .badge {
+    background: transparent;
+    border: 1px solid #D4AF37;
+    color: #D4AF37;
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-1) var(--spacing-3);
+    border-radius: var(--border-radius-full);
+    font-weight: var(--font-weight-semibold);
+    transition: var(--transition-fast);
+}
+
+.project-tech .badge:hover {
+    background: #D4AF37;
+    color: #000;
+}
+
+/* Glass Panel Card */
+.glass-panel {
+    background: rgba(30, 30, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--border-radius-lg);
+    backdrop-filter: blur(10px);
+}
+
+/* Stats Card */
+.stats-card {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-5);
+    text-align: center;
+    transition: var(--transition-base);
+}
+
+.stats-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: var(--shadow-gold-sm);
+}
+
+/* Chat Bubbles */
+.me-bubble {
+    border-bottom-right-radius: 4px !important;
+}
+
+.you-bubble {
+    border-bottom-left-radius: 4px !important;
+}
+
+/* Unread Border */
+.unread-border {
+    border-left: 4px solid #D4AF37 !important;
+}

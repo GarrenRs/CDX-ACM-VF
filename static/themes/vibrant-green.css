@@ -1,0 +1,37 @@
+/* ==========================================
+   THEME: VIBRANT GREEN (Natural & Fresh)
+   ========================================== */
+
+:root[data-portfolio-theme="vibrant-green"],
+html[data-portfolio-theme="vibrant-green"] {
+    --primary-color: #22AA44;
+    --primary-rgb: 34, 170, 68;
+    --primary-dark: #1B8A35;
+    --primary-light: #4DD464;
+    --secondary-color: #0F6B23;
+    --accent-color: #7FE892;
+    --gold-gradient: linear-gradient(135deg, #22AA44 0%, #4DD464 50%, #1B8A35 100%);
+    --text-primary: #0a2d1a;
+    --text-secondary: #2d5a3d;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f2faf5;
+    --bg-rgb: 255, 255, 255;
+    --border-color: rgba(34, 170, 68, 0.3);
+    --shadow: 0 8px 32px rgba(34, 170, 68, 0.1);
+    --shadow-lg: 0 16px 48px rgba(34, 170, 68, 0.15);
+    --navbar-bg: rgba(255, 255, 255, 0.95);
+    --sidebar-bg: #0d1810;
+}
+
+html[data-portfolio-theme="vibrant-green"][data-theme="dark"] {
+    --text-primary: #ffffff;
+    --text-secondary: #d8d8d8;
+    --bg-primary: #0d1810;
+    --bg-secondary: #1a2d23;
+    --bg-rgb: 13, 24, 16;
+    --border-color: rgba(34, 170, 68, 0.25);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.8);
+    --navbar-bg: rgba(13, 24, 16, 0.9);
+    --sidebar-bg: #070c08;
+}

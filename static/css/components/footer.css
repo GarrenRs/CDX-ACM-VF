@@ -1,0 +1,231 @@
+/* 
+   ================================================================
+   COMPONENT: FOOTER - Unified Footer Styles
+   ================================================================
+*/
+
+/* ========== MAIN FOOTER ========== */
+
+.site-footer,
+.portfolio-footer {
+    background: linear-gradient(180deg, #080808 0%, #050505 100%);
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+    padding: 60px 0 30px;
+    margin-top: auto;
+}
+
+.footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-left .brand-sm {
+    width: 45px;
+    height: 45px;
+    filter: sepia(100%) saturate(300%) brightness(1) hue-rotate(5deg);
+}
+
+.footer-legal {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-links {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #D4AF37;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-right .tagline {
+    font-size: 0.75rem;
+    color: #D4AF37;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* ========== DASHBOARD FOOTER ========== */
+
+.dashboard-footer {
+    background: rgba(10, 10, 10, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.dashboard-footer .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dashboard-footer .footer-brand img {
+    width: 30px;
+    height: 30px;
+    filter: sepia(100%) saturate(300%) brightness(1) hue-rotate(5deg);
+}
+
+.dashboard-footer .footer-brand span {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.dashboard-footer .footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.dashboard-footer .footer-links a {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.3s ease;
+}
+
+.dashboard-footer .footer-links a:hover {
+    color: #D4AF37;
+}
+
+/* ========== FULL FOOTER (Landing Page) ========== */
+
+.footer {
+    background: linear-gradient(180deg, #080808 0%, #050505 100%);
+    padding: 80px 0 40px;
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.footer-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 12px;
+    color: #fff !important;
+}
+
+.footer-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 35px;
+    height: 2px;
+    background: linear-gradient(90deg, #D4AF37, #B8860B);
+    border-radius: 2px;
+}
+
+.footer-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-nav li {
+    margin-bottom: 12px;
+}
+
+.footer-nav a {
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.footer-nav a:hover {
+    color: #D4AF37;
+    transform: translateX(5px);
+}
+
+/* Social Icons in Footer */
+.social-links {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon-btn {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 10px;
+    color: #D4AF37;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.social-icon-btn:hover {
+    background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+    color: #000;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+    border-color: transparent;
+}
+
+.footer-divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #D4AF37, #B8860B);
+    margin-top: 12px;
+    border-radius: 3px;
+}
+
+.footer-bottom {
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 767.98px) {
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-left {
+        flex-direction: column;
+    }
+    
+    .footer-right {
+        text-align: center;
+    }
+    
+    .dashboard-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}

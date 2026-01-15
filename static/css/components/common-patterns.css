@@ -1,0 +1,355 @@
+/* 
+   ================================================================
+   COMPONENTS: COMMON PATTERNS
+   Reusable component patterns and combined styles
+   ================================================================
+*/
+
+/* ========== INFO CARDS ========== */
+
+.info-card {
+    padding: 20px 25px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-gold);
+    background: rgba(20, 20, 20, 0.8);
+    transition: all var(--transition-base);
+}
+
+.info-card h3 {
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.info-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ========== HERO BADGES ========== */
+
+.hero-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.1);
+}
+
+.hero-badge-success {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+/* ========== PORTFOLIO CARDS ========== */
+
+.portfolio-card {
+    border: 1.5px solid var(--primary-gold);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all var(--transition-base);
+}
+
+.portfolio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.25);
+}
+
+/* ========== STAT CARDS ========== */
+
+.stat-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    transition: all var(--transition-base);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-gold);
+}
+
+.stat-card-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    margin: 0 auto 15px;
+}
+
+.stat-card-icon i {
+    color: var(--primary-gold);
+    font-size: 1.5rem;
+}
+
+/* ========== CONTACT CARDS ========== */
+
+.contact-item {
+    padding: 30px 25px;
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.22);
+    transform: translateY(-6px);
+}
+
+/* ========== SECTION STYLES ========== */
+
+.section-padding {
+    padding: 60px 0;
+}
+
+.section-divider {
+    border-top: 1.5px solid rgba(212, 175, 55, 0.1) !important;
+    border-bottom: 1.5px solid rgba(212, 175, 55, 0.1) !important;
+}
+
+.section-divider-top {
+    border-top: 1.5px solid rgba(212, 175, 55, 0.1) !important;
+}
+
+.section-divider-bottom {
+    border-bottom: 1.5px solid rgba(212, 175, 55, 0.1) !important;
+}
+
+/* ========== LIST GROUP ITEMS ========== */
+
+.list-item-glass {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.list-item-glass:last-child {
+    border-bottom: none !important;
+}
+
+/* ========== DROPDOWN STYLES ========== */
+
+.dropdown-modern {
+    display: inline-block;
+}
+
+.dropdown-custom {
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.dropdown-custom:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+/* ========== PANEL STYLES ========== */
+
+.glass-panel {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+}
+
+.glass-panel-dark {
+    background: rgba(20, 20, 20, 0.9);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+/* ========== BREADCRUMB SEPARATOR ========== */
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== AVATAR STYLES ========== */
+
+.avatar-sm {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-md {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-lg {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary-gold);
+    border-radius: 50%;
+}
+
+/* ========== BADGE STYLES ========== */
+
+.badge-soft-warning {
+    background: rgba(212, 175, 55, 0.12);
+    color: var(--primary-gold);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.badge-soft-success {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.badge-soft-danger {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+/* ========== LINK STYLES ========== */
+
+.link-gold {
+    color: var(--primary-gold);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.link-gold:hover {
+    color: var(--primary-light);
+    text-decoration: none !important;
+}
+
+.link-email {
+    color: #60a5fa;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.link-email:hover {
+    color: #93c5fd;
+}
+
+/* ========== BUTTON STYLES ========== */
+
+.btn-gold-gradient {
+    background: var(--gold-gradient);
+    color: #000;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    transition: all var(--transition-fast);
+}
+
+.btn-gold-gradient:hover {
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-sm-custom {
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 10px 20px;
+}
+
+.btn-gold-outline {
+    border: 1px solid var(--primary-gold);
+    color: var(--primary-gold);
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 10px 20px;
+    transition: all var(--transition-fast);
+}
+
+.btn-gold-outline:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+/* ========== PROGRESS BARS ========== */
+
+.progress-custom {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.progress-bar-gradient {
+    background: var(--gold-gradient);
+}
+/* ========== BADGE STATUS COLORS ========== */
+
+.badge-lead {
+    background: #f59e0b !important;
+    color: #ffffff !important;
+}
+
+.badge-negotiation {
+    background: #3b82f6 !important;
+    color: #ffffff !important;
+}
+
+.badge-in-progress {
+    background: #10b981 !important;
+    color: #ffffff !important;
+}
+
+.badge-delivered {
+    background: #8b5cf6 !important;
+    color: #ffffff !important;
+}
+
+.badge-unknown {
+    background: #6b7280 !important;
+    color: #ffffff !important;
+}
+
+.badge-active {
+    background: var(--primary-gold) !important;
+    color: #000000 !important;
+}
+
+.badge-gold {
+    background: #D4AF37 !important;
+    color: #000000 !important;
+}
+
+.badge-brown {
+    background: #8B7355 !important;
+    color: #ffffff !important;
+}
+
+.badge-popular {
+    background: var(--primary-light) !important;
+}
+
+/* ========== BUTTON STYLES ========== */
+
+.btn-reset {
+    background: none !important;
+    border: none !important;
+    padding: 0.5rem 1rem !important;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
