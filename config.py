@@ -7,7 +7,7 @@ class Config:
     # Flask Settings
     SECRET_KEY = os.environ.get('SESSION_SECRET', 'CHANGE-THIS-SECRET-KEY-IN-PRODUCTION')
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
-    SESSION_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = 'Lax'
     
