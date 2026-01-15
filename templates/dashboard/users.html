@@ -1,0 +1,141 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Manage Users{% endblock %}
+
+{% block page_title %}Manage Users{% endblock %}
+
+{% block content %}
+<div class="page-title-section d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-3">
+    <div>
+        <h1 class="display-6 fw-bold mb-2">Platform Governance</h1>
+        <p class="text-muted fs-5 mb-0">Command and control of system access and professional identities</p>
+    </div>
+    <button type="button" class="btn btn-gold-gradient shadow-lg px-4 py-2" data-bs-toggle="modal" data-bs-target="#addUserModal">
+        <i class="fas fa-user-plus me-2"></i>Provision Account
+    </button>
+</div>
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark border border-secondary shadow-2xl radius-24">
+            <div class="modal-header border-bottom border-secondary bg-black-50 py-4 px-4">
+                <h5 class="modal-title gold-text fw-bold fs-4">Provision New Identity</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ url_for('dashboard.add_user') }}" method="POST">
+                <div class="modal-body p-4 p-xl-5">
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-muted mb-2">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-black-25 border-secondary text-gold-muted"><i class="fas fa-at"></i></span>
+                            <input type="text" name="username" class="form-control form-control-lg" required placeholder="lead_engineer">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-muted mb-2">Electronic Mail</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-black-25 border-secondary text-gold-muted"><i class="fas fa-envelope"></i></span>
+                            <input type="email" name="email" class="form-control form-control-lg" required placeholder="identity@domain.com">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-muted mb-2">Security Credential</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-black-25 border-secondary text-gold-muted"><i class="fas fa-key"></i></span>
+                            <input type="password" name="password" class="form-control form-control-lg" required placeholder="••••••••">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-muted mb-2">Access Level</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-black-25 border-secondary text-gold"><i class="fas fa-user-shield"></i></span>
+                            <select name="role" class="form-select form-select-lg">
+                                <option value="user" selected>Standard Professional</option>
+                                <option value="admin">Platform Administrator</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top border-secondary p-4 bg-black-25">
+                    <button type="button" class="btn btn-link text-muted text-decoration-none fw-bold" data-bs-dismiss="modal">Abort</button>
+                    <button type="submit" class="btn btn-gold-gradient px-5 py-2">Execute Provisioning</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-lg overflow-hidden">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead class="bg-black-50">
+                    <tr>
+                        <th class="ps-4 py-4 text-uppercase letter-spacing-1">Identity Profile</th>
+                        <th class="py-4 text-uppercase letter-spacing-1">Privilege level</th>
+                        <th class="py-4 text-uppercase letter-spacing-1">Validation</th>
+                        <th class="py-4 text-uppercase letter-spacing-1">Registration</th>
+                        <th class="text-end pe-4 py-4 text-uppercase letter-spacing-1">Operations</th>
+                    </tr>
+                </thead>
+                <tbody class="border-top-0">
+                    {% for user in users %}
+                    <tr class="transition-all">
+                        <td class="ps-4 py-4">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-md rounded-circle bg-soft-gold d-flex align-items-center justify-content-center me-3">
+                                    <i class="fas fa-shield-alt text-gold fs-5"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold text-white fs-5">{{ user.username }}</h6>
+                                    <small class="text-muted opacity-75">{{ user.email }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4">
+                            {% if user.role == 'admin' %}
+                            <span class="badge bg-soft-danger text-danger px-3 border border-danger-soft">ADMINISTRATOR</span>
+                            {% else %}
+                            <span class="badge bg-soft-secondary text-secondary px-3 border border-secondary-soft">PROFESSIONAL</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-4">
+                            {% if user.is_demo %}
+                            <span class="badge bg-soft-warning text-warning px-3 border border-warning-soft"><i class="fas fa-sandbox me-1"></i> DEMO_MODE</span>
+                            {% else %}
+                            <span class="badge bg-soft-success text-success px-3 border border-success-soft"><i class="fas fa-verified-slash me-1"></i> VERIFIED</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-4">
+                            <span class="text-muted small fw-bold">{{ user.created_at.split(' ')[0] if user.created_at else 'Legacy System' }}</span>
+                        </td>
+                        <td class="text-end pe-4 py-4">
+                            <div class="btn-group-premium shadow-sm">
+                                <a href="{{ url_for('portfolio.user_portfolio', username=user.username) }}" class="btn-premium-action" target="_blank" title="Intelligence Exposure">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="{{ url_for('dashboard.view_user', user_id=user.id) }}" class="btn-premium-action" title="Profile Analytics">
+                                    <i class="fas fa-user-circle"></i>
+                                </a>
+                                <form action="{{ url_for('dashboard.toggle_user_demo', user_id=user.id) }}" method="POST" class="d-inline">
+                                    <button type="submit" class="btn-premium-action" title="Cycle Mode">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </form>
+                                {% if user.username != 'admin' %}
+                                <form action="{{ url_for('dashboard.delete_user', user_id=user.id) }}" method="POST" class="d-inline" onsubmit="return confirm('Terminate this identity account permanently?');">
+                                    <button type="submit" class="btn-premium-action btn-premium-danger" title="Revoke Access">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

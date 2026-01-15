@@ -1,0 +1,61 @@
+{% extends "public_base.html" %}
+
+{% block content %}
+<section class="section-padding hero" style="padding-top: 120px; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 70%); min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-5 rounded-4 border" style="background: rgba(13, 13, 13, 0.9); border-color: rgba(212, 175, 55, 0.2) !important; backdrop-filter: blur(10px);">
+                    <div class="text-center mb-5">
+                        <div class="mb-4">
+                            <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx Academy Logo" style="height: 100px; width: auto; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));">
+                        </div>
+                        <h1 class="display-4 gold-text mb-3">Mastery Guide</h1>
+                        <p class="text-gold small fw-bold"><i class="fas fa-book-open me-1"></i> The Path to Professional Excellence</p>
+                        <div class="footer-divider mx-auto"></div>
+                    </div>
+                    
+                    <div class="text-secondary" style="line-height: 1.8; font-size: 1rem;">
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-6">
+                                <div class="p-4 rounded border h-100" style="background: rgba(212, 175, 55, 0.02); border-color: rgba(212, 175, 55, 0.1);">
+                                    <h3 class="text-white h5 mb-3"><i class="fas fa-layer-group gold-text me-2"></i> Structured Portfolio</h3>
+                                    <p class="small">Master the art of presenting your work. Learn how to structure projects, highlight key metrics, and demonstrate your unique role in every execution.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-4 rounded border h-100" style="background: rgba(212, 175, 55, 0.02); border-color: rgba(212, 175, 55, 0.1);">
+                                    <h3 class="text-white h5 mb-3"><i class="fas fa-bullhorn gold-text me-2"></i> Communication Ethics</h3>
+                                    <p class="small">The Codexx standard requires professional transparency. This guide covers how to communicate with clients directly, setting clear expectations and delivering results.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-4 rounded border h-100" style="background: rgba(212, 175, 55, 0.02); border-color: rgba(212, 175, 55, 0.1);">
+                                    <h3 class="text-white h5 mb-3"><i class="fas fa-fingerprint gold-text me-2"></i> Personal Brand</h3>
+                                    <p class="small">Building a verified reputation is more than showing code or designs. It's about establishing a consistent professional identity that commands trust.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-4 rounded border h-100" style="background: rgba(212, 175, 55, 0.02); border-color: rgba(212, 175, 55, 0.1);">
+                                    <h3 class="text-white h5 mb-3"><i class="fas fa-vial gold-text me-2"></i> Proof of Concept</h3>
+                                    <p class="small">Learn how to document your process from ideation to deployment. Transparency in methodology is the foundation of verified status.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded border text-center" style="background: rgba(212, 175, 55, 0.05); border-color: rgba(212, 175, 55, 0.2);">
+                            <h3 class="text-white h4 mb-3">Continuous Growth</h3>
+                            <p class="mb-0">Mastery is not a destination. It is a commitment to the craft. This guide is updated periodically to reflect the evolving standards of professional execution.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-5">
+                        <a href="/" class="btn btn-outline-gold btn-sm px-5">Return Home</a>
+                        <a href="{{ url_for('dashboard.contact') }}" class="btn btn-gold-gradient btn-sm px-5 ms-3">Apply for Mastery</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

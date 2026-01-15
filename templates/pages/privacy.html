@@ -1,0 +1,54 @@
+{% extends "public_base.html" %}
+
+{% block content %}
+<section class="section-padding hero" style="padding-top: 120px; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 70%); min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-5 rounded-4 border" style="background: rgba(13, 13, 13, 0.9); border-color: rgba(212, 175, 55, 0.2) !important; backdrop-filter: blur(10px);">
+                    <div class="text-center mb-5">
+                        <h1 class="display-4 gold-text mb-3">Privacy Policy</h1>
+                        <p class="text-gold small fw-bold"><i class="fas fa-shield-alt me-1"></i> Data Integrity & Private Execution</p>
+                        <div class="footer-divider mx-auto"></div>
+                    </div>
+                    
+                    <div class="text-secondary" style="line-height: 1.8; font-size: 0.95rem;">
+                        <p class="mb-5 text-center">Last Updated: December 31, 2025</p>
+                        
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <h3 class="text-white h5 mb-3"><i class="fas fa-lock me-2 gold-text"></i> 1. The Dual-Environment Model</h3>
+                                <p>Codexx Academy operates under a strict separation of environments. Our <strong>Private Environment</strong> (Traver Platform & Dashboard) is where internal coordination and execution occur. Our <strong>Public Environment</strong> (Portfolio Pages) is where verified trust is built. This policy governs how data flows between these layers.</p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h3 class="text-white h5 mb-3"><i class="fas fa-user-secret me-2 gold-text"></i> 2. Private Operational Data</h3>
+                                <p>Data within the Traver Platform and Member Dashboards—including client names, internal project details, and communication logs—is strictly private. It is isolated from public access and is not indexed by search engines. This data belongs to the professional builder and is used only for execution.</p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h3 class="text-white h5 mb-3"><i class="fas fa-globe me-2 gold-text"></i> 3. Public Verification Data</h3>
+                                <p>Information designated for Public Portfolios (Name, Proof of Work, and History) is intended for visibility and discovery. By presenting a verified portfolio, members authorize the public display of their execution history to build trust with visitors.</p>
+                            </div>
+
+                            <div class="col-12">
+                                <h3 class="text-white h5 mb-3"><i class="fas fa-chart-line me-2 gold-text"></i> 4. Analytics & Tracking</h3>
+                                <p>We provide anonymized visitor analytics to portfolio owners. We track IP addresses, referrers, and user agents solely to prevent fraud and provide engagement insights. We do not track users across the web or sell browsing history.</p>
+                            </div>
+
+                            <div class="col-12">
+                                <h3 class="text-white h5 mb-3"><i class="fas fa-handshake me-2 gold-text"></i> 5. Zero-Sale Commitment</h3>
+                                <p>Codexx Academy does not sell exposure, data, or fake traffic. Data is used exclusively to maintain the integrity of our verification system and the functionality of our private infrastructure.</p>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-5 pt-4">
+                            <a href="/" class="btn btn-gold btn-sm px-4">Return to Academy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

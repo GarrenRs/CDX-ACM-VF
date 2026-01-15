@@ -1,0 +1,59 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Compose Message - Dashboard{% endblock %}
+
+{% block page_title %}New Internal Message{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card bg-dark border-gold-opacity shadow-lg">
+            <div class="card-header border-bottom border-gold-opacity py-3">
+                <h5 class="mb-0 fw-bold gold-text">
+                    <i class="fas fa-edit me-2"></i>Compose Message
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <form action="{{ url_for('dashboard.internal_send') }}" method="POST">
+                    <input type="hidden" name="receiver_id" value="{{ receiver.id if receiver else 'admin' }}">
+                    
+                    <div class="mb-4">
+                        <label class="form-label text-white-50 small text-uppercase fw-bold mb-2">Recipient</label>
+                        <div class="glass-panel p-3 d-flex align-items-center gap-3 border border-gold-opacity rounded-3">
+                            <div class="avatar-sm bg-gold-gradient rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                <i class="fas fa-user text-black"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 text-white">{{ receiver.username if receiver else 'System Administrator' }}</h6>
+                                <small class="text-muted">{{ receiver.email if receiver else 'admin@codexx.academy' }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-white-50 small text-uppercase fw-bold mb-2">Your Message</label>
+                        <textarea name="message" class="form-control bg-black border-gold-opacity text-white focus-gold" rows="6" placeholder="Type your message here..." required></textarea>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-gold-gradient flex-grow-1 fw-bold py-3 shadow-sm custom-btn-glow">
+                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                        </button>
+                        <a href="{{ url_for('dashboard.internal_messages') }}" class="btn btn-outline-secondary px-4 d-flex align-items-center">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-gold-opacity { border-color: rgba(212, 175, 55, 0.2) !important; }
+    .focus-gold:focus {
+        background: black !important;
+        border-color: #D4AF37 !important;
+        box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        color: white;
+    }
+</style>
+{% endblock %}

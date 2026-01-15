@@ -1,0 +1,62 @@
+{% extends "public_base.html" %}
+
+{% block title %}Elite Professional Standards | Codexx Academy Benchmark{% endblock %}
+{% block meta_description %}The Elite Standard: Our code of conduct for verified members. Quality over quantity, integrity in execution, and absolute professional honesty.{% endblock %}
+
+{% block content %}
+<section class="section-padding hero" style="padding-top: 120px; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 70%); min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-5 rounded-4 border" style="background: rgba(13, 13, 13, 0.9); border-color: rgba(212, 175, 55, 0.2) !important; backdrop-filter: blur(10px);">
+                    <div class="text-center mb-5">
+                        <div class="mb-4">
+                            <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx Academy Logo" style="height: 100px; width: auto; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));">
+                        </div>
+                        <h1 class="display-4 gold-text mb-3">Elite Standards</h1>
+                        <p class="text-gold small fw-bold"><i class="fas fa-crown me-1"></i> The Benchmark of Excellence</p>
+                        <div class="footer-divider mx-auto"></div>
+                    </div>
+                    
+                    <div class="text-secondary" style="line-height: 1.8; font-size: 1rem;">
+                        <p class="text-center mb-5">The Elite Standard is what separates a Codexx Academy portfolio from a standard profile. It is the code of conduct for every verified member.</p>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-4">
+                                <div class="text-center p-4 h-100 rounded border" style="background: rgba(212, 175, 55, 0.02); border-color: rgba(212, 175, 55, 0.1);">
+                                    <i class="fas fa-gem gold-text fa-2x mb-3"></i>
+                                    <h4 class="text-white h5">Quality Over Quantity</h4>
+                                    <p class="small">We prioritize the depth and impact of work over the number of projects. One exceptional execution outweighs ten mediocre ones.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center p-4 h-100 rounded border" style="background: rgba(220, 53, 69, 0.02); border-color: rgba(220, 53, 69, 0.2);">
+                                    <i class="fas fa-user-shield fa-2x mb-3" style="color: #dc3545;"></i>
+                                    <h4 class="text-white h5">Integrity</h4>
+                                    <p class="small">Honesty in representing roles and responsibilities. Plagiarism or misattribution results in immediate and permanent removal.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center p-4 h-100 rounded border" style="background: rgba(212, 175, 55, 0.02); border-color: rgba(212, 175, 55, 0.1);">
+                                    <i class="fas fa-rocket gold-text fa-2x mb-3"></i>
+                                    <h4 class="text-white h5">Execution Speed</h4>
+                                    <p class="small">The ability to deliver results effectively. We value professionals who understand that time is the most valuable resource.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded border" style="background: rgba(255, 255, 255, 0.02); border-color: rgba(255, 255, 255, 0.1);">
+                            <h3 class="text-white h5 mb-3 text-center">The Membership Oath</h3>
+                            <p class="small mb-0">"I commit to the truth of my execution. I will host only what I have built. I will represent my role with absolute honesty. I will maintain the privacy of my operational workspace while building a public legacy of trust."</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-5">
+                        <a href="/" class="btn btn-gold btn-sm px-5">Return Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

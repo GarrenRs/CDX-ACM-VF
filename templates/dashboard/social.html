@@ -1,0 +1,162 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Social Media Links - Dashboard{% endblock %}
+
+{% block page_title %}Social Media Links{% endblock %}
+
+{% block content %}
+{% set is_demo_mode = session.get('is_demo_mode', False) %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">
+            <i class="fas fa-share-alt me-2"></i>
+            Manage Social Media Links
+        </h5>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="linkedin" class="form-label">
+                        <i class="fab fa-linkedin me-2"></i>LinkedIn URL
+                    </label>
+                    <input type="url" class="form-control" id="linkedin" name="linkedin" 
+                           value="{{ social.linkedin if social else '' }}" 
+                           placeholder="https://linkedin.com/in/yourprofile">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="github" class="form-label">
+                        <i class="fab fa-github me-2"></i>GitHub URL
+                    </label>
+                    <input type="url" class="form-control" id="github" name="github" 
+                           value="{{ social.github if social else '' }}" 
+                           placeholder="https://github.com/yourusername">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="twitter" class="form-label">
+                        <i class="fab fa-x-twitter me-2"></i>Twitter URL
+                    </label>
+                    <input type="url" class="form-control" id="twitter" name="twitter" 
+                           value="{{ social.twitter if social else '' }}" 
+                           placeholder="https://x.com/yourusername">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="instagram" class="form-label">
+                        <i class="fab fa-instagram me-2"></i>Instagram URL
+                    </label>
+                    <input type="url" class="form-control" id="instagram" name="instagram" 
+                           value="{{ social.instagram if social else '' }}" 
+                           placeholder="https://instagram.com/yourusername">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="facebook" class="form-label">
+                        <i class="fab fa-facebook me-2"></i>Facebook URL
+                    </label>
+                    <input type="url" class="form-control" id="facebook" name="facebook" 
+                           value="{{ social.facebook if social else '' }}" 
+                           placeholder="https://facebook.com/yourprofile">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="youtube" class="form-label">
+                        <i class="fab fa-youtube me-2"></i>YouTube URL
+                    </label>
+                    <input type="url" class="form-control" id="youtube" name="youtube" 
+                           value="{{ social.youtube if social else '' }}" 
+                           placeholder="https://youtube.com/c/yourchannel">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="behance" class="form-label">
+                        <i class="fab fa-behance me-2"></i>Behance URL
+                    </label>
+                    <input type="url" class="form-control" id="behance" name="behance" 
+                           value="{{ social.behance if social else '' }}" 
+                           placeholder="https://behance.net/yourprofile">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="dribbble" class="form-label">
+                        <i class="fab fa-dribbble me-2"></i>Dribbble URL
+                    </label>
+                    <input type="url" class="form-control" id="dribbble" name="dribbble" 
+                           value="{{ social.dribbble if social else '' }}" 
+                           placeholder="https://dribbble.com/yourprofile">
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit"
+                        class="btn btn-primary"
+                        {% if is_demo_mode %}disabled title="Demo mode: Saving social links is disabled until full access is activated."{% endif %}>
+                    <i class="fas {% if is_demo_mode %}fa-lock{% else %}fa-save{% endif %} me-2"></i>
+                    {% if is_demo_mode %}Save Social Links (Demo){% else %}Save Social Links{% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Preview Section -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5 class="mb-0">
+            <i class="fas fa-eye me-2"></i>
+            Preview
+        </h5>
+    </div>
+    <div class="card-body">
+        <p class="text-muted mb-3">This is how your social links will appear in the footer:</p>
+        <div class="social-links-preview d-flex flex-wrap gap-2">
+            {% if social %}
+                {% if social.linkedin %}
+                    <a href="{{ social.linkedin }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                        <i class="fab fa-linkedin me-1"></i>LinkedIn
+                    </a>
+                {% endif %}
+                {% if social.github %}
+                    <a href="{{ social.github }}" class="btn btn-outline-dark btn-sm" target="_blank">
+                        <i class="fab fa-github me-1"></i>GitHub
+                    </a>
+                {% endif %}
+                {% if social.twitter %}
+                    <a href="{{ social.twitter }}" class="btn btn-outline-info btn-sm" target="_blank">
+                        <i class="fab fa-x-twitter me-1"></i>Twitter
+                    </a>
+                {% endif %}
+                {% if social.instagram %}
+                    <a href="{{ social.instagram }}" class="btn btn-outline-danger btn-sm" target="_blank">
+                        <i class="fab fa-instagram me-1"></i>Instagram
+                    </a>
+                {% endif %}
+                {% if social.facebook %}
+                    <a href="{{ social.facebook }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                        <i class="fab fa-facebook me-1"></i>Facebook
+                    </a>
+                {% endif %}
+                {% if social.youtube %}
+                    <a href="{{ social.youtube }}" class="btn btn-outline-danger btn-sm" target="_blank">
+                        <i class="fab fa-youtube me-1"></i>YouTube
+                    </a>
+                {% endif %}
+                {% if social.behance %}
+                    <a href="{{ social.behance }}" class="btn btn-outline-info btn-sm" target="_blank">
+                        <i class="fab fa-behance me-1"></i>Behance
+                    </a>
+                {% endif %}
+                {% if social.dribbble %}
+                    <a href="{{ social.dribbble }}" class="btn btn-outline-warning btn-sm" target="_blank">
+                        <i class="fab fa-dribbble me-1"></i>Dribbble
+                    </a>
+                {% endif %}
+            {% else %}
+                <p class="text-muted">No social links added yet</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

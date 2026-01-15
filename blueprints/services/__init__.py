@@ -1,0 +1,9 @@
+"""
+Services Blueprint - Handles service offerings management
+"""
+
+from flask import Blueprint
+
+services_bp = Blueprint('services', __name__, url_prefix='/services')
+
+from . import routes

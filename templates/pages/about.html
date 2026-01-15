@@ -1,0 +1,74 @@
+{% extends "public_base.html" %}
+
+{% block title %}About Our Vision | Codexx Academy - Elite Standards{% endblock %}
+{% block meta_description %}Learn about the Codexx Academy philosophy: Build Privately, Show Publicly. We are the infrastructure for verified professional execution.{% endblock %}
+
+{% block content %}
+<section class="section-padding hero" style="padding-top: 120px; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 70%); min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-5 rounded-4 border" style="background: rgba(13, 13, 13, 0.9); border-color: rgba(212, 175, 55, 0.2) !important; backdrop-filter: blur(10px);">
+                    <div class="text-center mb-5">
+                        <div class="mb-4">
+                            <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx Academy Logo" style="height: 100px; width: auto; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));">
+                        </div>
+                        <h1 class="display-4 gold-text mb-3">About Academy</h1>
+                        <p class="text-gold small fw-bold"><i class="fas fa-university me-1"></i> Private Execution, Public Trust</p>
+                        <div class="footer-divider mx-auto"></div>
+                    </div>
+                    
+                    <div class="text-secondary" style="line-height: 1.8; font-size: 1rem;">
+                        <div class="row g-5 align-items-center mb-5">
+                            <div class="col-md-6">
+                                <h2 class="text-white h3 mb-4">The Codexx Philosophy</h2>
+                                <p>Codexx Academy is not a marketplace, nor is it a social network. It is a <strong>professional infrastructure</strong> built for those who execute. We believe that in a world of digital noise, the only thing that matters is <strong>proof of work</strong>.</p>
+                                <p>Our model is simple: <strong>Build Privately, Show Publicly, Connect Directly.</strong></p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-4 rounded border" style="background: rgba(212, 175, 55, 0.03); border-color: rgba(212, 175, 55, 0.1);">
+                                    <h4 class="text-gold h5 mb-3"><i class="fas fa-bullseye me-2"></i> Our Mission</h4>
+                                    <p class="small mb-0">To provide builders, service providers, and project owners with the tools to manage their internal operations securely while building an unshakeable public reputation through verified execution history.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-4">
+                                <div class="text-center p-4">
+                                    <i class="fas fa-shield-halved fa-3x mb-3" style="color: #dc3545;"></i>
+                                    <h4 class="text-white h5">Privacy First</h4>
+                                    <p class="small">Operational work remains internal. Your clients and coordination are your business.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center p-4">
+                                    <i class="fas fa-certificate fa-3x mb-3" style="color: #28a745;"></i>
+                                    <h4 class="text-white h5">Verified Proof</h4>
+                                    <p class="small">We verify the person behind the portfolio, ensuring authenticity in every project.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center p-4">
+                                    <i class="fas fa-handshake-simple fa-3x gold-text mb-3"></i>
+                                    <h4 class="text-white h5">Direct Connection</h4>
+                                    <p class="small">No middlemen. No fees on your work. We provide the stage; you own the performance.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded border text-center" style="background: rgba(212, 175, 55, 0.05); border-color: rgba(212, 175, 55, 0.2);">
+                            <h3 class="text-white h4 mb-3">Elite Standards</h3>
+                            <p class="mb-0">At Codexx Academy, we don't sell exposure. We host excellence. Every portfolio in our gallery represents a real professional with a documented history of execution.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-5">
+                        <a href="/" class="btn btn-gold btn-sm px-5">Return Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

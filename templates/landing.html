@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" data-portfolio-theme="luxury-gold">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codexx Academy | Elite Proof-of-Work Portfolio Ecosystem</title>
+    <meta name="description" content="Codexx Academy is an exclusive ecosystem for verified professionals. We prioritize Proof-of-Work (POW) over promises, ensuring unmediated transparency and elite professional vetting.">
+    <meta name="keywords" content="Codexx Academy, Proof of Work, Professional Portfolio, Verified Professionals, Elite Talent, Portfolio Ecosystem, Transparency, Professional Vetting">
+    <link rel="canonical" href="{{ url_for('pages.index', _external=True) }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url_for('pages.index', _external=True) }}">
+    <meta property="og:title" content="Codexx Academy | Elite Proof-of-Work Portfolio Ecosystem">
+    <meta property="og:description" content="Exclusive elite professional ecosystem where proof of work defines success. Transparency and verified execution history at the core.">
+    <meta property="og:image" content="{{ url_for('static', filename='logo/logo.png', _external=True) }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url_for('pages.index', _external=True) }}">
+    <meta property="twitter:title" content="Codexx Academy | Elite Proof-of-Work Portfolio Ecosystem">
+    <meta property="twitter:description" content="Exclusive elite professional ecosystem where proof of work defines success. Transparency and verified execution history at the core.">
+    <meta property="twitter:image" content="{{ url_for('static', filename='logo/logo.png', _external=True) }}">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/utilities/contrast-enhancement.css') }}">
+</head>
+<body data-is-logged-in="{{ is_logged_in|tojson }}">
+    <!-- Flash Messages -->
+    <div class="container mt-4 pt-5" style="position: relative; z-index: 2000;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show border-0 shadow-lg mb-4" role="alert" style="background: rgba(20, 20, 20, 0.9); border-radius: 12px; backdrop-filter: blur(10px);">
+                        <div class="d-flex align-items-center text-white">
+                            <i class="fas {{ 'fa-check-circle text-gold' if category == 'success' else 'fa-exclamation-circle text-danger' }} me-3 fs-4"></i>
+                            <div>{{ message }}</div>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <nav class="navbar fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx Academy" class="navbar-logo">
+                <div class="brand-text">
+                    <span class="brand-name">Codexx Academy</span>
+                    <span class="brand-subtitle d-none d-md-block">Elite Portfolio Ecosystem</span>
+                </div>
+            </a>
+            <div class="ms-auto d-flex align-items-center gap-2">
+                {% if is_logged_in %}
+                    {% if not is_admin %}
+                    <a href="{{ url_for('portfolio.user_portfolio', username=username) }}" class="btn btn-outline-gold btn-sm rounded-pill">
+                        <i class="fas fa-briefcase me-1"></i><span class="d-none d-sm-inline">My Portfolio</span>
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('dashboard.index') }}" class="btn btn-gold btn-sm rounded-pill shadow-sm">
+                        <i class="fas fa-th-large me-1"></i><span class="d-none d-sm-inline">Dashboard</span>
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-gold btn-sm rounded-pill">
+                        <i class="fas fa-sign-in-alt me-1"></i><span class="d-none d-sm-inline">Login</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero text-center">
+        <div class="container">
+            <h1 class="display-3 mb-4 fw-black">Where <span class="gold-text">Real Work</span> Is Shown, Not Sold</h1>
+            <p class="lead mb-5 text-secondary mx-auto" style="max-width: 800px;">
+                Codexx Academy is a curated environment where verified builders, service providers, and project owners present real portfolios backed by actual work.
+            </p>
+            <a href="#directory" class="btn btn-gold btn-lg">Explore Verified Portfolios</a>
+        </div>
+    </section>
+
+    <section class="section-padding border-top border-bottom section-divider">
+        <div class="container">
+            <div class="row g-4">
+                            <div class="col-md-4 mb-4">
+                                <div class="info-card border-success-left">
+                                    <h3 class="text-success"><i class="fas fa-check-circle me-2"></i>What It Is</h3>
+                                    <ul class="list-unstyled text-secondary">
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Curated portfolios</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Real people</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Real work</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="info-card border-danger-left">
+                                    <h3 class="text-danger"><i class="fas fa-times-circle me-2"></i>What It Is NOT</h3>
+                                    <ul class="list-unstyled text-secondary">
+                                        <li class="mb-2"><i class="fas fa-times text-danger me-2"></i> Not a freelance marketplace</li>
+                                        <li class="mb-2"><i class="fas fa-times text-danger me-2"></i> Not bidding platform</li>
+                                        <li class="mb-2"><i class="fas fa-times text-danger me-2"></i> Not a social network</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="info-card border-gold-left">
+                                    <h3 class="heading-gold"><i class="fas fa-lightbulb me-2"></i>Why It Exists</h3>
+                                    <ul class="list-unstyled text-secondary">
+                                        <li class="mb-2"><i class="fas fa-check text-gold me-2"></i> Trust before contact</li>
+                                        <li class="mb-2"><i class="fas fa-check text-gold me-2"></i> Work before talk</li>
+                                        <li class="mb-2"><i class="fas fa-check text-gold me-2"></i> Ownership over exposure</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="directory" class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 gold-text">Verified Portfolio Gallery</h2>
+                <p class="text-secondary">Authentic proof of work from our community</p>
+            </div>
+            
+            <div class="row g-4">
+                {% for username, portfolio in portfolios.items() %}
+                    {# Only show non-demo users (verified) and skip admin #}
+                    {% if username != 'admin' %}
+                    
+                    {% if portfolio.is_verified %}
+                    <div class="col-md-4">
+                        <div class="portfolio-card border-gold-shadow">
+                            {% if portfolio.photo %}
+                                <img src="{{ url_for('static', filename=portfolio.photo.replace('static/', '')) }}" alt="{{ portfolio.name }}" class="profile-img">
+                            {% else %}
+                                <div class="profile-img d-flex align-items-center justify-content-center bg-dark mx-auto">
+                                    <i class="fas fa-user-tie fa-3x gold-text"></i>
+                                </div>
+                            {% endif %}
+                            
+                            <div class="verified-badge-card" title="Verified Professional">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+
+                            <h3 class="h4 mb-1 text-white">{{ portfolio.name or username }}</h3>
+                            <span class="type-badge">{{ portfolio.title or 'Active Builder' }}</span>
+                            <p class="text-secondary small mb-4">
+                                {{ (portfolio.description or portfolio.about or 'Verified member of Codexx Academy.') | truncate(100) }}
+                            </p>
+                            <a href="{{ url_for('portfolio.user_portfolio', username=username) }}" class="btn btn-outline-gold btn-sm w-100">View Portfolio</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                {% else %}
+                    <div class="col-12 text-center py-5">
+                        <p class="text-secondary">Verifying community members...</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-5">
+                {% if session.get('username') %}
+                <a href="{{ url_for('pages.catalog') }}" class="btn btn-gold-gradient px-5 py-3 rounded-pill shadow-lg">
+                    <i class="fas fa-book-open me-2"></i> Access Community Catalog
+                </a>
+                {% else %}
+                <a href="{{ url_for('pages.verification') }}" class="btn btn-outline-gold px-5 py-3 custom-btn-glow-landing">
+                    <i class="fas fa-shield-alt me-2"></i> Explore Verification Standards
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding bg-black border-top section-divider-top">
+        <div class="container text-center">
+            <h2 class="display-6 gold-text mb-4">What does “Verified” mean?</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="row g-4 text-start">
+                        <div class="col-md-6"><p class="text-secondary mb-0">✔ The portfolio owner is a real individual or team</p></div>
+                        <div class="col-md-6"><p class="text-secondary mb-0">✔ Work history is documented</p></div>
+                        <div class="col-md-6"><p class="text-secondary mb-0">✔ Client interactions are traceable</p></div>
+                        <div class="col-md-6"><p class="text-secondary mb-0">✔ Activity is ongoing</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container text-center">
+            <h2 class="display-6 gold-text mb-5">Portfolio Types</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="p-4">
+                        <i class="fas fa-brain fa-3x gold-text mb-3"></i>
+                        <h4>Service Providers</h4>
+                        <p class="text-secondary small">Developers, Designers, Consultants</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4">
+                        <i class="fas fa-rocket fa-3x gold-text mb-3"></i>
+                        <h4>Project Owners</h4>
+                        <p class="text-secondary small">Startups, Products, MVPs</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4">
+                        <i class="fas fa-tools fa-3x gold-text mb-3"></i>
+                        <h4>Skilled Builders</h4>
+                        <p class="text-secondary small">Solo builders, technical profiles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academy Contact Section -->
+    {% if not is_logged_in %}
+    <section id="academy-contact" class="section-padding bg-black border-top section-divider-top">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 gold-text">Contact the Academy</h2>
+                <p class="text-secondary">Have questions? Reach out to our team directly.</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <form action="{{ url_for('pages.contact_academy') }}" method="POST" class="glass-panel p-4 shadow-lg border border-secondary rounded-4">
+                        {% if not is_logged_in %}
+                        <div class="mb-3">
+                            <label class="form-label text-white fw-bold">Your Name</label>
+                            <input type="text" name="name" class="form-control bg-dark border-secondary text-white" required placeholder="Full Name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-white fw-bold">Your Email</label>
+                            <input type="email" name="email" class="form-control bg-dark border-secondary text-white" required placeholder="email@example.com">
+                        </div>
+                        {% else %}
+                        <div class="alert alert-info bg-dark border-gold text-white mb-4 d-flex align-items-center border-gold-left">
+                            <i class="fas fa-user-circle me-3 fs-4 text-gold"></i> 
+                            <div>
+                                <small class="d-block opacity-75">Authenticated Session</small>
+                                <strong>Sending as {{ username }}</strong>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="mb-3">
+                            <label class="form-label text-white fw-bold">Message</label>
+                            <textarea name="message" class="form-control bg-dark border-secondary text-white" rows="4" required placeholder="How can we help you?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gold w-100 py-3 fw-bold shadow-gold">
+                            <i class="fas fa-paper-plane me-2"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-5 mb-5 text-start">
+                <div class="col-lg-4">
+                    <div class="footer-brand mb-4">
+                        <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx Academy Logo" style="height: 60px; width: auto; margin-bottom: 20px;">
+                        <h3 class="gold-text">CODEXX ACADEMY</h3>
+                        <div class="footer-divider"></div>
+                    </div>
+                    <p class="text-secondary small mb-4" style="line-height: 1.8;">
+                        A curated environment where real work is shown, not sold. We provide the infrastructure for verified builders, service providers, and project owners to present authentic proof of execution.
+                    </p>
+                    <div class="social-links d-flex gap-3">
+                        {% if admin_social %}
+                            {% if admin_social.linkedin %}
+                            <a href="{{ admin_social.linkedin }}" class="social-icon-btn" title="LinkedIn" target="_blank">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            {% endif %}
+                            {% if admin_social.twitter %}
+                            <a href="{{ admin_social.twitter }}" class="social-icon-btn" title="Twitter" target="_blank">
+                                <i class="fab fa-x-twitter"></i>
+                            </a>
+                            {% endif %}
+                            {% if admin_social.instagram %}
+                            <a href="{{ admin_social.instagram }}" class="social-icon-btn" title="Instagram" target="_blank">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            {% endif %}
+                            {% if admin_social.github %}
+                            <a href="{{ admin_social.github }}" class="social-icon-btn" title="GitHub" target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            {% endif %}
+                            {% if admin_social.facebook %}
+                            <a href="{{ admin_social.facebook }}" class="social-icon-btn" title="Facebook" target="_blank">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            {% endif %}
+                            {% if admin_social.youtube %}
+                            <a href="{{ admin_social.youtube }}" class="social-icon-btn" title="YouTube" target="_blank">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="footer-heading">Platform</h5>
+                    <ul class="list-unstyled footer-nav">
+                        <li><a href="#directory">Verified Gallery</a></li>
+                        <li><a href="{{ url_for('pages.about') }}">About Academy</a></li>
+                        <li><a href="{{ url_for('pages.verification') }}">Verification Process</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="footer-heading">Resources</h5>
+                    <ul class="list-unstyled footer-nav">
+                        <li><a href="{{ url_for('pages.mastery') }}">Mastery Guide</a></li>
+                        <li><a href="{{ url_for('pages.standards') }}">Elite Standards</a></li>
+                        <li><a href="{{ url_for('pages.security_audit') }}">Security Audit</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="footer-heading">Transparency</h5>
+                    <div class="transparency-box p-3 rounded">
+                        <p class="text-secondary small mb-2">Portfolios here are reached through organic discovery and direct sharing.</p>
+                        <p class="text-gold small mb-0 fw-bold"><i class="fas fa-shield-alt me-1"></i> No Paid Exposure</p>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="border-secondary-light" style="margin-bottom: 30px;">
+            
+            <div class="footer-bottom d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <p class="text-contrast-secondary small mb-0">© {{ current_year }} Codexx Academy. Real Work. Real Proof.</p>
+                <div class="footer-legal d-flex gap-4">
+                    <a href="/privacy" class="text-contrast-secondary small text-decoration-none">Privacy Policy</a>
+                    <a href="/terms" class="text-contrast-secondary small text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

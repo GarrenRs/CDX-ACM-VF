@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Codexx Academy | Elite Proof-of-Work Ecosystem{% endblock %}</title>
+    
+    <!-- Professional SEO Metadata -->
+    <meta name="description" content="{% block meta_description %}Codexx Academy is the premier ecosystem for verified professionals. We prioritize proof of work over promises. Build in silence, show in public.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}Codexx Academy, Proof of Work, Elite Professionals, Portfolio Ecosystem, Verified Builders, Digital Reputation{% endblock %}">
+    <meta name="author" content="Codexx Academy">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}Codexx Academy | Elite Proof-of-Work Ecosystem{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Exclusive elite professional ecosystem where proof of work defines success. Transparency and verified execution history at the core.{% endblock %}">
+    <meta property="og:image" content="{{ url_for('static', filename='logo/logo.png', _external=True) }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="{% block twitter_title %}Codexx Academy | Elite Proof-of-Work Ecosystem{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Exclusive elite professional ecosystem where proof of work defines success.{% endblock %}">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Main CSS with Design System -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Blueprint-specific CSS -->
+    {% for style_file in blueprint_styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename=style_file) }}">
+    {% endfor %}
+</head>
+<body class="base-template {{ page_class }}">
+    <nav class="navbar-base">
+        <div class="container">
+            <a class="navbar-brand-base d-flex align-items-center" href="{{ url_for('pages.index') }}" title="Codexx Academy — Elite Portfolio">
+                <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx Academy Logo" title="Codexx Academy — Elite Portfolio" style="height: 40px; width: auto; margin-right: 12px;">
+                <div class="d-none d-sm-inline text-start">
+                    <span class="fw-bold">Codexx Academy</span>
+                    <small class="d-block text-muted" style="font-size:0.72rem; letter-spacing:0.4px;">Elite Portfolio</small>
+                </div>
+            </a>
+        </div>
+    </nav>
+    
+    <main class="main-base">
+        {% block content %}
+        <!-- Page content goes here -->
+        {% endblock %}
+    </main>
+    
+    <footer class="footer-base">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-heading-base">About Codexx</h5>
+                    <p class="footer-nav" style="color: rgba(255, 255, 255, 0.6);">
+                        The premier ecosystem for verified professionals. We prioritize proof of work over promises. Build in silence, show in public.
+                    </p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-heading-base">Quick Links</h5>
+                    <ul class="list-unstyled footer-nav">
+                        <li><a href="{{ url_for('pages.index') }}">Home</a></li>
+                        <li><a href="{{ url_for('pages.catalog') }}">Catalog</a></li>
+                        <li><a href="{{ url_for('pages.about') }}">About</a></li>
+                        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-heading-base">Resources</h5>
+                    <ul class="list-unstyled footer-nav">
+                        <li><a href="{{ url_for('pages.verification') }}">Verification</a></li>
+                        <li><a href="{{ url_for('pages.contact_academy') }}">Contact</a></li>
+                        <li><a href="{{ url_for('pages.security_audit') }}">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr style="border-color: rgba(212, 175, 55, 0.2);">
+            
+            <div class="row align-items-center pt-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <p style="color: rgba(255, 255, 255, 0.6); margin: 0;">
+                        &copy; {{ current_year }} Codexx Academy. All rights reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p style="color: rgba(255, 255, 255, 0.6); margin: 0;">
+                        Crafted with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for the elite
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Blueprint-specific JS -->
+    {% for script_file in blueprint_scripts %}
+    <script src="{{ url_for('static', filename=script_file) }}"></script>
+    {% endfor %}
+</body>
+</html>

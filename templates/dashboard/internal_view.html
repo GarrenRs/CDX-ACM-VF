@@ -1,0 +1,99 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Internal Thread - Codexx Academy{% endblock %}
+
+{% block page_title %}Administrative Thread{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card bg-dark border-gold-opacity shadow-lg" style="border-radius: 25px; overflow: hidden;">
+            <div class="card-header border-bottom border-gold-opacity p-4 bg-black d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="avatar-md bg-gold-gradient rounded-circle d-flex align-items-center justify-content-center shadow" style="width: 50px; height: 50px;">
+                        <i class="fas fa-shield-alt text-black fs-4"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-0 fw-bold gold-text">Official Administration</h4>
+                        <p class="mb-0 text-muted small"><i class="fas fa-circle text-success me-1" style="font-size: 8px;"></i> Secure Professional Channel</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <span class="badge bg-gold text-black px-3 py-2 rounded-pill">Thread #{{ message.id[:8] }}</span>
+                    <a href="{{ url_for('dashboard.internal_messages') }}" class="btn btn-sm btn-outline-gold rounded-pill px-3">
+                        <i class="fas fa-arrow-left me-1"></i> Back
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card-body p-4 bg-black-opacity-50" style="min-height: 400px; max-height: 600px; overflow-y: auto; background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.05), transparent);">
+                <!-- Initial Message from User -->
+                <div class="message-bubble mb-4 d-flex flex-column align-items-start">
+                    <div class="small text-muted mb-1 ms-2">Member: {{ message.name }}</div>
+                    <div class="p-3 rounded-4 bg-dark border border-secondary text-white shadow-sm" style="max-width: 80%; border-bottom-left-radius: 0 !important; background-color: #1a1a1a !important;">
+                        <p class="mb-0 text-white" style="font-size: 1.05rem; line-height: 1.5; color: #ffffff !important;">{{ message.message }}</p>
+                        <div class="text-end mt-2 border-top border-secondary-opacity pt-1">
+                            <small class="text-white-50" style="font-size: 10px;">{{ message.date }}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Replies -->
+                {% for reply in replies %}
+                <div class="message-bubble mb-4 d-flex flex-column {% if reply.sender_role == 'admin' %}align-items-end{% else %}align-items-start{% endif %}">
+                    <div class="small text-muted mb-1 {% if reply.sender_role == 'admin' %}me-2{% else %}ms-2{% endif %}">
+                        {% if reply.sender_role == 'admin' %}
+                            <span class="gold-text fw-bold"><i class="fas fa-check-circle me-1"></i>Administration</span>
+                        {% else %}
+                            <span class="text-white-50">Academy Member</span>
+                        {% endif %}
+                    </div>
+                    <div class="p-3 rounded-4 {% if reply.sender_role == 'admin' %}bg-gold-gradient text-black shadow-gold{% else %}bg-dark border border-secondary text-white shadow-sm{% endif %}" 
+                         style="max-width: 80%; {% if reply.sender_role == 'admin' %}border-bottom-right-radius: 0 !important;{% else %}border-bottom-left-radius: 0 !important; background-color: #1a1a1a !important;{% endif %}">
+                        <p class="mb-0 fw-500 {% if reply.sender_role == 'admin' %}text-black{% else %}text-white{% endif %}" style="font-size: 1.05rem; line-height: 1.5; {% if reply.sender_role != 'admin' %}color: #ffffff !important;{% endif %}">{{ reply.message }}</p>
+                        <div class="text-end mt-2 {% if reply.sender_role == 'admin' %}border-top border-black-opacity{% else %}border-top border-secondary-opacity{% endif %} pt-1">
+                            <small class="{% if reply.sender_role == 'admin' %}text-black-50{% else %}text-white-50{% endif %}" style="font-size: 10px;">{{ reply.date }}</small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="card-footer border-top border-gold-opacity p-4 bg-black">
+                <form action="{{ url_for('dashboard.reply_message', message_id=message.id) }}" method="POST">
+                    <input type="hidden" name="category" value="internal">
+                    <div class="input-group shadow-sm" style="border-radius: 15px; overflow: hidden;">
+                        <textarea name="reply_content" class="form-control bg-dark border-gold-opacity text-white p-3" 
+                                  rows="2" placeholder="Type your secure message here..." style="resize: none;"></textarea>
+                        <button type="submit" class="btn btn-gold-gradient px-4">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <small class="text-muted"><i class="fas fa-lock me-1"></i> End-to-end professional encryption</small>
+                        <div class="d-flex gap-2">
+                             <a href="{{ url_for('dashboard.delete_message', message_id=message.id) }}" 
+                                class="btn btn-link text-danger text-decoration-none small p-0"
+                                onclick="return confirm('Archive this thread?')">
+                                <i class="fas fa-archive me-1"></i> Archive Thread
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-black-opacity-50 { background: rgba(0, 0, 0, 0.5); }
+    .shadow-gold { box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2); }
+    .rounded-4 { border-radius: 18px !important; }
+    .fw-500 { font-weight: 500; }
+    .border-secondary-opacity { border-color: rgba(255, 255, 255, 0.1) !important; }
+    .border-black-opacity { border-color: rgba(0, 0, 0, 0.1) !important; }
+    .card-body::-webkit-scrollbar { width: 5px; }
+    .card-body::-webkit-scrollbar-track { background: transparent; }
+    .card-body::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.2); border-radius: 10px; }
+</style>
+{% endblock %}

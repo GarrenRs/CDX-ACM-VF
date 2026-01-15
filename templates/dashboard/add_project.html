@@ -1,0 +1,278 @@
+
+{% extends "dashboard/base.html" %}
+
+{% block title %}Add New Project - Dashboard{% endblock %}
+
+{% block page_title %}Add New Project{% endblock %}
+
+{% block content %}
+<div class="page-title-section mb-5">
+    <h1 class="display-6 fw-bold mb-2">Construct Showcase</h1>
+    <p class="text-contrast-secondary fs-5">Initiate a new high-caliber proof-of-work intelligence record</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-lg h-100">
+            <div class="card-header bg-black-50 py-4 px-4">
+                <h5 class="mb-0 text-white fw-bold">
+                    <i class="fas fa-cogs me-2 text-gold"></i>Intelligence Configuration
+                </h5>
+            </div>
+            <div class="card-body p-4 p-xl-5">
+                <form method="POST" enctype="multipart/form-data" action="{{ url_for('dashboard.add_project') }}">
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Project Type *</label>
+                        <select class="form-select form-select-lg" name="project_type" id="projectType" required>
+                            <option value="portfolio" selected>Portfolio / Case Study</option>
+                            <option value="request">Project Request (Looking for Executor)</option>
+                            <option value="service_showcase">Service Results Showcase</option>
+                            <option value="training">Training / Skill Demonstration</option>
+                        </select>
+                        <small class="text-contrast-muted">Select the purpose of this project</small>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Mandate Title</label>
+                        <input type="text" class="form-control form-control-lg" name="title" required placeholder="e.g. Enterprise Ledger Architecture">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Executive Summary</label>
+                        <textarea class="form-control form-control-lg" name="short_description" rows="2" required placeholder="High-level strategic abstract..."></textarea>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Operational Intelligence</label>
+                        <textarea class="form-control form-control-lg" name="content" rows="8" required placeholder="Detailed methodology, objectives, and execution history..."></textarea>
+                    </div>
+                    
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Main Image *</label>
+                            <input type="file" class="form-control" name="image" accept="image/*">
+                            <small class="text-contrast-muted">Primary image for the project</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Verification URL</label>
+                            <input type="url" class="form-control" name="demo_url" placeholder="https://verify.academy.com">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Gallery Images</label>
+                        <input type="file" class="form-control" name="gallery_images[]" accept="image/*" multiple>
+                        <small class="text-contrast-muted">Add up to 8 additional images (optional). These will be displayed in a gallery slider.</small>
+                        <div id="galleryPreview" class="mt-3 d-flex flex-wrap gap-2"></div>
+                    </div>
+                    
+                    <!-- Dynamic Fields based on Project Type -->
+                    <div id="dynamicFields">
+                        <!-- Request-specific fields -->
+                        <div id="requestFields" style="display: none;" class="mb-4">
+                            <div class="row g-4">
+                                <div class="col-md-4">
+                                    <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Min Budget</label>
+                                    <input type="number" class="form-control form-control-lg" name="request_budget_min" step="0.01" placeholder="0.00">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Max Budget</label>
+                                    <input type="number" class="form-control form-control-lg" name="request_budget_max" step="0.01" placeholder="0.00">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Deadline</label>
+                                    <input type="date" class="form-control form-control-lg" name="request_deadline">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Service Showcase fields -->
+                        <div id="serviceFields" style="display: none;" class="mb-4">
+                            <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Related Service</label>
+                            <select class="form-select form-select-lg" name="service_id">
+                                <option value="">Select a service (optional)</option>
+                                {% if user_services %}
+                                    {% for service in user_services %}
+                                        <option value="{{ service.id }}">{{ service.title }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                            <small class="text-contrast-muted">Link this project to a service you offer</small>
+                        </div>
+                        
+                        <!-- Training fields -->
+                        <div id="trainingFields" style="display: none;" class="mb-4">
+                            <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Related Skills</label>
+                            <div id="skillsContainer">
+                                {% if user_skills %}
+                                    {% for skill in user_skills %}
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="skill_related[]" value="{{ skill.name }}" id="skill_{{ loop.index }}">
+                                        <label class="form-check-label text-contrast-muted" for="skill_{{ loop.index }}">
+                                            {{ skill.name }} ({{ skill.level }}%)
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="text-contrast-muted small">No skills added yet. <a href="{{ url_for('dashboard.skills') }}">Add skills first</a>.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-5">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Technological Stack</label>
+                        <div id="technologiesContainer">
+                            <div class="input-group mb-3 tech-row">
+                                <span class="input-group-text bg-black-25 border-secondary text-gold-muted"><i class="fas fa-microchip"></i></span>
+                                <input type="text" class="form-control" name="technologies[]" placeholder="e.g. Rust / WebAssembly">
+                                <button type="button" class="btn-premium-action btn-premium-danger remove-tech-btn border-secondary"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-gold btn-sm px-4" id="addTechBtn">
+                            <i class="fas fa-plus-circle me-1"></i>Expand Stack
+                        </button>
+                    </div>
+                    
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 pt-4 border-top border-secondary gap-3">
+                        <a href="{{ url_for('dashboard.projects') }}" class="btn btn-link text-contrast-secondary text-decoration-none fw-bold order-2 order-md-1">
+                            <i class="fas fa-arrow-left me-2"></i>Abort Mandate
+                        </a>
+                        <button type="submit" class="btn btn-gold-gradient px-5 py-2 shadow-lg order-1 order-md-2">
+                            <i class="fas fa-broadcast-tower me-2"></i>Deploy Intelligence
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-lg bg-black-50 h-100">
+            <div class="card-body p-4 p-xl-5">
+                <h6 class="gold-text fw-bold text-uppercase letter-spacing-2 mb-4">Quality Mandates</h6>
+                <div class="list-unstyled mb-0" aria-label="Quality Mandates">
+                    <div class="d-flex mb-4 align-items-start">
+                        <div class="flex-shrink-0 avatar-xs rounded-circle bg-gold-soft d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px;">
+                            <i class="fas fa-image text-gold" aria-hidden="true"></i>
+                            <span class="visually-hidden">Cover imagery</span>
+                        </div>
+                        <div>
+                            <p class="small text-contrast-muted mb-0"><strong>High-res imagery</strong> — High-resolution cover imagery (min 1920x1080) optimized for 16:9 aspect ratio.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4 align-items-start">
+                        <div class="flex-shrink-0 avatar-xs rounded-circle bg-gold-soft d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px;">
+                            <i class="fas fa-chart-line text-gold" aria-hidden="true"></i>
+                            <span class="visually-hidden">Quantitative data</span>
+                        </div>
+                        <div>
+                            <p class="small text-contrast-muted mb-0"><strong>Quantitative data</strong> — Include data points documenting specific technical challenges and solutions.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start">
+                        <div class="flex-shrink-0 avatar-xs rounded-circle bg-gold-soft d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px;">
+                            <i class="fas fa-link text-gold" aria-hidden="true"></i>
+                            <span class="visually-hidden">Verification links</span>
+                        </div>
+                        <div>
+                            <p class="small text-contrast-muted mb-0"><strong>Verification & docs</strong> — Provide live verification links or architectural documentation for proof-of-work.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Project type change handler
+    const projectType = document.getElementById('projectType');
+    const requestFields = document.getElementById('requestFields');
+    const serviceFields = document.getElementById('serviceFields');
+    const trainingFields = document.getElementById('trainingFields');
+    
+    function updateFields() {
+        const type = projectType.value;
+        // Hide all fields
+        if (requestFields) requestFields.style.display = 'none';
+        if (serviceFields) serviceFields.style.display = 'none';
+        if (trainingFields) trainingFields.style.display = 'none';
+        
+        // Show relevant fields
+        if (type === 'request' && requestFields) {
+            requestFields.style.display = 'block';
+        } else if (type === 'service_showcase' && serviceFields) {
+            serviceFields.style.display = 'block';
+        } else if (type === 'training' && trainingFields) {
+            trainingFields.style.display = 'block';
+        }
+    }
+    
+    if (projectType) {
+        projectType.addEventListener('change', updateFields);
+        updateFields(); // Initial call
+    }
+    
+    // Gallery preview
+    const galleryInput = document.querySelector('input[name="gallery_images[]"]');
+    const galleryPreview = document.getElementById('galleryPreview');
+    
+    if (galleryInput && galleryPreview) {
+        galleryInput.addEventListener('change', function(e) {
+            galleryPreview.innerHTML = '';
+            const files = Array.from(e.target.files).slice(0, 8);
+            
+            files.forEach((file, index) => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const div = document.createElement('div');
+                        div.className = 'position-relative';
+                        div.style.cssText = 'width: 100px; height: 100px; border-radius: 8px; overflow: hidden; border: 2px solid rgba(212, 175, 55, 0.3);';
+                        div.innerHTML = `
+                            <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover;">
+                            <span class="position-absolute top-0 end-0 bg-dark text-white small px-1">${index + 1}</span>
+                        `;
+                        galleryPreview.appendChild(div);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    }
+    
+    // Technologies management
+    const container = document.getElementById('technologiesContainer');
+    const addBtn = document.getElementById('addTechBtn');
+
+    if (addBtn) {
+        addBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const div = document.createElement('div');
+            div.className = 'input-group mb-2 tech-row';
+            div.innerHTML = `
+                <input type="text" class="form-control bg-dark text-white border-secondary" name="technologies[]" placeholder="e.g., JavaScript">
+                <button type="button" class="btn btn-outline-danger remove-tech-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    if (container) {
+        container.addEventListener('click', function(e) {
+            const removeBtn = e.target.closest('.remove-tech-btn');
+            if (removeBtn) {
+                e.preventDefault();
+                removeBtn.closest('.tech-row').remove();
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

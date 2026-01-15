@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-portfolio-theme="{{ current_theme }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Services - {{ data.name or username }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='themes/' + current_theme + '.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .page-header {
+            padding: 140px 0 60px;
+            background: linear-gradient(180deg, rgba(212,175,55,0.08) 0%, transparent 100%);
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .gold-text {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B8941F 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .service-card {
+            background: #141414;
+            border: 1px solid rgba(212,175,55,0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212,175,55,0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(212,175,55,0.1);
+        }
+        
+        .service-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+        
+        .service-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .service-card:hover .service-overlay {
+            opacity: 1;
+        }
+        
+        .service-content {
+            padding: 25px;
+        }
+        
+        .service-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .service-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .service-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .service-category {
+            background: rgba(212,175,55,0.1);
+            color: #D4AF37;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .service-price {
+            color: #D4AF37;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, #D4AF37, #B8860B);
+            color: #000 !important;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+        
+        .btn-outline-gold {
+            background: transparent;
+            border: 2px solid #D4AF37;
+            color: #D4AF37 !important;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: rgba(212,175,55,0.3);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body data-portfolio-theme="{{ current_theme }}">
+    <!-- Navigation -->
+    <nav class="navbar navbar-dark fixed-top" style="background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(212,175,55,0.15);">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/portfolio/{{ username }}">
+                <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Logo" style="height: 40px; filter: sepia(100%) saturate(300%) brightness(1) hue-rotate(5deg);">
+                <div>
+                    <span class="d-block fw-bold" style="color: #D4AF37;">Codexx Academy</span>
+                    <small class="d-block text-muted" style="font-size: 0.65rem;">Professional Services</small>
+                </div>
+            </a>
+            <div class="d-flex gap-2">
+                <a href="/portfolio/{{ username }}" class="btn btn-outline-gold btn-sm">
+                    <i class="fas fa-arrow-left me-1"></i>Portfolio
+                </a>
+                <a href="{{ url_for('pages.index') }}" class="btn btn-gold btn-sm">
+                    <i class="fas fa-home me-1"></i>Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title"><span class="gold-text">Professional</span> Services</h1>
+            <p class="text-secondary">Explore premium service offerings by {{ data.name or username }}</p>
+        </div>
+    </header>
+
+    <!-- Services Grid -->
+    <section class="py-5">
+        <div class="container">
+            {% if services %}
+            <div class="row g-4">
+                {% for service in services %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card" onclick="window.location.href='/services/{{ username }}/{{ service.id }}'">
+                        <div class="service-image">
+                            {% if service.image and service.image.startswith('static/') %}
+                                <img src="{{ url_for('static', filename=service.image.replace('static/', '')) }}" alt="{{ service.title }}">
+                            {% else %}
+                                <img src="{{ service.image or url_for('static', filename='assets/project-placeholder.svg') }}" alt="{{ service.title }}">
+                            {% endif %}
+                            <div class="service-overlay">
+                                <span class="btn btn-gold"><i class="fas fa-eye me-2"></i>View Details</span>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h5 class="service-title">{{ service.title }}</h5>
+                            <p class="service-desc">{{ (service.short_description or service.description or '')|truncate(100) }}</p>
+                            <div class="service-meta">
+                                <span class="service-category">{{ service.category|title|replace('_', ' ') }}</span>
+                                {% if service.pricing_type == 'fixed' %}
+                                    <span class="service-price">{{ service.currency }} {{ service.price_min }}</span>
+                                {% elif service.pricing_type == 'hourly' %}
+                                    <span class="service-price">{{ service.currency }} {{ service.price_min }}/hr</span>
+                                {% else %}
+                                    <span class="service-price">Custom Quote</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-concierge-bell"></i>
+                <h4 class="text-white mb-2">No Services Yet</h4>
+                <p class="text-secondary">Services will appear here once added.</p>
+                <a href="/portfolio/{{ username }}" class="btn btn-outline-gold mt-3">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Portfolio
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: #050505; border-top: 1px solid rgba(212,175,55,0.1); padding: 30px 0;">
+        <div class="container text-center">
+            <p class="text-secondary small mb-0">&copy; {{ current_year }} Codexx Academy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

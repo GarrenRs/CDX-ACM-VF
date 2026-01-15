@@ -1,0 +1,520 @@
+{% extends "dashboard/base.html" %}
+
+{% block page_title %}
+<div class="d-flex align-items-center gap-2">
+    <i class="fas fa-crown icon-gold"></i>
+    Subscription & Plans
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <style>
+        .subscription-header {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border: 2px solid var(--primary-gold);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .subscription-header h2 {
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .subscription-header p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0;
+        }
+
+        .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .plan-card {
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid var(--primary-gold);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .plan-card:nth-child(1) { animation-delay: 0s; }
+        .plan-card:nth-child(2) { animation-delay: 0.2s; }
+        .plan-card:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .plan-card.active {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .plan-badge {
+            display: inline-block;
+            background: var(--primary-gold);
+            color: #000;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .plan-name {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-price {
+            color: var(--primary-gold);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-price-period {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .plan-features li {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .plan-features i {
+            color: var(--primary-gold);
+            width: 20px;
+        }
+
+        .btn-plan {
+            background: var(--primary-gold);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .btn-plan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            color: #000;
+        }
+
+        .btn-plan-current {
+            background: transparent;
+            border: 2px solid var(--primary-gold);
+            color: var(--primary-gold);
+            cursor: default;
+        }
+
+        .btn-plan-current:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .billing-section {
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid var(--border-gold);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            animation: slideUp 0.7s ease-out;
+        }
+
+        .billing-section h3 {
+            color: var(--primary-gold);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .billing-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .billing-item {
+            padding: 1rem;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid var(--border-gold);
+            border-radius: 10px;
+        }
+
+        .billing-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .billing-value {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .payment-history {
+            margin-top: 2rem;
+        }
+
+        .payment-history h4 {
+            color: var(--primary-gold);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .payment-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .payment-table thead {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .payment-table th {
+            color: var(--primary-gold);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-gold);
+        }
+
+        .payment-table td {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        .payment-status {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-paid {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .status-pending {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--primary-gold);
+        }
+
+        .status-failed {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .settings-section {
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid var(--border-gold);
+            border-radius: 15px;
+            padding: 2rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .settings-section h3 {
+            color: var(--primary-gold);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-label {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .setting-description {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            color: var(--primary-gold);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <!-- Header Section -->
+    <div class="subscription-header">
+        <h2><i class="fas fa-star me-2"></i>Your Subscription</h2>
+        <p>Manage your current plan and billing settings</p>
+    </div>
+
+    <!-- Current Plan Status -->
+    {% if current_plan %}
+    <div class="card bg-translucent-gold">
+        <div class="card-header bg-gold-gradient text-dark">
+            <i class="fas fa-check-circle me-2"></i>{{ current_plan.name }} Plan Active
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Plan Type:</strong> <span class="text-gold">{{ current_plan.name }}</span></p>
+                    <p><strong>Monthly Cost:</strong> ${{ current_plan.price }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Next Renewal:</strong> <span class="text-gold">January 27, 2026</span></p>
+                    <p><strong>Status:</strong> <span class="badge badge-active">Active</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <!-- Demo Plan Info -->
+    <div class="card bg-translucent-gold">
+        <div class="card-header bg-gold-gradient text-dark">
+            <i class="fas fa-star me-2"></i>Free Demo Plan
+        </div>
+        <div class="card-body">
+            <p class="mb-0">You are currently on the free demo plan. Upgrade to Professional or Business to unlock all features and remove limitations.</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Upgrade Options -->
+    <div class="plan-grid mt-5">
+        <!-- Demo Plan -->
+        <div class="plan-card active">
+            <div class="plan-badge">Current</div>
+            <div class="plan-name">Free</div>
+            <div class="plan-description">Limited features for testing</div>
+            <div class="plan-price">$0</div>
+            <div class="plan-price-period">Forever Free</div>
+            <ul class="plan-features">
+                <li><i class="fas fa-check"></i> Portfolio Display</li>
+                <li><i class="fas fa-check"></i> Basic Projects</li>
+                <li><i class="fas fa-check"></i> Basic Analytics</li>
+                <li><i class="fas fa-times opacity-50"></i> Client Management</li>
+                <li><i class="fas fa-times opacity-50"></i> Advanced Features</li>
+            </ul>
+            <button class="btn-plan btn-plan-current" disabled>Your Current Plan</button>
+        </div>
+
+        <!-- Professional Plan -->
+        <div class="plan-card">
+            <div class="plan-badge badge-popular">Popular</div>
+            <div class="plan-name">Professional</div>
+            <div class="plan-description">Perfect for professionals</div>
+            <div class="plan-price">$9.99</div>
+            <div class="plan-price-period">per month</div>
+            <ul class="plan-features">
+                <li><i class="fas fa-check"></i> Unlimited Projects</li>
+                <li><i class="fas fa-check"></i> Advanced Analytics</li>
+                <li><i class="fas fa-check"></i> Client Management</li>
+                <li><i class="fas fa-check"></i> All Themes</li>
+                <li><i class="fas fa-check"></i> Email Notifications</li>
+            </ul>
+            <a href="{{ url_for('dashboard.settings', _anchor='subscription') }}" class="btn-plan">Upgrade Now</a>
+        </div>
+
+        <!-- Business Plan -->
+        <div class="plan-card">
+            <div class="plan-badge">Enterprise</div>
+            <div class="plan-name">Business</div>
+            <div class="plan-description">For teams and agencies</div>
+            <div class="plan-price">$24.99</div>
+            <div class="plan-price-period">per month</div>
+            <ul class="plan-features">
+                <li><i class="fas fa-check"></i> Everything in Pro</li>
+                <li><i class="fas fa-check"></i> Team Management</li>
+                <li><i class="fas fa-check"></i> Advanced Security</li>
+                <li><i class="fas fa-check"></i> Telegram Integration</li>
+                <li><i class="fas fa-check"></i> Priority Support</li>
+            </ul>
+            <a href="{{ url_for('dashboard.settings', _anchor='subscription') }}" class="btn-plan">Upgrade Now</a>
+        </div>
+    </div>
+
+    <!-- Billing Information -->
+    <div class="billing-section">
+        <h3><i class="fas fa-credit-card"></i>Billing Information</h3>
+        
+        <div class="billing-info">
+            <div class="billing-item">
+                <div class="billing-label">Billing Email</div>
+                <div class="billing-value">billing@example.com</div>
+            </div>
+            <div class="billing-item">
+                <div class="billing-label">Payment Method</div>
+                <div class="billing-value">Visa •••• 4242</div>
+            </div>
+            <div class="billing-item">
+                <div class="billing-label">Next Payment Date</div>
+                <div class="billing-value">January 27, 2026</div>
+            </div>
+        </div>
+
+        <!-- Payment History -->
+        <div class="payment-history">
+            <h4>Payment History</h4>
+            <table class="payment-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dec 27, 2025</td>
+                        <td>Professional Plan - Monthly</td>
+                        <td>$9.99</td>
+                        <td><span class="payment-status status-paid">Paid</span></td>
+                    </tr>
+                    <tr>
+                        <td>Nov 27, 2025</td>
+                        <td>Professional Plan - Monthly</td>
+                        <td>$9.99</td>
+                        <td><span class="payment-status status-paid">Paid</span></td>
+                    </tr>
+                    <tr>
+                        <td>Oct 27, 2025</td>
+                        <td>Professional Plan - Monthly</td>
+                        <td>$9.99</td>
+                        <td><span class="payment-status status-paid">Paid</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Subscription Settings -->
+    <div class="settings-section">
+        <h3><i class="fas fa-sliders-h"></i>Subscription Settings</h3>
+        
+        <div class="setting-item">
+            <div>
+                <div class="setting-label">Auto-Renewal</div>
+                <div class="setting-description">Automatically renew your subscription at the end of each billing cycle</div>
+            </div>
+            <div>
+                <button class="btn-secondary">Manage</button>
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <div>
+                <div class="setting-label">Invoice Receipts</div>
+                <div class="setting-description">Receive email invoices for every payment</div>
+            </div>
+            <div>
+                <button class="btn-secondary">Enabled</button>
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <div>
+                <div class="setting-label">Cancel Subscription</div>
+                <div class="setting-description">Downgrade or cancel your subscription at any time</div>
+            </div>
+            <div>
+                <button class="btn-danger">Cancel Plan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

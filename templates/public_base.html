@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Codexx Academy | Elite Proof-of-Work Ecosystem{% endblock %}</title>
+    
+    <!-- Professional SEO Metadata -->
+    <meta name="description" content="{% block meta_description %}Codexx Academy is the premier ecosystem for verified professionals. We prioritize proof of work over promises. Build in silence, show in public.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}Codexx Academy, Proof of Work, Elite Professionals, Portfolio Ecosystem, Verified Builders, Digital Reputation{% endblock %}">
+    <meta name="author" content="Codexx Academy">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}Codexx Academy | Elite Proof-of-Work Ecosystem{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Exclusive elite professional ecosystem where proof of work defines success. Transparency and verified execution history at the core.{% endblock %}">
+    <meta property="og:image" content="{{ url_for('static', filename='logo/logo.png', _external=True) }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="{% block twitter_title %}Codexx Academy | Elite Proof-of-Work Ecosystem{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Exclusive elite professional ecosystem where proof of work defines success.{% endblock %}">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/utilities/contrast-enhancement.css') }}">
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --bg-black: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B8941F 100%);
+        }
+        body {
+            background-color: var(--bg-black);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+        }
+        .navbar {
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 1rem 0;
+        }
+        .navbar-brand {
+            font-weight: 900;
+            color: var(--primary-gold) !important;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .gold-text { color: var(--primary-gold); }
+        .footer {
+            background: #050505;
+            padding: 80px 0 40px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        .footer-heading {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+            color: #fff;
+        }
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--primary-gold);
+        }
+        .footer-nav a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .footer-nav a:hover { color: var(--primary-gold); }
+        .btn-outline-gold {
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+        }
+        .btn-outline-gold:hover {
+            background: var(--gold-gradient);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/" title="Codexx Academy — Elite Portfolio">
+                <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx Academy Logo" title="Codexx Academy — Elite Portfolio" style="height: 40px; width: auto; margin-right: 12px;">
+                <div class="d-none d-sm-inline text-start">
+                    <span class="fw-bold">Codexx Academy</span>
+                    <small class="d-block text-muted" style="font-size:0.72rem; letter-spacing:0.4px;">Elite Portfolio</small>
+                </div>
+            </a>
+        </div>
+    </nav>
+    <main style="min-height: 80vh; padding-top: 100px;">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="text-contrast-secondary small">© {{ current_year }} Codexx Academy. Real Work. Real Proof.</p>
+            <div class="d-flex justify-content-center gap-3 mt-2 mb-3">
+                {% if social %}
+                    {% if social.linkedin %}<a href="{{ social.linkedin }}" class="text-secondary" target="_blank"><i class="fab fa-linkedin-in"></i></a>{% endif %}
+                    {% if social.github %}<a href="{{ social.github }}" class="text-secondary" target="_blank"><i class="fab fa-github"></i></a>{% endif %}
+                    {% if social.twitter %}<a href="{{ social.twitter }}" class="text-secondary" target="_blank"><i class="fab fa-x-twitter"></i></a>{% endif %}
+                    {% if social.instagram %}<a href="{{ social.instagram }}" class="text-secondary" target="_blank"><i class="fab fa-instagram"></i></a>{% endif %}
+                    {% if social.facebook %}<a href="{{ social.facebook }}" class="text-secondary" target="_blank"><i class="fab fa-facebook-f"></i></a>{% endif %}
+                    {% if social.youtube %}<a href="{{ social.youtube }}" class="text-secondary" target="_blank"><i class="fab fa-youtube"></i></a>{% endif %}
+                {% endif %}
+            </div>
+            <div class="d-flex justify-content-center gap-3 mt-3">
+                <a href="/about" class="text-secondary small text-decoration-none">About</a>
+                <a href="/verification" class="text-secondary small text-decoration-none">Verification</a>
+                <a href="/privacy" class="text-contrast-secondary small text-decoration-none">Privacy</a>
+                <a href="/terms" class="text-contrast-secondary small text-decoration-none">Terms</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

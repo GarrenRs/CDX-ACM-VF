@@ -1,0 +1,125 @@
+
+{% extends "dashboard/base.html" %}
+
+{% block title %}Services - Dashboard{% endblock %}
+
+{% block page_title %}Services{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/utilities/contrast-enhancement.css') }}">
+<div class="page-title-section d-flex justify-content-between align-items-center mb-5">
+    <div>
+        <h1 class="display-6 fw-bold mb-2 text-contrast-primary">Professional Services</h1>
+        <p class="text-contrast-secondary fs-5 mb-0">Manage and showcase your service offerings</p>
+    </div>
+    <a href="{{ url_for('services.add_service') }}" class="btn btn-gold-gradient shadow-lg px-4 py-2">
+        <i class="fas fa-plus-circle me-2"></i>Add Service
+    </a>
+</div>
+
+{% if services %}
+<div class="card border-0 shadow-lg overflow-hidden">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead class="bg-black-50">
+                    <tr>
+                        <th class="ps-4 py-4 text-uppercase letter-spacing-1">Service</th>
+                        <th class="py-4 text-uppercase letter-spacing-1">Category</th>
+                        <th class="py-4 text-uppercase letter-spacing-1">Pricing</th>
+                        <th class="py-4 text-uppercase letter-spacing-1">Status</th>
+                        <th class="text-end pe-4 py-4 text-uppercase letter-spacing-1">Operations</th>
+                    </tr>
+                </thead>
+                <tbody class="border-top-0">
+                    {% for service in services %}
+                    <tr class="transition-all">
+                        <td class="ps-4 py-4">
+                            <div class="d-flex align-items-center">
+                                {% if service.image and service.image.startswith('static/') %}
+                                    <img src="{{ url_for('static', filename=service.image.replace('static/', '')) }}" 
+                                         class="rounded-3 shadow-sm border border-secondary me-3" 
+                                         style="width: 60px; height: 60px; object-fit: cover;" 
+                                         alt="{{ service.title }}">
+                                {% else %}
+                                    <img src="{{ service.image or url_for('static', filename='assets/project-placeholder.svg') }}" 
+                                         class="rounded-3 shadow-sm border border-secondary me-3" 
+                                         style="width: 60px; height: 60px; object-fit: cover;" 
+                                         alt="{{ service.title }}">
+                                {% endif %}
+                                <div>
+                                    <h5 class="mb-1 fw-bold">{{ service.title }}</h5>
+                                    <p class="small text-contrast-muted mb-0">{{ service.short_description[:60] if service.short_description else 'No description' }}...</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4">
+                            <span class="badge bg-soft-gold border-gold-soft small px-3">
+                                {{ service.category|title|replace('_', ' ') }}
+                            </span>
+                        </td>
+                        <td class="py-4">
+                            {% if service.pricing_type == 'fixed' %}
+                                <span class="text-gold">{{ service.currency }} {{ service.price_min }}</span>
+                            {% elif service.pricing_type == 'hourly' %}
+                                <span class="text-gold">{{ service.currency }} {{ service.price_min }}/hr</span>
+                            {% elif service.pricing_type == 'custom' %}
+                                <span class="text-contrast-muted small">Custom Quote</span>
+                            {% else %}
+                                <span class="text-contrast-muted small">Contact for pricing</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-4">
+                            {% if service.is_active %}
+                                <span class="badge bg-success-soft border-success small px-3">
+                                    <i class="fas fa-check-circle me-1"></i>Active
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary small px-3">
+                                    <i class="fas fa-pause-circle me-1"></i>Inactive
+                                </span>
+                            {% endif %}
+                            {% if service.is_featured %}
+                                <span class="badge bg-gold-gradient small px-3 ms-2">
+                                    <i class="fas fa-star me-1"></i>Featured
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end pe-4 py-4">
+                            <div class="btn-group-premium shadow-sm">
+                                <a href="{{ url_for('services.edit_service', service_id=service.id) }}" class="btn-premium-action" title="Edit Service">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form method="POST" action="{{ url_for('services.toggle_service_status', service_id=service.id) }}" class="d-inline">
+                                    <button type="submit" class="btn-premium-action" title="Toggle Status">
+                                        <i class="fas fa-{{ 'pause' if service.is_active else 'play' }}"></i>
+                                    </button>
+                                </form>
+                                <form method="POST" action="{{ url_for('services.delete_service', service_id=service.id) }}" class="d-inline"
+                                      onsubmit="return confirm('Are you sure you want to delete this service?')">
+                                    <button type="submit" class="btn-premium-action btn-premium-danger" title="Delete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="card border-0 shadow-lg">
+    <div class="card-body text-center p-5">
+        <i class="fas fa-briefcase text-contrast-muted mb-3" style="font-size: 4rem;"></i>
+        <h4 class="text-contrast-primary mb-3">No Services Yet</h4>
+        <p class="text-contrast-secondary mb-4">Start showcasing your professional services to attract clients and projects.</p>
+        <a href="{{ url_for('services.add_service') }}" class="btn btn-gold-gradient px-4 py-2">
+            <i class="fas fa-plus-circle me-2"></i>Add Your First Service
+        </a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,207 @@
+{% extends "dashboard/base.html" %}
+{% block title %}User Details - {{ target_user.username }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h2 class="mb-1 text-gold;">User Profile: {{ target_user.username }}</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ url_for('dashboard.users') }}" class="text-gold">Users Management</a></li>
+                            <li class="breadcrumb-item active" aria-current="page" class="text-dark-soft">User Details</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="d-flex gap-2">
+                    <a href="{{ url_for('portfolio.user_portfolio', username=target_user.username) }}" class="btn btn-sm btn-outline-light btn-sm-custom" target="_blank">
+                        <i class="fas fa-external-link-alt me-1"></i> Public Portfolio
+                    </a>
+                    <form action="{{ url_for('dashboard.toggle_user_demo', user_id=target_user.id) }}" method="POST">
+                        <button type="submit" class="btn btn-sm btn-gold-gradient">
+                            <i class="fas fa-toggle-on me-1"></i> {{ 'Switch to Full Access' if target_user.is_demo else 'Switch to Demo Mode' }}
+                        </button>
+                    </form>
+                    <form action="{{ url_for('dashboard.toggle_user_verification', user_id=target_user.id) }}" method="POST">
+                        <button type="submit" class="btn btn-sm {% if is_verified %}btn-success{% else %}btn-gold-outline{% endif %}">
+                            <i class="fas fa-shield-alt me-1"></i> {{ 'Disable Badge' if is_verified else 'Enable Badge' }}
+                        </button>
+                    </form>
+                    {% if target_user.username != 'admin' %}
+                    <form action="{{ url_for('dashboard.delete_user', user_id=target_user.id) }}" method="POST" onsubmit="return confirm('⚠️ Are you sure you want to delete this user?');">
+                        <button type="submit" class="btn btn-danger btn-sm btn-sm-custom">
+                            <i class="fas fa-trash-alt me-1"></i> Delete User
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100 shadow-sm bg-card border-secondary-light">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 me-3">
+                            <div class="avatar-sm rounded-circle p-3 bg-gold-lighter">
+                                <i class="fas fa-project-diagram fa-2x icon-gold"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-muted mb-1">Total Projects</h6>
+                            <h3 class="mb-0 text-white-primary">{{ stats.projects_count }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100 shadow-sm bg-card border-secondary-light">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 me-3">
+                            <div class="avatar-sm rounded-circle p-3 bg-gold-lighter">
+                                <i class="fas fa-users fa-2x icon-gold"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-muted mb-1">Total Clients</h6>
+                            <h3 class="mb-0 text-white-primary">{{ stats.clients_count }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100 shadow-sm bg-card border-secondary-light">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 me-3">
+                            <div class="avatar-sm rounded-circle p-3 bg-gold-lighter">
+                                <i class="fas fa-envelope fa-2x icon-gold"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-muted mb-1">Messages</h6>
+                            <h3 class="mb-0 text-white-primary">{{ stats.messages_count }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100 shadow-sm bg-card border-secondary-light">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 me-3">
+                            <div class="avatar-sm rounded-circle p-3 bg-gold-lighter">
+                                <i class="fas fa-chart-line fa-2x icon-gold"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-muted mb-1">Total Visitors</h6>
+                            <h3 class="mb-0 text-white-primary">{{ stats.visitors_total }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- User Info -->
+        <div class="col-lg-6">
+            <div class="card mb-4 shadow-sm bg-card border-secondary-light">
+                <div class="card-header border-gold-subtle-bottom">
+                    <h5 class="mb-0 text-gold">Basic Information</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush bg-transparent">
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-2 list-item-divider">
+                            <span class="text-muted">Username</span>
+                            <span class="text-white-semibold">{{ target_user.username }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-2 list-item-divider">
+                            <span class="text-muted">Email</span>
+                            <span class="text-white-semibold">{{ target_user.email }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-2 list-item-divider">
+                            <span class="text-muted">Role</span>
+                            <span class="badge badge-gold">{{ target_user.role|upper }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-2 list-item-divider">
+                            <span class="text-muted">Created At</span>
+                            <span class="text-white-primary">{{ target_user.created_at }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 bg-transparent">
+                            <span class="text-muted">Access Level</span>
+                            {% if target_user.is_demo %}
+                            <span class="badge badge-gold">DEMO MODE</span>
+                            {% else %}
+                            <span class="badge badge-gold-gradient">FULL ACCESS</span>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Activity -->
+        <div class="col-lg-6">
+            <div class="card mb-4 shadow-sm bg-card border-secondary-light">
+                <div class="card-header border-gold-subtle-bottom">
+                    <h5 class="mb-0 text-gold">Platform Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Skills Count</span>
+                            <span class="text-gold">{{ stats.skills_count }}</span>
+                        </div>
+                        <div class="progress progress-custom">
+                            <div class="progress-bar progress-bar-gradient" role="progressbar" data-progress="{{ (stats.skills_count / 20 * 100)|round if stats.skills_count < 20 else 100 }}"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Projects Capacity</span>
+                            <span class="text-gold">{{ stats.projects_count }}</span>
+                        </div>
+                        <div class="progress progress-custom">
+                            <div class="progress-bar progress-bar-gradient" role="progressbar" data-progress="{{ (stats.projects_count / 10 * 100)|round if stats.projects_count < 10 else 100 }}"></div>
+                        </div>
+                    </div>
+                    <div class="text-center py-3">
+                        <p class="text-muted mb-0 small"><i class="fas fa-info-circle me-1"></i> This data represents the user's current engagement on the platform.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255,255,255,0.3);
+    }
+    .card {
+        transition: transform 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.progress-bar[data-progress]').forEach(function(el) {
+        var val = parseFloat(el.getAttribute('data-progress')) || 0;
+        el.style.width = val + '%';
+    });
+});
+</script>
+{% endblock %}

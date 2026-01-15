@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" data-portfolio-theme="{{ current_theme }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.title }} - {{ data.name }} Portfolio</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='themes/' + current_theme + '.css') }}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Contrast Enhancement CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/utilities/contrast-enhancement.css') }}">
+    
+    <style>
+        .project-detail-hero {
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, rgba(13,13,13,0.98) 0%, rgba(22,22,22,0.98) 100%);
+            position: relative;
+            color: #FFFFFF;
+        }
+        
+        .project-meta-card {
+            background: linear-gradient(135deg, rgba(18,18,18,0.95) 0%, rgba(16,16,16,0.95) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.12);
+            border-radius: 20px;
+            padding: 30px;
+            height: 100%;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            color: #E8E8E8;
+        }
+        
+        .project-main-image {
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 8px solid rgba(212, 175, 55, 0.05);
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+        }
+        
+        .tech-pill {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(212, 175, 55, 0.14);
+            color: #FFD700 !important;
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0 8px 8px 0;
+        }
+        
+        .content-box {
+            line-height: 1.8;
+            color: #D8D8D8 !important;
+            font-size: 1.1rem;
+        }
+        
+        .back-nav {
+            margin-bottom: 20px;
+        }
+        
+        .back-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .back-nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        .project-gallery-slider::-webkit-scrollbar,
+        .service-gallery-slider::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .project-gallery-slider::-webkit-scrollbar-track,
+        .service-gallery-slider::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .project-gallery-slider::-webkit-scrollbar-thumb,
+        .service-gallery-slider::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.5);
+            border-radius: 10px;
+        }
+        
+        .project-gallery-slider::-webkit-scrollbar-thumb:hover,
+        .service-gallery-slider::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.7);
+        }
+        
+        .gallery-dot {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-dot:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body data-portfolio-theme="{{ current_theme }}">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="/portfolio/{{ data.username }}" title="Back to Portfolio">
+                <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx Academy" class="navbar-logo">
+                <div class="brand-text">
+                    <span class="brand-name">Codexx Academy</span>
+                    <span class="brand-subtitle d-none d-md-block">Project Details</span>
+                </div>
+            </a>
+            <div class="ms-auto d-flex gap-2">
+                <a href="/portfolio/{{ data.username }}" class="btn btn-outline-gold btn-sm rounded-pill">
+                    <i class="fas fa-arrow-left me-1"></i><span class="d-none d-sm-inline">Portfolio</span>
+                </a>
+                <a href="{{ url_for('pages.index') }}" class="btn btn-gold btn-sm rounded-pill">
+                    <i class="fas fa-th-large me-1"></i><span class="d-none d-sm-inline">Directory</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="project-detail-hero">
+        <div class="container">
+            <div class="back-nav">
+                <a href="/portfolio/{{ data.username }}#projects" class="text-contrast-secondary">
+                </a>
+            </div>
+            
+            <div class="row g-5">
+                <div class="col-lg-7">
+                    <h1 class="display-4 fw-bold mb-4 portfolio-title text-contrast-primary">{{ project.title }}</h1>
+                    {% set project_type = project.project_type or 'portfolio' %}
+                    {% set badge = project.badge or 'completed' %}
+                    <div class="mb-4">
+                        {% if badge == 'completed' %}
+                        <span class="hero-badge d-inline-block px-3 py-1 rounded-pill me-2" style="background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);">
+                            <i class="fas fa-check-circle me-2"></i>Completed Project
+                        </span>
+                        {% elif badge == 'request' %}
+                        <span class="hero-badge d-inline-block px-3 py-1 rounded-pill me-2" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3);">
+                            <i class="fas fa-hand-holding-usd me-2"></i>Project Request
+                        </span>
+                        {% elif badge == 'training' %}
+                        <span class="hero-badge d-inline-block px-3 py-1 rounded-pill me-2" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);">
+                            <i class="fas fa-graduation-cap me-2"></i>Training / Skill Demo
+                        </span>
+                        {% elif badge == 'service_result' %}
+                        <span class="hero-badge d-inline-block px-3 py-1 rounded-pill me-2" style="background: rgba(212, 175, 55, 0.1); color: #d4af37; border: 1px solid rgba(212, 175, 55, 0.3);">
+                            <i class="fas fa-star me-2"></i>Service Showcase
+                        </span>
+                        {% endif %}
+                        <span class="badge bg-secondary px-3 py-1 rounded-pill">
+                            {{ project_type|title|replace('_', ' ') }}
+                        </span>
+                    </div>
+                    
+                    <div class="mb-5">
+                        <!-- Main Image or Gallery Slider -->
+                        {% if project.gallery and project.gallery|length > 0 %}
+                            <!-- Gallery Slider -->
+                            <div class="project-gallery-container position-relative">
+                                <div class="project-gallery-slider d-flex overflow-auto" data-total-slides="{{ (1 if project.image else 0) + (project.gallery|length if project.gallery else 0) }}" style="scroll-behavior: smooth; scrollbar-width: thin; gap: 12px; padding: 8px 0;">
+                                    <!-- Main image first -->
+                                    {% if project.image %}
+                                    <div class="gallery-item flex-shrink-0" style="width: 100%; min-width: 100%;">
+                                        <img src="{{ url_for('static', filename=project.image.replace('static/', '')) if project.image.startswith('static/') else project.image }}" 
+                                             alt="{{ project.title }}" 
+                                             class="project-main-image w-100"
+                                             style="border-radius: 16px; box-shadow: 0 12px 32px rgba(0,0,0,0.4);">
+                                    </div>
+                                    {% endif %}
+                                    
+                                    <!-- Gallery images -->
+                                    {% for gallery_img in project.gallery %}
+                                    <div class="gallery-item flex-shrink-0" style="width: 100%; min-width: 100%;">
+                                        <img src="{{ url_for('static', filename=gallery_img.replace('static/', '')) if gallery_img.startswith('static/') else gallery_img }}" 
+                                             alt="{{ project.title }} - Image {{ loop.index }}" 
+                                             class="project-main-image w-100"
+                                             style="border-radius: 16px; box-shadow: 0 12px 32px rgba(0,0,0,0.4);">
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                
+                                <!-- Navigation dots -->
+                                {% set total_images = (1 if project.image else 0) + (project.gallery|length if project.gallery else 0) %}
+                                {% if total_images > 1 %}
+                                <div class="gallery-dots d-flex justify-content-center gap-2 mt-3">
+                                    {% for i in range(total_images) %}
+                                    <button class="gallery-dot btn btn-sm rounded-pill {% if loop.first %}active{% endif %}" 
+                                            data-slide="{{ loop.index0 }}"
+                                            {% if loop.first %}
+                                            style="width: 10px; height: 10px; padding: 0; background: rgba(212, 175, 55, 0.8); border: none; transition: all 0.3s ease;"
+                                            {% else %}
+                                            style="width: 10px; height: 10px; padding: 0; background: rgba(255, 255, 255, 0.3); border: none; transition: all 0.3s ease;"
+                                            {% endif %}></button>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <!-- Single main image -->
+                            {% if project.image and (project.image.startswith('static/') or project.image.startswith('attached_assets/')) %}
+                                <img src="{{ url_for('static', filename=project.image.replace('static/', '')) if project.image.startswith('static/') else project.image }}" alt="{{ project.title }}" class="project-main-image">
+                            {% else %}
+                                <img src="{{ project.image or url_for('static', filename='assets/project-placeholder.svg') }}" alt="{{ project.title }}" class="project-main-image">
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="project-content-formatted content-box">
+                        {{ (project.content or project.description)|safe }}
+                    </div>
+                </div>
+                
+                <div class="col-lg-5">
+                    <div class="project-meta-card sticky-top" style="top: 100px;">
+                        <h4 class="mb-4 fw-bold portfolio-title">Project Intelligence</h4>
+                        
+                        <div class="mb-4">
+                            <label class="text-contrast-muted small text-uppercase fw-bold mb-2 d-block">Project Type</label>
+                            <p class="mb-3">
+                                <span class="badge bg-secondary px-3 py-2">{{ project_type|title|replace('_', ' ') }}</span>
+                            </p>
+                        </div>
+                        
+                        {% if project.request_budget_min or project.request_budget_max %}
+                        <div class="mb-4">
+                            <label class="text-contrast-muted small text-uppercase fw-bold mb-2 d-block">Budget Range</label>
+                            <p class="mb-0 text-white">
+                                {% if project.request_budget_min and project.request_budget_max %}
+                                    ${{ project.request_budget_min }} - ${{ project.request_budget_max }}
+                                {% elif project.request_budget_min %}
+                                    From ${{ project.request_budget_min }}
+                                {% elif project.request_budget_max %}
+                                    Up to ${{ project.request_budget_max }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        {% endif %}
+                        
+                        {% if project.request_deadline %}
+                        <div class="mb-4">
+                            <label class="text-contrast-muted small text-uppercase fw-bold mb-2 d-block">Deadline</label>
+                            <p class="mb-0 text-white">{{ project.request_deadline }}</p>
+                        </div>
+                        {% endif %}
+                        
+                        {% if project.service_id %}
+                        <div class="mb-4">
+                            <label class="text-contrast-muted small text-uppercase fw-bold mb-2 d-block">Related Service</label>
+                            <p class="mb-0 text-white">
+                                <a href="/services/{{ data.username }}/{{ project.service_id }}" class="text-gold text-decoration-none">
+                                    View Service <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </p>
+                        </div>
+                        {% endif %}
+                        
+                        {% if project.skill_related %}
+                        <div class="mb-4">
+                            <label class="text-contrast-muted small text-uppercase fw-bold mb-2 d-block">Related Skills</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                {% for skill in project.skill_related %}
+                                    <span class="badge bg-soft-gold border-gold-soft px-3">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="mb-4">
+                            <label class="text-contrast-muted small text-uppercase fw-bold mb-2 d-block">Core Objective</label>
+                            <p class="mb-0 project-description">{{ project.short_description or 'Professional execution of technical requirements to deliver high-impact results.' }}</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="text-contrast-muted small text-uppercase fw-bold mb-3 d-block">Technology Stack</label>
+                            <div class="tech-stack">
+                                {% if project.technologies %}
+                                    {% for tech in project.technologies %}
+                                        <span class="tech-pill">{{ tech }}</span>
+                                    {% endfor %}
+                                {% else %}
+                                    <span class="portfolio-meta">General Development Stack</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-3">
+                            {% if project.demo_url and project.demo_url != '#' %}
+                            <a href="{{ project.demo_url }}" target="_blank" class="btn btn-gold-gradient btn-lg rounded-pill">
+                                <i class="fas fa-external-link-alt me-2"></i>Launch Live Preview
+                            </a>
+                            {% endif %}
+                            
+                            {% if project.github_url and project.github_url != '#' %}
+                            <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline-gold btn-lg rounded-pill">
+                                <i class="fab fa-github me-2"></i>Review Source Code
+                            </a>
+                            {% endif %}
+                            
+                            <a href="/portfolio/{{ data.username }}#contact" class="btn btn-gold-gradient btn-lg rounded-pill">
+                                <i class="fas fa-paper-plane me-2"></i>Discuss Project
+                            </a>
+                        </div>
+                        
+                        {% if data.projects and data.projects|length > 1 %}
+                        <div class="mt-5 pt-4 border-top">
+                            <h6 class="portfolio-meta small text-uppercase fw-bold mb-3">Other Evidence</h6>
+                            <div class="other-projects">
+                                {% for other in data.projects %}
+                                    {% if other.id != project.id %}
+                                    <a href="/portfolio/{{ data.username }}/project/{{ other.id }}" class="d-flex align-items-center p-2 rounded hover-bg-light text-decoration-none mb-2 border">
+                                        {% if other.image and (other.image.startswith('static/') or other.image.startswith('attached_assets/')) %}
+                                            <img src="{{ url_for('static', filename=other.image.replace('static/', '')) if other.image.startswith('static/') else other.image }}" style="width: 40px; height: 40px; object-fit: cover;" class="rounded me-3">
+                                        {% else %}
+                                            <img src="{{ other.image or url_for('static', filename='assets/project-placeholder.svg') }}" style="width: 40px; height: 40px; object-fit: cover;" class="rounded me-3">
+                                        {% endif %}
+                                        <span class="text-primary small fw-bold">{{ other.title }}</span>
+                                    </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="portfolio-footer mt-5">
+        <div class="container footer-inner">
+            <div class="footer-left">
+                <a class="d-flex align-items-center text-decoration-none" href="{{ url_for('pages.index') }}">
+                    <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx Academy" class="brand-sm me-3">
+                    <div>
+                        <p class="footer-legal mb-0">&copy; {{ current_year }} Codexx Academy. Built for Builders.</p>
+                        <p class="mb-0" style="color:#A8A8A8; font-size:0.85rem;">Bring evidence to the forefront of your profession</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="footer-links">
+                <a href="/privacy" class="text-decoration-none">Privacy</a>
+                <a href="/terms" class="text-decoration-none">Terms</a>
+            </div>
+
+            <div class="footer-right">
+                <div class="tagline">Verified Case Studies</div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    
+    <!-- Gallery Slider Script -->
+    {% if project.gallery and project.gallery|length > 0 %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.project-gallery-slider');
+            const dots = document.querySelectorAll('.gallery-dot');
+            let currentSlide = 0;
+            const totalSlides = slider ? Number(slider.dataset.totalSlides || 0) : 0;
+            
+            function scrollToSlide(index) {
+                if (slider) {
+                    const slideWidth = slider.offsetWidth;
+                    slider.scrollTo({
+                        left: slideWidth * index,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                dots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.add('active');
+                        dot.style.background = 'rgba(212, 175, 55, 0.8)';
+                    } else {
+                        dot.classList.remove('active');
+                        dot.style.background = 'rgba(255, 255, 255, 0.3)';
+                    }
+                });
+                
+                currentSlide = index;
+            }
+            
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    scrollToSlide(index);
+                });
+            });
+            
+            if (totalSlides > 1) {
+                setInterval(function() {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    scrollToSlide(currentSlide);
+                }, 5000);
+            }
+            
+            let startX = 0;
+            let isDown = false;
+            
+            if (slider) {
+                slider.addEventListener('mousedown', function(e) {
+                    isDown = true;
+                    startX = e.pageX - slider.offsetLeft;
+                });
+                
+                slider.addEventListener('mouseleave', function() {
+                    isDown = false;
+                });
+                
+                slider.addEventListener('mouseup', function() {
+                    isDown = false;
+                });
+                
+                slider.addEventListener('mousemove', function(e) {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - slider.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    slider.scrollLeft -= walk;
+                });
+            }
+        });
+    </script>
+    {% endif %}
+</body>
+</html>

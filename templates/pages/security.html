@@ -1,0 +1,52 @@
+{% extends "public_base.html" %}
+
+{% block content %}
+<section class="section-padding hero" style="padding-top: 120px; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 70%); min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-5 rounded-4 border" style="background: rgba(13, 13, 13, 0.9); border-color: rgba(212, 175, 55, 0.2) !important; backdrop-filter: blur(10px);">
+                    <div class="text-center mb-5">
+                        <div class="mb-4">
+                            <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx Academy Logo" style="height: 100px; width: auto; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));">
+                        </div>
+                        <h1 class="display-4 gold-text mb-3">Security Audit</h1>
+                        <p class="text-gold small fw-bold"><i class="fas fa-lock me-1"></i> Protecting Your Private Workspace</p>
+                        <div class="footer-divider mx-auto"></div>
+                    </div>
+                    
+                    <div class="text-secondary" style="line-height: 1.8; font-size: 1rem;">
+                        <div class="row g-5 align-items-center mb-5">
+                            <div class="col-md-6">
+                                <h2 class="text-white h4 mb-4">Operational Security</h2>
+                                <p>Codexx Academy is built on a "Private Execution" model. This means your dashboard, client list, and internal notes are protected by multi-layer security protocols.</p>
+                                <ul class="list-unstyled small">
+                                    <li class="mb-2"><i class="fas fa-check gold-text me-2"></i> Secure Session Management</li>
+                                    <li class="mb-2"><i class="fas fa-check gold-text me-2"></i> Database Encryption at Rest</li>
+                                    <li class="mb-2"><i class="fas fa-check gold-text me-2"></i> Rate-Limited Access Attempts</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-4 rounded border text-center" style="background: rgba(40, 167, 69, 0.03); border-color: rgba(40, 167, 69, 0.2);">
+                                    <i class="fas fa-shield-virus fa-3x mb-3" style="color: #28a745;"></i>
+                                    <h4 class="text-white h5">Automated Audits</h4>
+                                    <p class="small mb-0">Our system performs hourly backups and security checks to ensure the integrity of your data. We monitor for unusual activity to protect your private operations.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded border" style="background: rgba(212, 175, 55, 0.05); border-color: rgba(212, 175, 55, 0.2);">
+                            <h3 class="text-white h5 mb-3 text-center">Your Privacy is Final</h3>
+                            <p class="small mb-0 text-center">We do not sell data. We do not track you for advertising. Your operational data is used only to provide you with the tools you need to execute your work. Public portfolios only show what you explicitly choose to publish.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-5">
+                        <a href="/" class="btn btn-gold btn-sm px-5">Return Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "public_base.html" %}
+
+{% block title %}How to get Chat ID | Codexx Academy Guide{% endblock %}
+
+{% block content %}
+<section class="section-padding hero" style="padding-top: 120px; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 70%); min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="text-center mb-5">
+                    <h1 class="display-4 fw-900 text-white mb-3">Telegram <span class="text-gold">Chat ID</span> Guide</h1>
+                    <p class="lead opacity-75">Obtain your unique Chat ID to receive instant notifications from your portfolio bot.</p>
+                </div>
+
+                <div class="card bg-black border-gold-soft p-4 p-md-5 mb-5 shadow-lg">
+                    <div class="row g-5">
+                        <div class="col-md-6">
+                            <div class="step-card mb-4">
+                                <h3 class="text-gold mb-3"><span class="badge bg-gold text-black me-2">1</span> Start Your Bot</h3>
+                                <p class="text-white opacity-90">Open a chat with the bot you just created and click <strong>"Start"</strong> or send <code>/start</code>.</p>
+                            </div>
+                            <div class="step-card mb-4">
+                                <h3 class="text-gold mb-3"><span class="badge bg-gold text-black me-2">2</span> Find ID Bot</h3>
+                                <p class="text-white opacity-90">Search for <strong>@userinfobot</strong> or <strong>@GetMyIDBot</strong> in Telegram.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="step-card mb-4">
+                                <h3 class="text-gold mb-3"><span class="badge bg-gold text-black me-2">3</span> Get Your ID</h3>
+                                <p class="text-white opacity-90">Start a chat with the ID bot. It will immediately reply with your <strong>User ID</strong> (a series of numbers like <code class="text-gold">123456789</code>).</p>
+                            </div>
+                            <div class="step-card mb-4">
+                                <h3 class="text-gold mb-3"><span class="badge bg-gold text-black me-2">4</span> Input in Dashboard</h3>
+                                <p class="text-white opacity-90">Copy this number and paste it into the <strong>Telegram Chat ID</strong> field in your dashboard settings.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-5 text-center">
+                        <a href="{{ url_for('dashboard.settings') }}" class="btn btn-gold-gradient px-5 py-3 rounded-pill fw-bold">Back to Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .border-gold-soft { border: 1px solid rgba(212, 175, 55, 0.2); }
+    .bg-gold { background-color: #D4AF37; }
+    .text-gold { color: #D4AF37; }
+    .fw-900 { font-weight: 900; }
+    .opacity-90 { opacity: 0.9 !important; }
+    .step-card { border-left: 3px solid rgba(212, 175, 55, 0.3); padding-left: 20px; }
+</style>
+{% endblock %}

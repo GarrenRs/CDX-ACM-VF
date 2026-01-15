@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" data-portfolio-theme="{{ current_theme }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ service.title }} - {{ data.name }} Services</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='themes/' + current_theme + '.css') }}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Contrast Enhancement CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/utilities/contrast-enhancement.css') }}">
+    
+    <style>
+        .service-detail-hero {
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, rgba(13,13,13,0.98) 0%, rgba(22,22,22,0.98) 100%);
+            position: relative;
+            color: #FFFFFF;
+        }
+        
+        .service-meta-card {
+            background: linear-gradient(135deg, rgba(18,18,18,0.95) 0%, rgba(16,16,16,0.95) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.12);
+            border-radius: 20px;
+            padding: 30px;
+            height: 100%;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            color: #E8E8E8;
+        }
+        
+        .service-main-image {
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 8px solid rgba(212, 175, 55, 0.05);
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+        }
+        
+        .content-box {
+            line-height: 1.8;
+            color: #D8D8D8 !important;
+            font-size: 1.1rem;
+        }
+        
+        .deliverable-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(212, 175, 55, 0.08);
+            border-left: 3px solid rgba(212, 175, 55, 0.5);
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .deliverable-item i {
+            color: #D4AF37;
+            margin-right: 12px;
+        }
+        
+        .service-gallery-slider::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .service-gallery-slider::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .service-gallery-slider::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.5);
+            border-radius: 10px;
+        }
+        
+        .service-gallery-slider::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.7);
+        }
+        
+        .gallery-dot {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-dot:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body data-portfolio-theme="{{ current_theme }}">
+    <!-- Navigation -->
+    <nav class="navbar navbar-dark fixed-top shadow-sm" id="mainNav" style="background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(212,175,55,0.15);">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/portfolio/{{ username }}">
+                <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx Academy" style="height: 40px; filter: sepia(100%) saturate(300%) brightness(1) hue-rotate(5deg);">
+                <div>
+                    <span class="d-block fw-bold" style="color: #D4AF37; font-size: 1.1rem;">Codexx Academy</span>
+                    <small class="d-block text-muted" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px;">Service Details</small>
+                </div>
+            </a>
+            <div class="d-flex gap-2">
+                <a href="/services/{{ username }}" class="btn btn-outline-gold btn-sm rounded-pill">
+                    <i class="fas fa-th-large me-1"></i><span class="d-none d-sm-inline">Services</span>
+                </a>
+                <a href="/portfolio/{{ username }}" class="btn btn-outline-gold btn-sm rounded-pill">
+                    <i class="fas fa-briefcase me-1"></i><span class="d-none d-sm-inline">Portfolio</span>
+                </a>
+                <a href="{{ url_for('pages.index') }}" class="btn btn-gold btn-sm rounded-pill">
+                    <i class="fas fa-home me-1"></i><span class="d-none d-sm-inline">Home</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Service Detail Hero -->
+    <section class="service-detail-hero">
+        <div class="container">
+            <div class="back-nav">
+                <a href="/services/{{ username }}">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Services
+                </a>
+            </div>
+            
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <!-- Main Image or Gallery Slider -->
+                    {% if service.gallery and service.gallery|length > 0 %}
+                        <!-- Gallery Slider -->
+                        <div class="service-gallery-container position-relative">
+                            <div class="service-gallery-slider d-flex overflow-auto" data-total-slides="{{ (1 if service.image else 0) + (service.gallery|length if service.gallery else 0) }}" style="scroll-behavior: smooth; scrollbar-width: thin; gap: 12px; padding: 8px 0;">
+                                <!-- Main image first -->
+                                {% if service.image %}
+                                <div class="gallery-item flex-shrink-0" style="width: 100%; min-width: 100%;">
+                                    <img src="{{ url_for('static', filename=service.image.replace('static/', '')) if service.image.startswith('static/') else service.image }}" 
+                                         alt="{{ service.title }}" 
+                                         class="service-main-image w-100"
+                                         style="border-radius: 16px; box-shadow: 0 12px 32px rgba(0,0,0,0.4);">
+                                </div>
+                                {% endif %}
+                                
+                                <!-- Gallery images -->
+                                {% for gallery_img in service.gallery %}
+                                <div class="gallery-item flex-shrink-0" style="width: 100%; min-width: 100%;">
+                                    <img src="{{ url_for('static', filename=gallery_img.replace('static/', '')) if gallery_img.startswith('static/') else gallery_img }}" 
+                                         alt="{{ service.title }} - Image {{ loop.index }}" 
+                                         class="service-main-image w-100"
+                                         style="border-radius: 16px; box-shadow: 0 12px 32px rgba(0,0,0,0.4);">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            
+                            <!-- Navigation dots -->
+                            {% set total_images = (1 if service.image else 0) + (service.gallery|length if service.gallery else 0) %}
+                            {% if total_images > 1 %}
+                            <div class="gallery-dots d-flex justify-content-center gap-2 mt-3">
+                                {% for i in range(total_images) %}
+                                <button class="gallery-dot btn btn-sm rounded-pill {% if loop.first %}active{% endif %}" 
+                                        data-slide="{{ loop.index0 }}"
+                                        {% if loop.first %}
+                                        style="width: 10px; height: 10px; padding: 0; background: rgba(212, 175, 55, 0.8); border: none; transition: all 0.3s ease;"
+                                        {% else %}
+                                        style="width: 10px; height: 10px; padding: 0; background: rgba(255, 255, 255, 0.3); border: none; transition: all 0.3s ease;"
+                                        {% endif %}></button>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <!-- Single main image -->
+                        {% if service.image %}
+                            {% if service.image.startswith('static/') %}
+                                <img src="{{ url_for('static', filename=service.image.replace('static/', '')) }}" 
+                                     alt="{{ service.title }}" 
+                                     class="service-main-image">
+                            {% else %}
+                                <img src="{{ service.image }}" 
+                                     alt="{{ service.title }}" 
+                                     class="service-main-image">
+                            {% endif %}
+                        {% else %}
+                            <img src="{{ url_for('static', filename='assets/project-placeholder.svg') }}" 
+                                 alt="{{ service.title }}" 
+                                 class="service-main-image">
+                        {% endif %}
+                    {% endif %}
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="service-meta-card">
+                        <div class="mb-4">
+                            <span class="badge bg-soft-gold border-gold-soft px-3 py-2 mb-3">
+                                {{ service.category|title|replace('_', ' ') }}
+                            </span>
+                            {% if service.is_featured %}
+                                <span class="badge bg-gold-gradient px-3 py-2 mb-3 ms-2">
+                                    <i class="fas fa-star me-1"></i>Featured
+                                </span>
+                            {% endif %}
+                        </div>
+                        
+                        <h1 class="display-5 fw-bold mb-4 text-white">{{ service.title }}</h1>
+                        
+                        {% if service.short_description %}
+                            <p class="lead text-contrast-secondary mb-4">{{ service.short_description }}</p>
+                        {% endif %}
+                        
+                        <div class="mb-4">
+                            <h5 class="text-gold mb-3"><i class="fas fa-dollar-sign me-2"></i>Pricing</h5>
+                            {% if service.pricing_type == 'fixed' %}
+                                <p class="fs-4 text-white mb-0">{{ service.currency }} {{ service.price_min }}{% if service.price_max %} - {{ service.price_max }}{% endif %}</p>
+                            {% elif service.pricing_type == 'hourly' %}
+                                <p class="fs-4 text-white mb-0">{{ service.currency }} {{ service.price_min }}/hour{% if service.price_max %} - {{ service.price_max }}/hour{% endif %}</p>
+                            {% elif service.pricing_type == 'custom' %}
+                                <p class="fs-4 text-white mb-0">Custom Quote</p>
+                            {% elif service.pricing_type == 'free' %}
+                                <p class="fs-4 text-white mb-0">Free Consultation</p>
+                            {% else %}
+                                <p class="fs-4 text-white mb-0">Contact for Pricing</p>
+                            {% endif %}
+                        </div>
+                        
+                        {% if service.duration %}
+                        <div class="mb-4">
+                            <h5 class="text-gold mb-2"><i class="fas fa-clock me-2"></i>Duration</h5>
+                            <p class="text-white mb-0">{{ service.duration }}</p>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="d-grid gap-2">
+                            <a href="/portfolio/{{ username }}#contact" class="btn btn-gold-gradient btn-lg">
+                                <i class="fas fa-envelope me-2"></i>Contact for This Service
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Content -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    {% if service.description %}
+                    {% set sd = service.description|sanitize_about %}
+                    <div class="content-box mb-5">
+                        <h3 class="text-white mb-4">Service Description</h3>
+                        <div class="text-contrast-secondary">
+                            {{ sd|safe }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if service.deliverables %}
+                    <div class="mb-5">
+                        <h3 class="text-white mb-4">Deliverables</h3>
+                        {% for deliverable in service.deliverables %}
+                            <div class="deliverable-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-white">{{ deliverable }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    {% if service.skills_required %}
+                    <div class="mb-5">
+                        <h3 class="text-white mb-4">Related Skills</h3>
+                        <div>
+                            {% for skill in service.skills_required %}
+                                <span class="badge bg-soft-gold border-gold-soft px-3 py-2 me-2 mb-2" style="font-size: 0.9rem;">
+                                    {{ skill }}
+                                </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="service-meta-card">
+                        <h5 class="text-gold mb-4">Service Information</h5>
+                        
+                        <div class="mb-3">
+                            <small class="text-contrast-muted d-block mb-1">Category</small>
+                            <span class="text-white">{{ service.category|title|replace('_', ' ') }}</span>
+                        </div>
+                        
+                        {% if service.duration %}
+                        <div class="mb-3">
+                            <small class="text-contrast-muted d-block mb-1">Duration</small>
+                            <span class="text-white">{{ service.duration }}</span>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="mb-3">
+                            <small class="text-contrast-muted d-block mb-1">Pricing Type</small>
+                            <span class="text-white">{{ service.pricing_type|title|replace('_', ' ') }}</span>
+                        </div>
+                        
+                        <div class="mt-4 pt-4 border-top border-secondary">
+                            <a href="/portfolio/{{ username }}#contact" class="btn btn-gold-gradient w-100">
+                                <i class="fas fa-paper-plane me-2"></i>Get in Touch
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-center py-4">
+        <div class="container">
+            <p class="text-contrast-muted mb-0">
+                &copy; {{ current_year }} {{ data.name or username }}. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Gallery Slider Script -->
+    {% if service.gallery and service.gallery|length > 0 %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.service-gallery-slider');
+            const dots = document.querySelectorAll('.gallery-dot');
+            let currentSlide = 0;
+            const totalSlides = slider ? Number(slider.dataset.totalSlides || 0) : 0;
+            
+            function scrollToSlide(index) {
+                if (slider) {
+                    const slideWidth = slider.offsetWidth;
+                    slider.scrollTo({
+                        left: slideWidth * index,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                dots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.add('active');
+                        dot.style.background = 'rgba(212, 175, 55, 0.8)';
+                    } else {
+                        dot.classList.remove('active');
+                        dot.style.background = 'rgba(255, 255, 255, 0.3)';
+                    }
+                });
+                
+                currentSlide = index;
+            }
+            
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    scrollToSlide(index);
+                });
+            });
+            
+            if (totalSlides > 1) {
+                setInterval(function() {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    scrollToSlide(currentSlide);
+                }, 5000);
+            }
+            
+            let startX = 0;
+            let isDown = false;
+            
+            if (slider) {
+                slider.addEventListener('mousedown', function(e) {
+                    isDown = true;
+                    startX = e.pageX - slider.offsetLeft;
+                });
+                
+                slider.addEventListener('mouseleave', function() {
+                    isDown = false;
+                });
+                
+                slider.addEventListener('mouseup', function() {
+                    isDown = false;
+                });
+                
+                slider.addEventListener('mousemove', function(e) {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - slider.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    slider.scrollLeft -= walk;
+                });
+            }
+        });
+    </script>
+    {% endif %}
+</body>
+</html>

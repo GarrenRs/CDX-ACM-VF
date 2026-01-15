@@ -1,0 +1,124 @@
+
+{% extends "dashboard/base.html" %}
+
+{% block title %}Portfolio Gallery - Dashboard{% endblock %}
+
+{% block page_title %}Portfolio Gallery{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/utilities/contrast-enhancement.css') }}">
+<div class="page-title-section d-flex justify-content-between align-items-center mb-5">
+    <div>
+        <h1 class="display-6 fw-bold mb-2 text-contrast-primary">Portfolio Showcase</h1>
+        <p class="text-contrast-secondary fs-5 mb-0">Elevate your professional presence with verified proof-of-work</p>
+    </div>
+    <a href="{{ url_for('dashboard.add_project') }}" class="btn btn-gold-gradient shadow-lg px-4 py-2">
+        <i class="fas fa-plus-circle me-2"></i>Curate Project
+    </a>
+</div>
+
+{% if data.projects %}
+<div class="card border-0 shadow-lg overflow-hidden">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead class="bg-black-50">
+                    <tr>
+                        <th class="ps-4 py-4 text-uppercase letter-spacing-1">Visual Asset</th>
+                        <th class="py-4 text-uppercase letter-spacing-1">Intelligence Details</th>
+                        <th class="py-4 text-uppercase letter-spacing-1">Type & Badge</th>
+                        <th class="py-4 text-uppercase letter-spacing-1">Core Stack</th>
+                        <th class="text-end pe-4 py-4 text-uppercase letter-spacing-1">Operations</th>
+                    </tr>
+                </thead>
+                <tbody class="border-top-0">
+                    {% for project in data.projects %}
+                    <tr class="transition-all">
+                        <td class="ps-4 py-4 w-160px">
+                            <div class="position-relative hover-scale-sm">
+                                {% if project.image and project.image.startswith('static/') %}
+                                    <img src="{{ url_for('static', filename=project.image.replace('static/', '')) }}" 
+                                         class="rounded-3 shadow-sm border border-secondary img-130x80" alt="{{ project.title }}">
+                                {% else %}
+                                    <img src="{{ project.image or url_for('static', filename='assets/project-placeholder.svg') }}" 
+                                         class="rounded-3 shadow-sm border border-secondary img-130x80" alt="{{ project.title }}">
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="py-4">
+                            <h5 class="mb-1 fw-bold project-title">{{ project.title }}</h5>
+                            <p class="small project-description mb-0">{{ project.description[:100] if project.description else 'Technical intelligence pending...' }}</p>
+                        </td>
+                        <td class="py-4">
+                            {% set project_type = project.project_type or 'portfolio' %}
+                            {% set badge = project.badge or 'completed' %}
+                            <div class="d-flex flex-column gap-2">
+                                <span class="badge bg-secondary small px-3">
+                                    {{ project_type|title|replace('_', ' ') }}
+                                </span>
+                                <span class="badge small px-3" style="
+                                    {% if badge == 'completed' %}
+                                        background: rgba(16, 185, 129, 0.1);
+                                        color: #10b981;
+                                        border: 1px solid rgba(16, 185, 129, 0.3);
+                                    {% elif badge == 'request' %}
+                                        background: rgba(59, 130, 246, 0.1);
+                                        color: #3b82f6;
+                                        border: 1px solid rgba(59, 130, 246, 0.3);
+                                    {% elif badge == 'training' %}
+                                        background: rgba(245, 158, 11, 0.1);
+                                        color: #f59e0b;
+                                        border: 1px solid rgba(245, 158, 11, 0.3);
+                                    {% elif badge == 'service_result' %}
+                                        background: rgba(212, 175, 55, 0.1);
+                                        color: #d4af37;
+                                        border: 1px solid rgba(212, 175, 55, 0.3);
+                                    {% endif %}
+                                ">
+                                    <i class="fas {% if badge == 'completed' %}fa-check-circle{% elif badge == 'request' %}fa-hand-holding-usd{% elif badge == 'training' %}fa-graduation-cap{% elif badge == 'service_result' %}fa-star{% endif %} me-1"></i>
+                                    {% if badge == 'completed' %}Completed{% elif badge == 'request' %}Request{% elif badge == 'training' %}Training{% elif badge == 'service_result' %}Service{% endif %}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="py-4">
+                            <div class="d-flex flex-wrap gap-2">
+                                {% if project.technologies %}
+                                    {% for tech in project.technologies %}
+                                        <span class="badge bg-soft-gold border-gold-soft small px-3">{{ tech }}</span>
+                                    {% endfor %}
+                                {% else %}
+                                    <span class="portfolio-meta small italic">Standard Stack</span>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="text-end pe-4 py-4">
+                            <div class="btn-group-premium shadow-sm">
+                                <a href="{{ url_for('dashboard.edit_project', project_id=project.id) }}" class="btn-premium-action" title="Refine Intelligence">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{{ url_for('dashboard.delete_project', project_id=project.id) }}" class="btn-premium-action btn-premium-danger" 
+                                   onclick="return confirm('Archive this project intelligence?')" title="Archive">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+    <div class="card">
+        <div class="card-body text-center py-5">
+            <i class="fas fa-folder-open fa-4x text-contrast-muted mb-4"></i>
+            <h4 class="text-contrast-secondary">Your gallery is empty</h4>
+            <p class="portfolio-meta mb-4">Start by adding your first showcase item to demonstrate your capabilities to potential clients</p>
+            <a href="{{ url_for('dashboard.add_project') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-plus me-2"></i>Add First Showcase Item
+            </a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

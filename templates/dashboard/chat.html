@@ -1,0 +1,129 @@
+{% extends 'dashboard/base.html' %}
+{% block page_title %}
+    {% if session.get('is_admin') and target_user %}
+        <i class="fas fa-comments me-2 gold-text"></i> Chat with {{ target_user.username }}
+    {% else %}
+        <i class="fas fa-headset me-2 gold-text"></i> Academy Support
+    {% endif %}
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        {% if session.get('is_admin') %}
+        <div class="mb-3">
+            <a href="{{ url_for('dashboard.internal_messages') }}" class="btn btn-sm btn-outline-gold px-3">
+                <i class="fas fa-arrow-left me-1"></i> Back to Conversations
+            </a>
+        </div>
+        {% endif %}
+        
+        <div class="card glass-panel border-0 shadow-lg overflow-hidden">
+            <!-- Chat Header -->
+            <div class="p-3 border-bottom border-secondary d-flex align-items-center justify-content-between bg-black-50">
+                <div class="d-flex align-items-center">
+                    <div class="bg-gold-gradient rounded-circle p-2 me-3" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user text-black"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-0 text-white">{% if target_user %}{{ target_user.username }}{% else %}Academy Admin{% endif %}</h6>
+                        <small class="text-success animate-pulse"><i class="fas fa-circle font-size-xs me-1"></i> Active Support</small>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-link text-white opacity-50 p-0" data-bs-toggle="dropdown">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary shadow-lg">
+                        <li>
+                            <form action="{{ url_for('dashboard.internal_view', message_id=target_user.id if target_user else session.get('user_id')) }}" method="POST" onsubmit="return confirm('Are you sure you want to clear this chat history?');">
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="fas fa-trash-alt me-2"></i> Clear Chat History
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chat Messages Area -->
+            <div id="chat-container" class="chat-box p-4" style="height: 500px; overflow-y: auto; background: rgba(0,0,0,0.2);">
+                {% for chat in chats %}
+                    {% set is_me = (chat.sender_id == current_user_id or (session.get('is_admin') and chat.sender_id == 'admin')) %}
+                    <div class="d-flex {{ 'justify-content-end' if is_me else 'justify-content-start' }} mb-4">
+                        <div class="message-wrapper" style="max-width: 75%;">
+                            <div class="message-bubble px-3 py-2 rounded-4 {{ 'bg-gold-gradient text-black shadow-gold me-bubble' if is_me else 'bg-dark border border-secondary text-white shadow you-bubble' }}">
+                                {{ chat.message }}
+                            </div>
+                            <div class="{{ 'text-end' if is_me else 'text-start' }} mt-1">
+                                <small class="opacity-50 font-size-xs" style="font-size: 0.7rem;">
+                                    {{ chat.created_at.strftime('%H:%M') }}
+                                    {% if is_me %}<i class="fas fa-check-double ms-1 text-info"></i>{% endif %}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="text-center py-5 opacity-30">
+                        <i class="fas fa-comments fa-4x mb-3 gold-text"></i>
+                        <h5>No messages yet</h5>
+                        <p>Start the conversation below.</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Chat Input -->
+            <div class="p-3 bg-black-50 border-top border-secondary">
+                <form action="{{ request.path }}" method="POST" id="chat-form">
+                    <div class="input-group">
+                        <button type="button" class="btn btn-link text-white opacity-50 px-2">
+                            <i class="fas fa-paperclip"></i>
+                        </button>
+                        <input type="text" name="message" class="form-control bg-dark border-0 text-white rounded-pill mx-2 px-3" 
+                               placeholder="Type a message..." required autocomplete="off" style="box-shadow: none;">
+                        <input type="hidden" name="receiver_id" value="{{ 'admin' if not session.get('is_admin') else target_user.id }}">
+                        <button type="submit" class="btn btn-gold rounded-circle p-2" style="width: 40px; height: 40px;">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.bg-gold-gradient {
+    background: linear-gradient(135deg, #d4af37 0%, #f9e272 100%);
+}
+.shadow-gold {
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+}
+.font-size-xs {
+    font-size: 0.75rem;
+}
+.message-bubble {
+    position: relative;
+    word-wrap: break-word;
+}
+.bg-black-50 {
+    background: rgba(0,0,0,0.5);
+}
+#chat-container::-webkit-scrollbar {
+    width: 6px;
+}
+#chat-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+#chat-container::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.2);
+    border-radius: 10px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('chat-container');
+    container.scrollTop = container.scrollHeight;
+});
+</script>
+{% endblock %}

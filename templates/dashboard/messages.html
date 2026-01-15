@@ -1,0 +1,198 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Inbox - Dashboard{% endblock %}
+
+{% block page_title %}Inbox{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <!-- Header Card -->
+        <div class="card bg-dark border-0 shadow-lg mb-4" style="border-radius: 15px;">
+            <div class="card-body py-4">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <h4 class="mb-1 fw-bold gold-text">
+                            <i class="fas fa-inbox me-2"></i>
+                            {% if is_admin %}
+                                {% if current_category == 'platform' %}Academy Inquiries{% else %}All Inbox Messages{% endif %}
+                            {% else %}
+                                {% if current_category == 'portfolio' %}Portfolio Messages{% else %}All Inbox Messages{% endif %}
+                            {% endif %}
+                        </h4>
+                        <p class="text-muted mb-0 small">
+                            {% if is_admin %}
+                            Messages from visitors contacting the academy
+                            {% else %}
+                            Messages from visitors to your portfolio
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <!-- Category Filter -->
+                        <div class="btn-group btn-group-sm">
+                            <a href="{{ url_for('dashboard.messages', category='all') }}" 
+                               class="btn btn-outline-gold {% if not current_category or current_category == 'all' %}active{% endif %}">
+                                <i class="fas fa-layer-group me-1"></i>All
+                            </a>
+                            {% if is_admin %}
+                            <a href="{{ url_for('dashboard.messages', category='platform') }}" 
+                               class="btn btn-outline-gold {% if current_category == 'platform' %}active{% endif %}">
+                                <i class="fas fa-university me-1"></i>Platform
+                            </a>
+                            {% else %}
+                            <a href="{{ url_for('dashboard.messages', category='portfolio') }}" 
+                               class="btn btn-outline-gold {% if current_category == 'portfolio' %}active{% endif %}">
+                                <i class="fas fa-briefcase me-1"></i>Portfolio
+                            </a>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Link to Internal Messages -->
+                        <a href="{{ url_for('dashboard.internal_messages') }}" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-comments me-1"></i>Internal Chat
+                        </a>
+                        
+                        <div class="badge bg-dark border border-gold px-3 py-2">
+                            <i class="fas fa-envelope me-1"></i>{{ messages|length }} Messages
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Messages Card -->
+        <div class="card bg-dark border-0 shadow-lg" style="border-radius: 15px; overflow: hidden;">
+            <div class="card-body">
+                {% if messages %}
+                <div class="table-responsive">
+                    <table class="table table-hover messages-dark-rows">
+                        <thead class="bg-table-header">
+                            <tr>
+                                <th class="text-dark-header">
+                                    Status
+                                </th>
+                                <th class="text-dark-header">
+                                    Type / Area
+                                </th>
+                                <th class="text-dark-header">
+                                    Name
+                                </th>
+                                <th class="text-dark-header">
+                                    Email
+                                </th>
+                                <th class="text-dark-header preview-col">
+                                    Message Preview
+                                </th>
+                                <th class="text-dark-header">
+                                    Date
+                                </th>
+                                <th class="text-dark-header">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for message in messages %}
+                            <tr class="inbox-row {% if not message.read %}unread-row{% endif %}">
+                                <td class="py-3">
+                                    {% if message.read %}
+                                    <span class="badge bg-success" style="font-size: 0.7rem;">
+                                        <i class="fas fa-check-double me-1"></i>Read
+                                    </span>
+                                    {% else %}
+                                    <span class="badge bg-warning text-black" style="font-size: 0.7rem;">
+                                        <i class="fas fa-circle me-1"></i>New
+                                    </span>
+                                    {% endif %}
+                                </td>
+                                <td class="py-3">
+                                    {% if message.category == 'platform' %}
+                                    <span class="badge bg-primary" style="font-size: 0.7rem;">
+                                        <i class="fas fa-university me-1"></i>Academy
+                                    </span>
+                                    {% else %}
+                                    <span class="badge bg-success" style="font-size: 0.7rem;">
+                                        <i class="fas fa-briefcase me-1"></i>Portfolio
+                                    </span>
+                                    {% endif %}
+                                </td>
+                                <td class="py-3">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="avatar-circle bg-gold-gradient" style="width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-user text-black" style="font-size: 0.8rem;"></i>
+                                        </div>
+                                        <strong class="text-white">{{ message.name }}</strong>
+                                    </div>
+                                </td>
+                                <td class="py-3">
+                                    <a href="mailto:{{ message.email }}" class="text-info text-decoration-none small">
+                                        {{ message.email }}
+                                    </a>
+                                </td>
+                                <td class="py-3">
+                                    <span class="text-muted small text-truncate d-inline-block" style="max-width: 150px;">
+                                        {{ message.message[:40] }}{% if message.message|length > 40 %}...{% endif %}
+                                    </span>
+                                </td>
+                                <td class="py-3">
+                                    <small class="text-muted">{{ message.date }}</small>
+                                </td>
+                                <td class="py-3">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a href="{{ url_for('dashboard.view_message', message_id=message.id) }}"
+                                           class="btn btn-outline-gold" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ url_for('dashboard.delete_message', message_id=message.id) }}"
+                                           class="btn btn-outline-danger"
+                                           onclick="return confirm('Delete this message?')" title="Delete">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-inbox fa-4x mb-4 text-muted opacity-25"></i>
+                    <h5 class="text-white mb-2">No Messages Yet</h5>
+                    <p class="text-muted">
+                        {% if is_admin %}
+                        Messages from visitors contacting the academy will appear here.
+                        {% else %}
+                        Messages from visitors to your portfolio will appear here.
+                        {% endif %}
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .inbox-row {
+        transition: all 0.2s ease;
+        background: rgba(30, 30, 30, 0.5);
+    }
+    .inbox-row:hover {
+        background: rgba(212, 175, 55, 0.05);
+    }
+    .unread-row {
+        background: rgba(212, 175, 55, 0.08);
+        border-left: 3px solid #D4AF37;
+    }
+    .bg-gold-gradient {
+        background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+    }
+    .messages-dark-rows th {
+        background: rgba(0, 0, 0, 0.3);
+        color: #D4AF37;
+        border: none;
+    }
+</style>
+{% endblock %}

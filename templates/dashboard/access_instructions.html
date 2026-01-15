@@ -1,0 +1,94 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Access & Verification Standards{% endblock %}
+{% block page_title %}Access & Verification Standards{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow-sm border-0 mb-4" style="background: var(--card-bg); border-radius: 15px;">
+            <div class="card-body p-5">
+                <div class="text-center mb-5">
+                    <i class="fas fa-shield-alt fa-3x text-gold mb-3" style="color: var(--primary-gold);"></i>
+                    <h2 class="text-white">Academy Standards & Terms</h2>
+                    <p class="text-muted">Guidelines for Platform Access and Professional Verification</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="p-4 rounded-4 h-100" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.1);">
+                            <h4 class="text-gold mb-3"><i class="fas fa-key me-2"></i> How to Reach Full Access</h4>
+                            <p class="text-secondary">Full Access is granted to professionals who demonstrate consistent activity and technical readiness.</p>
+                            <ul class="text-secondary small">
+                                <li class="mb-2">Complete at least <strong>3 production-ready projects</strong> on your portfolio.</li>
+                                <li class="mb-2">Ensure all project descriptions and assets are fully populated.</li>
+                                <li class="mb-2">Maintain an active presence and respond to inquiries.</li>
+                            </ul>
+                            <div class="mt-3 p-2 rounded bg-dark border border-warning small text-warning text-center">
+                                <i class="fas fa-info-circle me-1"></i> Mode: Restricted (Demo) is default for new accounts.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="p-4 rounded-4 h-100" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.1);">
+                            <h4 class="text-gold mb-3"><i class="fas fa-award me-2"></i> The Verified Badge (POW)</h4>
+                            <p class="text-secondary">The "Verified Professional" badge is the highest trust indicator on Codexx Academy.</p>
+                            <ul class="text-secondary small">
+                                <li class="mb-2"><strong>Automated Audits:</strong> AI systems monitor portfolio quality, code proof, and activity.</li>
+                                <li class="mb-2"><strong>Visibility:</strong> Only "Verified" portfolios appear in the global gallery on the homepage.</li>
+                                <li class="mb-2"><strong>Manual Review:</strong> Final vetting is performed by Academy auditors to ensure "Proof of Work" standards.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-5" style="border-color: rgba(255,255,255,0.1);">
+
+                <div class="terms-section">
+                    <h5 class="text-white mb-4">Terms of Professional Usage</h5>
+                    <div class="accordion accordion-flush" id="termsAccordion">
+                        <div class="accordion-item bg-transparent border-0 mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-dark text-white rounded shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#term1">
+                                    1. Data Accuracy & Integrity
+                                </button>
+                            </h2>
+                            <div id="term1" class="accordion-collapse collapse" data-bs-parent="#termsAccordion">
+                                <div class="accordion-body text-secondary small">
+                                    All projects presented must be authentic "Proof of Work". Misrepresentation of skills or external projects as your own will lead to permanent removal.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg-transparent border-0 mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-dark text-white rounded shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#term2">
+                                    2. Communication Standards
+                                </button>
+                            </h2>
+                            <div id="term2" class="accordion-collapse collapse" data-bs-parent="#termsAccordion">
+                                <div class="accordion-body text-secondary small">
+                                    Direct communication with clients must remain professional. The platform serves as a bridge; however, the Academy's reputation is tied to your conduct.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <a href="{{ url_for('dashboard.index') }}" class="btn btn-outline-gold px-5">Return to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.accordion-button:not(.collapsed) {
+    background-color: rgba(212, 175, 55, 0.1) !important;
+    color: var(--primary-gold) !important;
+}
+.text-gold { color: var(--primary-gold); }
+.btn-outline-gold { border-color: var(--primary-gold); color: var(--primary-gold); }
+.btn-outline-gold:hover { background: var(--primary-gold); color: #000; }
+</style>
+{% endblock %}

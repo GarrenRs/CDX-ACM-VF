@@ -1,0 +1,79 @@
+{% extends "public_base.html" %}
+
+{% block title %}Verification Standards | Codexx Academy Professional Badge{% endblock %}
+{% block meta_description %}Understand what it means to be a Verified Professional at Codexx Academy. Digital identity, performance tracking, and internal selection criteria.{% endblock %}
+
+{% block content %}
+<div class="section-padding bg-black min-vh-100 d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="mb-5">
+                    <i class="fas fa-shield-alt fa-4x gold-text mb-4"></i>
+                    <h1 class="display-4 gold-text mb-3 fw-bold">Professional Verification Standard</h1>
+                    <p class="lead text-secondary-light">Behind every badge is a story of dedication and authentic execution.</p>
+                </div>
+
+                <div class="row g-4 text-start mt-5">
+                    <div class="col-md-6">
+                        <div class="info-card p-4 h-100" style="border-left: 3px solid var(--primary-gold); background: rgba(20, 20, 20, 0.8);">
+                            <h4 class="gold-text mb-3"><i class="fas fa-fingerprint me-2"></i> Digital Identity</h4>
+                            <p class="text-secondary small">Verification is not a routine procedure. It confirms the existence of a real entity behind the screen, possessing both vision and the capacity for execution.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-card p-4 h-100" style="border-left: 3px solid var(--primary-gold); background: rgba(20, 20, 20, 0.8);">
+                            <h4 class="gold-text mb-3"><i class="fas fa-history me-2"></i> Performance Tracking</h4>
+                            <p class="text-secondary small">We do not rely on promises, but on impact. Every portfolio is monitored to ensure continuous quality and commitment to high professional standards.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-card p-4 h-100" style="border-left: 3px solid var(--primary-gold); background: rgba(20, 20, 20, 0.8);">
+                            <h4 class="gold-text mb-3"><i class="fas fa-link me-2"></i> Direct Connectivity</h4>
+                            <p class="text-secondary small">The platform fosters absolute transparency. Interaction with verified portfolio owners is direct and free, bypassing the complexities of mediation.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-card p-4 h-100" style="border-left: 3px solid var(--primary-gold); background: rgba(20, 20, 20, 0.8);">
+                            <h4 class="gold-text mb-3"><i class="fas fa-filter me-2"></i> Internal Selection</h4>
+                            <p class="text-secondary small">We are a closed platform operating on internal filtering. Entering this professional circle requires specific criteria that go beyond mere registration.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 pt-5">
+                    <p class="text-secondary mb-4">Are you prepared to prove your professional worth?</p>
+                    <a href="{{ url_for('dashboard.contact') }}" class="btn btn-gold px-5 py-3">Inquire About Access</a>
+                    <a href="{{ url_for('pages.mastery') }}" class="btn btn-outline-gold px-5 py-3 ms-3">View Mastery Guide</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-secondary-light { color: #a0a0a0; }
+    .gold-text { color: var(--primary-gold) !important; }
+    .btn-gold {
+        background: var(--primary-gold);
+        color: black;
+        font-weight: bold;
+        border: none;
+        transition: all 0.3s ease;
+    }
+    .btn-gold:hover {
+        background: #c5a02d;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    }
+    .info-card {
+        border: 1px solid rgba(212, 175, 55, 0.1);
+        border-radius: 12px;
+        transition: transform 0.3s ease;
+    }
+    .info-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(212, 175, 55, 0.3);
+    }
+</style>
+{% endblock %}

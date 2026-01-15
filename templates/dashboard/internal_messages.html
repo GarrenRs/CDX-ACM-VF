@@ -1,0 +1,145 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Internal Messages - Dashboard{% endblock %}
+
+{% block page_title %}Internal Communications{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <!-- Header Card -->
+        <div class="card bg-dark border-0 shadow-lg mb-4" style="border-radius: 15px;">
+            <div class="card-body py-4">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <h4 class="mb-1 fw-bold gold-text">
+                            <i class="fas fa-comments me-2"></i>Internal Communications
+                        </h4>
+                        <p class="text-muted mb-0 small">Private conversations with {% if is_admin %}platform users{% else %}platform administration{% endif %}</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        {% if is_admin %}
+                        <span class="badge bg-info px-3 py-2">
+                            <i class="fas fa-shield-alt me-1"></i> Admin View
+                        </span>
+                        {% else %}
+                        <a href="{{ url_for('dashboard.internal_compose', receiver_id='admin') }}" class="btn btn-gold-gradient fw-bold px-4 shadow">
+                            <i class="fas fa-paper-plane me-2"></i> New Message to Admin
+                        </a>
+                        {% endif %}
+                        <div class="badge bg-dark border border-gold px-3 py-2">
+                            <i class="fas fa-inbox me-1"></i> {{ messages|length }} Conversations
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conversations List -->
+        <div class="card bg-dark border-0 shadow-lg" style="border-radius: 15px; overflow: hidden;">
+            {% if messages %}
+            <div class="list-group list-group-flush">
+                {% for message in messages %}
+                <a href="{{ url_for('dashboard.internal_view', message_id=message.id) }}" 
+                   class="list-group-item list-group-item-action bg-dark border-bottom border-secondary py-3 px-4 conversation-item {% if message.unread_count > 0 %}unread-conversation{% endif %}">
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- Avatar -->
+                        <div class="position-relative">
+                            <div class="avatar-circle {% if message.sender_role == 'admin' or message.display_name == 'Admin' %}bg-info-gradient{% else %}bg-gold-gradient{% endif %}" 
+                                 style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                {% if message.sender_role == 'admin' or message.display_name == 'Admin' %}
+                                <i class="fas fa-shield-alt text-white"></i>
+                                {% else %}
+                                <i class="fas fa-user text-black"></i>
+                                {% endif %}
+                            </div>
+                            {% if message.unread_count > 0 %}
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
+                                {{ message.unread_count }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="flex-grow-1 min-width-0">
+                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                <h6 class="mb-0 fw-bold {% if message.unread_count > 0 %}text-white{% else %}text-white-50{% endif %}">
+                                    {{ message.display_name }}
+                                    {% if message.sender_role == 'admin' or message.display_name == 'Admin' %}
+                                    <span class="badge bg-info ms-2" style="font-size: 0.6rem;">ADMIN</span>
+                                    {% endif %}
+                                </h6>
+                                <small class="text-muted flex-shrink-0 ms-2">{{ message.date }}</small>
+                            </div>
+                            <p class="mb-1 text-muted small text-truncate" style="max-width: 500px;">
+                                {{ message.message[:100] }}{% if message.message|length > 100 %}...{% endif %}
+                            </p>
+                            <div class="d-flex align-items-center gap-2">
+                                {% if message.reply_count > 0 %}
+                                <span class="badge bg-secondary" style="font-size: 0.65rem;">
+                                    <i class="fas fa-reply me-1"></i>{{ message.reply_count }} replies
+                                </span>
+                                {% endif %}
+                                {% if message.unread_count > 0 %}
+                                <span class="badge bg-warning text-black" style="font-size: 0.65rem;">
+                                    <i class="fas fa-circle me-1"></i>{{ message.unread_count }} unread
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Action Arrow -->
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-chevron-right text-gold opacity-50"></i>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="card-body text-center py-5">
+                <div class="py-5">
+                    <i class="fas fa-comments fa-4x mb-4 text-muted opacity-25"></i>
+                    <h5 class="text-white mb-2">No Conversations Yet</h5>
+                    <p class="text-muted mb-4">
+                        {% if is_admin %}
+                        Users haven't started any internal conversations yet.
+                        {% else %}
+                        Start a conversation with the platform administration.
+                        {% endif %}
+                    </p>
+                    {% if not is_admin %}
+                    <a href="{{ url_for('dashboard.internal_compose', receiver_id='admin') }}" class="btn btn-gold-gradient px-4">
+                        <i class="fas fa-paper-plane me-2"></i> Start Conversation
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .conversation-item {
+        transition: all 0.2s ease;
+    }
+    .conversation-item:hover {
+        background-color: rgba(212, 175, 55, 0.05) !important;
+        transform: translateX(5px);
+    }
+    .unread-conversation {
+        background: linear-gradient(90deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%) !important;
+        border-left: 3px solid #D4AF37 !important;
+    }
+    .bg-gold-gradient {
+        background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+    }
+    .bg-info-gradient {
+        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    }
+    .min-width-0 {
+        min-width: 0;
+    }
+</style>
+{% endblock %}

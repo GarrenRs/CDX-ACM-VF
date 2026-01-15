@@ -1,0 +1,279 @@
+
+{% extends "dashboard/base.html" %}
+
+{% block title %}Add New Service - Dashboard{% endblock %}
+
+{% block page_title %}Add New Service{% endblock %}
+
+{% block content %}
+<div class="page-title-section mb-5">
+    <h1 class="display-6 fw-bold mb-2">Create Service Offering</h1>
+    <p class="text-contrast-secondary fs-5">Define your professional service to attract clients and projects</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-lg h-100">
+            <div class="card-header bg-black-50 py-4 px-4">
+                <h5 class="mb-0 text-white fw-bold">
+                    <i class="fas fa-briefcase me-2 text-gold"></i>Service Configuration
+                </h5>
+            </div>
+            <div class="card-body p-4 p-xl-5">
+                <form method="POST" enctype="multipart/form-data" action="{{ url_for('services.add_service') }}">
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Service Title *</label>
+                        <input type="text" class="form-control form-control-lg" name="title" required placeholder="e.g. Web Development Services">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Short Description *</label>
+                        <textarea class="form-control form-control-lg" name="short_description" rows="2" required placeholder="Brief overview of your service..."></textarea>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Full Description</label>
+                        <textarea class="form-control form-control-lg" name="description" rows="6" placeholder="Detailed description of your service, methodology, and value proposition..."></textarea>
+                    </div>
+                    
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Category *</label>
+                            <select class="form-select form-select-lg" name="category" required>
+                                <option value="web_dev">Web Development</option>
+                                <option value="mobile_dev">Mobile Development</option>
+                                <option value="design">Design</option>
+                                <option value="consulting">Consulting</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="seo">SEO</option>
+                                <option value="content">Content Writing</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Duration</label>
+                            <input type="text" class="form-control form-control-lg" name="duration" placeholder="e.g., 2-4 weeks, 1 month">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Pricing Type *</label>
+                        <select class="form-select form-select-lg" name="pricing_type" id="pricingType" required>
+                            <option value="fixed">Fixed Price</option>
+                            <option value="hourly">Hourly Rate</option>
+                            <option value="custom" selected>Custom Quote</option>
+                            <option value="free">Free Consultation</option>
+                        </select>
+                    </div>
+                    
+                    <div class="row g-4 mb-4" id="pricingFields" style="display: none;">
+                        <div class="col-md-4">
+                            <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Min Price</label>
+                            <input type="number" class="form-control form-control-lg" name="price_min" step="0.01" placeholder="0.00">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Max Price</label>
+                            <input type="number" class="form-control form-control-lg" name="price_max" step="0.01" placeholder="0.00">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Currency</label>
+                            <select class="form-select form-select-lg" name="currency">
+                                <option value="USD" selected>USD ($)</option>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="GBP">GBP (£)</option>
+                                <option value="SAR">SAR (ر.س)</option>
+                                <option value="AED">AED (د.إ)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Main Service Image *</label>
+                        <input type="file" class="form-control form-control-lg" name="image" accept="image/*">
+                        <small class="text-contrast-muted">Primary image for the service</small>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Gallery Images</label>
+                        <input type="file" class="form-control form-control-lg" name="gallery_images[]" accept="image/*" multiple>
+                        <small class="text-contrast-muted">Add up to 8 additional images (optional). These will be displayed in a gallery slider.</small>
+                        <div id="galleryPreview" class="mt-3 d-flex flex-wrap gap-2"></div>
+                    </div>
+                    
+                    <div class="mb-5">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Deliverables</label>
+                        <div id="deliverablesContainer">
+                            <div class="input-group mb-3 deliverable-row">
+                                <span class="input-group-text bg-black-25 border-secondary text-gold-muted"><i class="fas fa-check-circle"></i></span>
+                                <input type="text" class="form-control" name="deliverables[]" placeholder="e.g. Responsive Website">
+                                <button type="button" class="btn-premium-action btn-premium-danger remove-deliverable-btn border-secondary"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-gold btn-sm px-4" id="addDeliverableBtn">
+                            <i class="fas fa-plus-circle me-1"></i>Add Deliverable
+                        </button>
+                    </div>
+                    
+                    <div class="mb-5">
+                        <label class="form-label small text-uppercase fw-bold letter-spacing-1 text-contrast-muted mb-2">Related Skills</label>
+                        <div id="skillsContainer">
+                            {% if user_skills %}
+                                {% for skill in user_skills %}
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" name="skills_related[]" value="{{ skill.name }}" id="skill_{{ loop.index }}">
+                                    <label class="form-check-label text-contrast-muted" for="skill_{{ loop.index }}">
+                                        {{ skill.name }} ({{ skill.level }}%)
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-contrast-muted small">No skills added yet. <a href="{{ url_for('dashboard.skills') }}">Add skills first</a>.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="is_featured" id="isFeatured">
+                            <label class="form-check-label text-contrast-muted" for="isFeatured">
+                                Feature this service (show prominently)
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 pt-4 border-top border-secondary gap-3">
+                        <a href="{{ url_for('services.list_services') }}" class="btn btn-link text-contrast-secondary text-decoration-none fw-bold order-2 order-md-1">
+                            <i class="fas fa-arrow-left me-2"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-gold-gradient px-5 py-2 shadow-lg order-1 order-md-2">
+                            <i class="fas fa-save me-2"></i>Create Service
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-lg bg-black-50 h-100">
+            <div class="card-body p-4 p-xl-5">
+                <h6 class="gold-text fw-bold text-uppercase letter-spacing-2 mb-4">Service Guidelines</h6>
+                <div class="list-unstyled mb-0" aria-label="Service Guidelines">
+                    <div class="d-flex mb-4 align-items-start">
+                        <div class="flex-shrink-0 avatar-xs rounded-circle bg-gold-soft d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px;">
+                            <i class="fas fa-file-alt text-gold" aria-hidden="true"></i>
+                            <span class="visually-hidden">Clear descriptions</span>
+                        </div>
+                        <div>
+                            <p class="small text-contrast-muted mb-0"><strong>Clear descriptions</strong> — Provide clear, detailed descriptions of what clients can expect.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4 align-items-start">
+                        <div class="flex-shrink-0 avatar-xs rounded-circle bg-gold-soft d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px;">
+                            <i class="fas fa-list text-gold" aria-hidden="true"></i>
+                            <span class="visually-hidden">Deliverables</span>
+                        </div>
+                        <div>
+                            <p class="small text-contrast-muted mb-0"><strong>Specific deliverables</strong> — List concrete outputs to set clear expectations.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4 align-items-start">
+                        <div class="flex-shrink-0 avatar-xs rounded-circle bg-gold-soft d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px;">
+                            <i class="fas fa-image text-gold" aria-hidden="true"></i>
+                            <span class="visually-hidden">Images</span>
+                        </div>
+                        <div>
+                            <p class="small text-contrast-muted mb-0"><strong>High-quality images</strong> — Use representative, high-resolution images for your service.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start">
+                        <div class="flex-shrink-0 avatar-xs rounded-circle bg-gold-soft d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px;">
+                            <i class="fas fa-tags text-gold" aria-hidden="true"></i>
+                            <span class="visually-hidden">Skills</span>
+                        </div>
+                        <div>
+                            <p class="small text-contrast-muted mb-0"><strong>Link related skills</strong> — Attach relevant skills to showcase your expertise.</p>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Pricing fields toggle
+    const pricingType = document.getElementById('pricingType');
+    const pricingFields = document.getElementById('pricingFields');
+    
+    if (pricingType && pricingFields) {
+        pricingType.addEventListener('change', function() {
+            if (this.value === 'fixed' || this.value === 'hourly') {
+                pricingFields.style.display = 'flex';
+            } else {
+                pricingFields.style.display = 'none';
+            }
+        });
+    }
+    
+    // Gallery preview
+    const galleryInput = document.querySelector('input[name="gallery_images[]"]');
+    const galleryPreview = document.getElementById('galleryPreview');
+    
+    if (galleryInput && galleryPreview) {
+        galleryInput.addEventListener('change', function(e) {
+            galleryPreview.innerHTML = '';
+            const files = Array.from(e.target.files).slice(0, 8);
+            
+            files.forEach((file, index) => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const div = document.createElement('div');
+                        div.className = 'position-relative';
+                        div.style.cssText = 'width: 100px; height: 100px; border-radius: 8px; overflow: hidden; border: 2px solid rgba(212, 175, 55, 0.3);';
+                        div.innerHTML = `
+                            <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover;">
+                            <span class="position-absolute top-0 end-0 bg-dark text-white small px-1">${index + 1}</span>
+                        `;
+                        galleryPreview.appendChild(div);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    }
+    
+    // Deliverables management
+    const deliverablesContainer = document.getElementById('deliverablesContainer');
+    const addDeliverableBtn = document.getElementById('addDeliverableBtn');
+    
+    if (addDeliverableBtn) {
+        addDeliverableBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const div = document.createElement('div');
+            div.className = 'input-group mb-3 deliverable-row';
+            div.innerHTML = `
+                <span class="input-group-text bg-black-25 border-secondary text-gold-muted"><i class="fas fa-check-circle"></i></span>
+                <input type="text" class="form-control" name="deliverables[]" placeholder="e.g. Responsive Website">
+                <button type="button" class="btn-premium-action btn-premium-danger remove-deliverable-btn border-secondary"><i class="fas fa-times"></i></button>
+            `;
+            deliverablesContainer.appendChild(div);
+        });
+    }
+    
+    if (deliverablesContainer) {
+        deliverablesContainer.addEventListener('click', function(e) {
+            const removeBtn = e.target.closest('.remove-deliverable-btn');
+            if (removeBtn) {
+                e.preventDefault();
+                removeBtn.closest('.deliverable-row').remove();
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-portfolio-theme="luxury-gold">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Directory | Codexx Academy Verified Talent</title>
+    <meta name="description" content="Explore the elite directory of Codexx Academy. Verified proof-of-work portfolios from the world's most dedicated builders and project owners.">
+    <meta name="keywords" content="Professional Directory, Verified Portfolios, Elite Builders, Codexx Catalog, Proof of Work Gallery">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --bg-black: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B8941F 100%);
+        }
+        body {
+            background-color: var(--bg-black);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+        }
+        .gold-text {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        .section-padding { padding: 80px 0; }
+        .catalog-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .catalog-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-gold);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+        .portfolio-avatar {
+            width: 120px; height: 120px;
+            object-fit: cover;
+            border: 3px solid var(--primary-gold);
+            padding: 3px;
+        }
+        .badge-user-type {
+            background: var(--gold-gradient);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        .btn-gold {
+            background: var(--gold-gradient);
+            border: none; color: #000;
+            font-weight: 700;
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+        .navbar {
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .navbar-brand { font-weight: 900; color: var(--primary-gold) !important; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('pages.index') }}">CODEXX ACADEMY</a>
+            <div class="ms-auto d-flex gap-3 align-items-center">
+                <a href="{{ url_for('pages.index') }}" class="btn btn-outline-light btn-sm">Home</a>
+                {% if session.get('admin_logged_in') %}
+                    <a href="{{ url_for('dashboard.index') }}" class="btn btn-outline-gold btn-sm">Dashboard</a>
+                    {% if not session.get('is_admin') %}
+                    <a href="{{ url_for('portfolio.user_portfolio', username=session.get('username')) }}" class="btn btn-gold btn-sm">My Portfolio</a>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-gold btn-sm">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container section-padding">
+        <div class="text-center mb-5">
+            <h2 class="display-4 gold-text mb-3">Portfolios Directory</h2>
+            <p class="text-secondary lead">Explore professional identities built by our academy members</p>
+            {% if session.get('username') %}
+            <div class="mt-4">
+                <a href="{{ url_for('dashboard.access_instructions') }}" class="btn btn-outline-gold px-4 py-2 rounded-pill">
+                    <i class="fas fa-shield-alt me-2"></i> How to Verify Your Portfolio?
+                </a>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="row g-4">
+            {% for username, info in portfolios.items() %}
+            {% set portfolio = info.data %}
+            {% set status = info.status %}
+            
+            {% set is_verified_professional = False %}
+            {% for u in users_list if u.username == username %}
+                {% if u.is_verified %}
+                    {% set is_verified_professional = True %}
+                {% endif %}
+            {% endfor %}
+
+            {# Only show verified professionals in the public catalog or if specifically verified #}
+            {% if is_verified_professional or status == 'verified' %}
+            <div class="col-md-6 col-lg-4">
+                <div class="catalog-card h-100 p-4 d-flex flex-column text-center">
+                    <div class="mb-4 position-relative">
+                        {% if portfolio.photo %}
+                        <img src="{{ url_for('static', filename=portfolio.photo.replace('static/', '')) }}" alt="{{ portfolio.name }}" class="rounded-circle portfolio-avatar">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='assets/profile-placeholder.svg') }}" alt="Placeholder" class="rounded-circle portfolio-avatar">
+                        {% endif %}
+                        
+                        <div class="position-absolute top-0 end-0">
+                            {% if is_verified_professional %}
+                                <span class="badge bg-success shadow-sm" title="Verified Professional"><i class="fas fa-shield-alt"></i> Verified Professional</span>
+                            {% elif status == 'verified' %}
+                                <span class="badge bg-success shadow-sm" title="Verified - Full Access"><i class="fas fa-check-double"></i> Verified</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-2">
+                        <span class="badge-user-type">
+                            {% if username == 'admin' %}Founder{% else %}Academy Member{% endif %}
+                        </span>
+                    </div>
+
+                    <h3 class="h4 gold-text mb-1">{{ portfolio.name or username }}</h3>
+                    <p class="text-secondary small fw-bold mb-3">{{ portfolio.title or 'Expert Consultant' }}</p>
+                    
+                    <p class="text-secondary small mb-4 flex-grow-1">
+                        {{ (portfolio.description or portfolio.about or 'A professional building their future on Codexx.') | truncate(120) }}
+                    </p>
+
+                    <div class="mt-auto">
+                        <a href="{{ url_for('portfolio.user_portfolio', username=username) }}" class="btn btn-gold w-100 custom-btn-glow-landing">Visit Portfolio</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="col-12 text-center py-5">
+                <i class="fas fa-folder-open display-1 gold-text opacity-25 mb-4"></i>
+                <p class="text-secondary">Our directory is currently being prepared. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+{% extends 'dashboard/base.html' %}
+{% block page_title %}<i class="fas fa-users me-2 gold-text"></i> Support Center{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <div class="card glass-panel border-0 shadow-lg p-0 overflow-hidden">
+            <div class="p-4 border-bottom border-secondary d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="gold-text mb-1">Active Conversations</h4>
+                    <p class="text-secondary small mb-0">Manage and reply to all user inquiries.</p>
+                </div>
+                <div class="input-group w-auto">
+                    <span class="input-group-text bg-dark border-secondary border-end-0 text-secondary">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" id="userSearch" class="form-control bg-dark border-secondary border-start-0 text-white px-2" placeholder="Search users...">
+                </div>
+            </div>
+            
+            <div class="list-group list-group-flush" id="userList">
+                {% for user in users %}
+                <a href="{{ url_for('dashboard.internal_compose', receiver_id=user.id) }}" class="list-group-item list-group-item-action bg-transparent text-white border-secondary p-4 user-item">
+                    <div class="d-flex align-items-center">
+                        <div class="user-avatar bg-gold-gradient rounded-circle me-3 d-flex align-items-center justify-content-center text-black fw-bold" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                            {{ user.username[0]|upper }}
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h6 class="mb-0 fw-bold">{{ user.username }}</h6>
+                                <span class="badge rounded-pill bg-dark border border-gold gold-text font-size-xs">User</span>
+                            </div>
+                            <div class="text-secondary small">
+                                <i class="far fa-envelope me-1"></i> {{ user.email }}
+                            </div>
+                        </div>
+                        <div class="ms-3 opacity-50">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </a>
+                {% else %}
+                <div class="text-center py-5 opacity-30">
+                    <i class="fas fa-users-slash fa-4x mb-3"></i>
+                    <h5>No users available</h5>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('userSearch').addEventListener('keyup', function() {
+    let filter = this.value.toLowerCase();
+    let items = document.querySelectorAll('.user-item');
+    items.forEach(item => {
+        let text = item.innerText.toLowerCase();
+        item.style.display = text.includes(filter) ? '' : 'none';
+    });
+});
+</script>
+
+<style>
+.user-item:hover {
+    background: rgba(212, 175, 55, 0.05) !important;
+    border-left: 4px solid #d4af37 !important;
+}
+.bg-gold-gradient {
+    background: linear-gradient(135deg, #d4af37 0%, #f9e272 100%);
+}
+.font-size-xs {
+    font-size: 0.7rem;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,173 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Add New Client - Dashboard{% endblock %}
+
+{% block page_title %}Add New Client{% endblock %}
+
+{% block content %}
+{% set is_demo_mode = session.get('is_demo_mode', False) %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-user-plus me-2"></i>Add New Client
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <h6 class="border-bottom pb-2 mb-3" style="color: var(--primary-gold);">
+                        <i class="fas fa-user me-2"></i>Client Information
+                    </h6>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Client Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ prefill.name if prefill else '' }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="company" class="form-label">Company Name</label>
+                            <input type="text" class="form-control" id="company" name="company" value="{{ prefill.company if prefill else '' }}">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ prefill.email if prefill else '' }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                        </div>
+                    </div>
+                    
+                    <h6 class="border-bottom pb-2 mb-3 mt-4" style="color: var(--primary-gold);">
+                        <i class="fas fa-project-diagram me-2"></i>Project Details
+                    </h6>
+                    
+                    <div class="mb-3">
+                        <label for="project_title" class="form-label">Project Title</label>
+                        <input type="text" class="form-control" id="project_title" name="project_title">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="project_description" class="form-label">Project Description</label>
+                        <textarea class="form-control" id="project_description" name="project_description" rows="4" 
+                                  placeholder="Describe the project requirements, features, and objectives...">{{ prefill.message if prefill else '' }}</textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="status" class="form-label">Workflow Status *</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="lead" selected>Lead</option>
+                                <option value="negotiation">Negotiation</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="price" class="form-label">Price (USD)</label>
+                            <input type="number" class="form-control" id="price" name="price" step="0.01" min="0" 
+                                   placeholder="0.00">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="deadline" class="form-label">Deadline</label>
+                            <input type="date" class="form-control" id="deadline" name="deadline">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="start_date" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date">
+                    </div>
+                    
+                    <h6 class="border-bottom pb-2 mb-3 mt-4" style="color: var(--primary-gold);">
+                        <i class="fas fa-sticky-note me-2"></i>Additional Notes
+                    </h6>
+                    
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3" 
+                                  placeholder="Any additional notes or special requirements..."></textarea>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-4">
+                        <a href="{{ url_for('dashboard.clients') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Cancel
+                        </a>
+                        <button type="submit"
+                                class="btn btn-primary"
+                                {% if is_demo_mode %}disabled title="Demo mode: Client creation is disabled until full access is activated."{% endif %}>
+                            <i class="fas {% if is_demo_mode %}fa-lock{% else %}fa-save{% endif %} me-2"></i>
+                            {% if is_demo_mode %}Save Client (Demo){% else %}Save Client{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card mb-3">
+            <div class="card-header" style="background: var(--gold-gradient); color: #000000;">
+                <h6 class="mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>Tips for Adding Clients
+                </h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled small">
+                    <li class="mb-2">
+                        <i class="fas fa-check me-2" style="color: #10b981;"></i>
+                        Enter accurate contact information
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check me-2" style="color: #10b981;"></i>
+                        Provide detailed project description
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check me-2" style="color: #10b981;"></i>
+                        Set realistic deadlines
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check me-2" style="color: #10b981;"></i>
+                        Update status as project progresses
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check me-2" style="color: #10b981;"></i>
+                        Keep notes for important details
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header" style="background: var(--gold-gradient); color: #000000;">
+                <h6 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Status Guide
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="mb-2">
+                    <span class="badge" style="background: #f59e0b;">🎯 Lead</span>
+                    <small class="ms-2">New inquiry</small>
+                </div>
+                <div class="mb-2">
+                    <span class="badge" style="background: #3b82f6;">💬 Negotiation</span>
+                    <small class="ms-2">Discussing terms</small>
+                </div>
+                <div class="mb-2">
+                    <span class="badge" style="background: #10b981;">⚙️ In Progress</span>
+                    <small class="ms-2">Currently working</small>
+                </div>
+                <div class="mb-2">
+                    <span class="badge" style="background: #8b5cf6;">✅ Delivered</span>
+                    <small class="ms-2">Project complete</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

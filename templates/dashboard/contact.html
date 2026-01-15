@@ -1,0 +1,92 @@
+
+{% extends "dashboard/base.html" %}
+
+{% block title %}Contact Information - Dashboard{% endblock %}
+
+{% block page_title %}Contact Information{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-envelope me-2"></i>Update Contact Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" 
+                               value="{{ data.contact.email if data.contact else '' }}" placeholder="your.email@example.com">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" 
+                               value="{{ data.contact.phone if data.contact else '' }}" placeholder="+1 234 567 8900">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" 
+                               value="{{ data.contact.location if data.contact else '' }}"
+                               placeholder="City, Country (e.g., San Francisco, CA)">
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-eye me-2"></i>Preview
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="contact-info">
+                    <div class="mb-3">
+                        <i class="fas fa-envelope text-primary me-2"></i>
+                        <strong>Email:</strong><br>
+                        <span class="text-muted">{{ data.contact.email if data.contact and data.contact.email else 'Not set' }}</span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <i class="fas fa-phone text-primary me-2"></i>
+                        <strong>Phone:</strong><br>
+                        <span class="text-muted">{{ data.contact.phone if data.contact and data.contact.phone else 'Not set' }}</span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                        <strong>Location:</strong><br>
+                        <span class="text-muted">{{ data.contact.location if data.contact and data.contact.location else 'Not set' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Note
+                </h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted mb-0">
+                    This information will appear in the contact section of your personal website. Make sure the information is accurate before saving.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

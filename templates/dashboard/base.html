@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-portfolio-theme="{{ current_theme }}" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Codexx Admin Dashboard - Manage your portfolio, clients, and content">
+    <meta name="theme-color" content="#D4AF37">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>{% block title %}Dashboard{% endblock %} - Codexx Admin</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='themes/' + (current_theme if current_theme else 'luxury-gold') + '.css') }}">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Contrast Enhancement CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/utilities/contrast-enhancement.css') }}">
+    <!-- Blueprint-specific CSS -->
+    {% for style_file in blueprint_styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename=style_file) }}">
+    {% endfor %}
+</head>
+<body>
+    <!-- Forced Password Change Modal -->
+    <div class="modal fade" id="forceChangeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark border border-secondary shadow-2xl radius-24">
+                <div class="modal-header border-bottom border-secondary bg-black-50 py-4 px-4">
+                    <h5 class="modal-title gold-text fw-bold fs-4">Security Notice</h5>
+                </div>
+                <div class="modal-body p-4 p-xl-5">
+                    <p class="mb-3">For your account protection, you must change your temporary password before accessing the dashboard. Please click <strong>Change Password</strong> to proceed.</p>
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ url_for('auth.logout') }}" class="btn btn-secondary">Logout</a>
+                        <a href="{{ url_for('dashboard.change_password') }}" class="btn btn-gold-gradient">Change Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    {% if session.get('force_change_password') %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var forceModalEl = document.getElementById('forceChangeModal');
+            if (forceModalEl) {
+                var forceModal = new bootstrap.Modal(forceModalEl, { backdrop: 'static', keyboard: false });
+                forceModal.show();
+            }
+        });
+    </script>
+    {% endif %}
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="{{ url_for('dashboard.index') }}" class="brand-logo">
+                <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx Logo">
+                <span class="brand-name">Codexx Academy</span>
+            </a>
+        </div>
+
+        <div class="sidebar-content">
+            <nav>
+                <a href="{{ url_for('dashboard.index') }}" class="nav-link {% if request.endpoint == 'dashboard.index' %}active{% endif %}">
+                    <i class="fas fa-th-large"></i>
+                    <span>Overview</span>
+                </a>
+
+                {% if session.get('is_admin') %}
+                <div class="nav-section-title">Administration</div>
+                <a href="{{ url_for('dashboard.users') }}" class="nav-link {% if request.endpoint == 'dashboard.users' %}active{% endif %}">
+                    <i class="fas fa-users-cog"></i>
+                    <span>User Management</span>
+                </a>
+                
+                <div class="nav-section-title">Communications</div>
+                <a href="{{ url_for('dashboard.messages', category='all') }}" class="nav-link {% if request.endpoint == 'dashboard.messages' %}active{% endif %}">
+                    <i class="fas fa-inbox"></i>
+                    <span>Inbox</span>
+                </a>
+                <a href="{{ url_for('dashboard.internal_messages') }}" class="nav-link {% if request.endpoint == 'dashboard.internal_messages' %}active{% endif %}">
+                    <i class="fas fa-comments"></i>
+                    <span>Internal Chat</span>
+                </a>
+                
+                <div class="nav-section-title">Platform</div>
+                <a href="{{ url_for('dashboard.social') }}" class="nav-link {% if request.endpoint == 'dashboard.social' %}active{% endif %}">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Social Links</span>
+                </a>
+                {% else %}
+                <div class="nav-section-title">Portfolio</div>
+                <a href="{{ url_for('dashboard.general') }}" class="nav-link {% if request.endpoint == 'dashboard.general' %}active{% endif %}">
+                    <i class="fas fa-id-card"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="{{ url_for('dashboard.about') }}" class="nav-link {% if request.endpoint == 'dashboard.about' %}active{% endif %}">
+                    <i class="fas fa-user-tie"></i>
+                    <span>About Me</span>
+                </a>
+                <a href="{{ url_for('dashboard.skills') }}" class="nav-link {% if request.endpoint == 'dashboard.skills' %}active{% endif %}">
+                    <i class="fas fa-code"></i>
+                    <span>Skills</span>
+                </a>
+                <a href="{{ url_for('dashboard.projects') }}" class="nav-link {% if request.endpoint in ['dashboard.projects', 'dashboard.add_project', 'dashboard.edit_project'] %}active{% endif %}">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="{{ url_for('services.list_services') }}" class="nav-link {% if request.endpoint in ['services.list_services', 'services.add_service', 'services.edit_service'] %}active{% endif %}">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span>Services</span>
+                </a>
+                <a href="{{ url_for('dashboard.contact') }}" class="nav-link {% if request.endpoint == 'dashboard.contact' %}active{% endif %}">
+                    <i class="fas fa-address-card"></i>
+                    <span>Contact Info</span>
+                </a>
+
+                <div class="nav-section-title">Business</div>
+                <a href="{{ url_for('dashboard.clients') }}" class="nav-link {% if request.endpoint == 'dashboard.clients' %}active{% endif %}">
+                    <i class="fas fa-user-friends"></i>
+                    <span>Clients</span>
+                </a>
+                <a href="{{ url_for('dashboard.messages', category='all') }}" class="nav-link {% if request.endpoint == 'dashboard.messages' %}active{% endif %}">
+                    <i class="fas fa-inbox"></i>
+                    <span>Inbox</span>
+                </a>
+                <a href="{{ url_for('dashboard.internal_messages') }}" class="nav-link {% if request.endpoint == 'dashboard.internal_messages' %}active{% endif %}">
+                    <i class="fas fa-comments"></i>
+                    <span>Internal Chat</span>
+                </a>
+                <a href="{{ url_for('dashboard.social') }}" class="nav-link {% if request.endpoint == 'dashboard.social' %}active{% endif %}">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Social Links</span>
+                </a>
+                {% endif %}
+                <div class="nav-section-title">Preference</div>
+                <a href="{{ url_for('dashboard.settings') }}" class="nav-link {% if request.endpoint == 'dashboard.settings' %}active{% endif %}">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>Global Settings</span>
+                </a>
+                <a href="{{ url_for('dashboard.access_instructions') }}" class="nav-link {% if request.endpoint == 'dashboard.access_instructions' %}active{% endif %}">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Access Standards</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="sidebar-footer d-flex flex-column">
+            <a href="{{ url_for('dashboard.change_password') }}" class="btn btn-sm btn-outline-light w-100 mb-2 text-start" title="Change Password">
+                <i class="fas fa-key me-2"></i>
+                <span>Change Password</span>
+            </a>
+            <a href="{{ url_for('auth.logout') }}" class="nav-link text-danger">
+                <i class="fas fa-power-off"></i>
+                <span>Sign Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+        <header class="top-navbar">
+            <div class="d-flex align-items-center">
+                <button class="btn btn-link text-white d-lg-none me-3 p-0" onclick="toggleSidebar()">
+                    <i class="fas fa-bars fa-lg"></i>
+                </button>
+                <h6 class="mb-0 fw-600 opacity-75">Welcome, {{ session.get('username') }}</h6>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div class="dropdown" id="notificationDropdown">
+                    <button class="btn btn-sm btn-outline-light border-0 opacity-75 position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="notificationBell">
+                        <i class="fas fa-bell" id="bellIcon"></i>
+                        {% set unread = get_unread_messages_count() %}
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notification-badge {% if unread == 0 %}d-none{% endif %}" id="notificationBadge" style="font-size: 0.6rem; padding: 0.25em 0.4em;">
+                            {{ unread if unread > 0 else '0' }}
+                        </span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end p-0 shadow-lg border-0 bg-dark" style="width: 350px; border-radius: 15px; overflow: hidden;">
+                        <div class="p-3 border-bottom border-secondary d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 fw-bold gold-text"><i class="fas fa-bell me-2"></i>Notifications</h6>
+                            <a href="{{ url_for('dashboard.messages') }}" class="small text-muted text-decoration-none">View All</a>
+                        </div>
+                        <div id="notificationList" class="overflow-auto" style="max-height: 400px;">
+                            <div class="p-4 text-center text-muted">
+                                <i class="fas fa-spinner fa-spin fa-2x mb-2 opacity-50"></i>
+                                <p class="small mb-0">Loading notifications...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ url_for('pages.catalog') }}" class="btn btn-sm btn-outline-light border-0 opacity-75" title="Catalog">
+                    <i class="fas fa-book-open"></i>
+                </a>
+                {% if session.get('is_admin') %}
+                <a href="{{ url_for('pages.index') }}" class="btn btn-sm btn-outline-gold px-3 shadow-sm custom-btn-glow">
+                    <i class="fas fa-globe me-2"></i>Live Site
+                </a>
+                {% else %}
+                <a href="{{ url_for('portfolio.user_portfolio', username=session.get('username')) }}" target="_blank" class="btn btn-sm btn-outline-gold px-3 shadow-sm custom-btn-glow">
+                    <i class="fas fa-external-link-alt me-2"></i>My Portfolio
+                </a>
+                {% endif %}
+            </div>
+        </header>
+
+        <main class="content-body">
+            {% if is_demo_mode %}
+            <div class="alert alert-warning border-0 shadow-sm mb-4 py-3" style="background: rgba(212, 175, 55, 0.08); border-radius: 15px;">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-graduation-cap me-3 fs-4 text-warning"></i>
+                    <div>
+                        <strong class="text-warning">Training Phase Active</strong>
+                        <p class="mb-0 small opacity-75">Complete all sections in your Professional Path to qualify for verification and full platform access.</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages-container position-fixed top-0 start-50 translate-middle-x mt-4" style="z-index: 1060; width: 90%; max-width: 500px;">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show border-0 shadow-lg mb-2 text-white" role="alert" style="border-radius: 12px;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas {{ 'fa-check-circle' if category == 'success' else 'fa-exclamation-circle' }} me-2"></i>
+                                    <span>{{ message }}</span>
+                                </div>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <div class="page-title-section">
+                <h1 class="text-white">{% block page_title %}Dashboard{% endblock %}</h1>
+                {% block breadcrumb %}{% endblock %}
+            </div>
+
+            {% block content %}{% endblock %}
+        </main>
+        
+        <!-- Dashboard Footer -->
+        <footer class="dashboard-footer">
+            <div class="footer-brand">
+                <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="Codexx">
+                <span>&copy; {{ current_year }} Codexx Academy</span>
+            </div>
+            <div class="footer-links">
+                <a href="{{ url_for('pages.index') }}">Home</a>
+                <a href="{{ url_for('pages.privacy') }}">Privacy</a>
+                <a href="{{ url_for('pages.terms') }}">Terms</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.sidebar');
+            const toggleBtn = document.querySelector('[onclick="toggleSidebar()"]');
+
+            if (window.innerWidth <= 768 && !sidebar.contains(event.target) && toggleBtn && !toggleBtn.contains(event.target)) {
+                sidebar.classList.remove('show');
+            }
+        });
+
+        // Auto-dismiss alerts
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const alerts = document.querySelectorAll('.alert-dismissible');
+                alerts.forEach(function(alert) {
+                    const bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                });
+            }, 5000);
+        });
+    </script>
+    
+    <!-- Real-time Notifications System -->
+    <script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
+    
+    <style>
+        /* Bell shake animation for new notifications */
+        @keyframes bell-shake {
+            0% { transform: rotate(0); }
+            15% { transform: rotate(15deg); }
+            30% { transform: rotate(-15deg); }
+            45% { transform: rotate(10deg); }
+            60% { transform: rotate(-10deg); }
+            75% { transform: rotate(5deg); }
+            85% { transform: rotate(-5deg); }
+            100% { transform: rotate(0); }
+        }
+        
+        .bell-shake {
+            animation: bell-shake 0.8s ease-in-out;
+            transform-origin: top center;
+        }
+        
+        /* Badge pulse animation */
+        @keyframes badge-pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+            50% { transform: translate(-50%, -50%) scale(1.2); box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+        }
+        
+        .badge-pulse {
+            animation: badge-pulse 0.6s ease-in-out 3;
+        }
+        
+        /* Notification item styles */
+        .notification-item {
+            transition: background-color 0.2s ease;
+        }
+        
+        .notification-item:hover {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        
+        /* Badge styling */
+        .notification-badge {
+            transition: all 0.3s ease;
+        }
+        
+        /* Bell button hover effect */
+        #notificationBell:hover #bellIcon {
+            color: #D4AF37 !important;
+        }
+        
+        /* Min width utility */
+        .min-width-0 {
+            min-width: 0;
+        }
+    </style>
+    {% block scripts %}{% endblock %}
+    <!-- Blueprint-specific JS -->
+    {% for script_file in blueprint_scripts %}
+    <script src="{{ url_for('static', filename=script_file) }}"></script>
+    {% endfor %}
+</body>
+</html>
