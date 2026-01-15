@@ -7,6 +7,8 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
+      - key: FLASK_ENV
+        value: production
       - key: SESSION_SECRET
         generateValue: true
       - key: DATABASE_URL
@@ -15,3 +17,15 @@ services:
         value: admin
       - key: ADMIN_PASSWORD
         generateValue: true
+      - key: ADMIN_TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: ADMIN_TELEGRAM_CHAT_ID
+        sync: false
+      - key: ADMIN_SMTP_HOST
+        sync: false
+      - key: ADMIN_SMTP_PORT
+        value: 587
+      - key: ADMIN_SMTP_EMAIL
+        sync: false
+      - key: ADMIN_SMTP_PASSWORD
+        sync: false
