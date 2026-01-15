@@ -2021,3 +2021,21 @@ def get_latest_notifications():
     except Exception as e:
         current_app.logger.error(f"Error fetching notifications: {str(e)}")
         return jsonify([]), 500
+
+
+@dashboard_bp.route('/admin/test-notifications', methods=['POST'])
+@admin_required
+def admin_test_notifications():
+    """Test admin notifications (Telegram and SMTP)"""
+    try:
+        from utils.notifications import send_admin_notification
+        
+        send_admin_notification(
+            'Admin Notification Test',
+            'This is a test notification to verify that admin Telegram and SMTP settings are working correctly.'
+        )
+        
+        return jsonify({'success': True, 'message': 'Test notification sent successfully'})
+    except Exception as e:
+        current_app.logger.error(f"Admin notification test error: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)}), 500
