@@ -46,7 +46,17 @@ class Config:
     ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME')
     ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD')
 
-
+    # Telegram (Admin / Infrastructure level)
+    ADMIN_TELEGRAM_BOT_TOKEN = os.environ.get('ADMIN_TELEGRAM_BOT_TOKEN')
+    ADMIN_TELEGRAM_CHAT_ID = os.environ.get('ADMIN_TELEGRAM_CHAT_ID')
+    
+    # SMTP (Admin / Infrastructure level)
+    SMTP_HOST = os.environ.get('SMTP_HOST')
+    SMTP_PORT = os.environ.get('SMTP_PORT')
+    SMTP_USERNAME = os.environ.get('SMTP_USERNAME')
+    SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD')
+    SMTP_FROM_EMAIL = os.environ.get('SMTP_FROM_EMAIL')
+    
 class DevelopmentConfig(Config):
     """Development configuration"""
     DEBUG = True
