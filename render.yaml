@@ -3,7 +3,7 @@ services:
     name: portfolio-app
     env: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn --bind 0.0.0.0:$PORT --workers 4 --timeout 120 --reuse-port app:app"
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT --workers 4 --timeout 120 --reuse-port app_new:app"
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
