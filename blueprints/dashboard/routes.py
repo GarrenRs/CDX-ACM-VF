@@ -215,7 +215,7 @@ def add_project():
     if request.method == 'POST':
         data = load_data(username=username)
 
-        project_ids = [p.get('id', 0) for p in data.get('projects', [])]
+        project_ids = [int(p.get('id', 0)) for p in data.get('projects', [])]
         new_id = max(project_ids) + 1 if project_ids else 1
 
         image_path = "static/assets/project-placeholder.svg"
@@ -317,7 +317,7 @@ def edit_project(project_id):
     username = session.get('username')
     data = load_data(username=username)
     project = next(
-        (p for p in data.get('projects', []) if p.get('id') == project_id),
+        (p for p in data.get('projects', []) if int(p.get('id', 0)) == int(project_id)),
         None)
 
     if not project:
@@ -440,7 +440,7 @@ def delete_project(project_id):
     username = session.get('username')
     data = load_data(username=username)
     data['projects'] = [
-        p for p in data.get('projects', []) if p.get('id') != project_id
+        p for p in data.get('projects', []) if int(p.get('id', 0)) != int(project_id)
     ]
     save_data(data, username=username)
     flash('Project deleted successfully', 'success')
@@ -802,7 +802,7 @@ def add_client():
         if 'clients' not in data:
             data['clients'] = []
 
-        client_ids = [c.get('id', 0) for c in data.get('clients', [])]
+        client_ids = [int(c.get('id', 0)) for c in data.get('clients', [])]
         new_id = max(client_ids) + 1 if client_ids else 1
 
         new_client = {
@@ -847,7 +847,7 @@ def edit_client(client_id):
     username = session.get('username')
     data = load_data(username=username)
     client = next(
-        (c for c in data.get('clients', []) if c.get('id') == client_id), None)
+        (c for c in data.get('clients', []) if int(c.get('id', 0)) == int(client_id)), None)
 
     if not client:
         flash('Client not found', 'error')
@@ -899,7 +899,7 @@ def view_client(client_id):
     username = session.get('username')
     data = load_data(username=username)
     client = next(
-        (c for c in data.get('clients', []) if c.get('id') == client_id), None)
+        (c for c in data.get('clients', []) if int(c.get('id', 0)) == int(client_id)), None)
 
     if not client:
         flash('Client not found', 'error')
@@ -916,7 +916,7 @@ def delete_client(client_id):
     username = session.get('username')
     data = load_data(username=username)
     data['clients'] = [
-        c for c in data.get('clients', []) if c.get('id') != client_id
+        c for c in data.get('clients', []) if int(c.get('id', 0)) != int(client_id)
     ]
     save_data(data, username=username)
     flash('Client deleted successfully', 'success')
@@ -1473,15 +1473,29 @@ def users():
 @disable_in_demo
 def view_user(user_id):
     """View detailed information about a specific user"""
-    data = load_data()
-    users_list = data.get('users', [])
-    target_user = next((u for u in users_list if u.get('id') == user_id), None)
+    # Try to find user in database first
+    user = User.query.get(user_id)
+    if user:
+        # Create a target_user dict similar to JSON structure for template compatibility
+        target_user = {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email,
+            'role': user.role,
+            'is_verified': getattr(user, 'is_verified', False),
+            'is_demo': getattr(user, 'is_demo', False)
+        }
+        username = user.username
+    else:
+        # Fallback to JSON users for backward compatibility
+        data = load_data()
+        users_list = data.get('users', [])
+        target_user = next((u for u in users_list if str(u.get('id', '')) == str(user_id)), None)
+        if not target_user:
+            flash('User not found.', 'error')
+            return redirect(url_for('dashboard.users'))
+        username = target_user['username']
 
-    if not target_user:
-        flash('User not found.', 'error')
-        return redirect(url_for('dashboard.users'))
-
-    username = target_user['username']
     user_portfolio_data = load_data(username=username)
 
     stats = {
@@ -1659,27 +1673,44 @@ def toggle_user_demo(user_id):
 @disable_in_demo
 def delete_user(user_id):
     """Delete a user and their portfolio data"""
-    data = load_data()
-    users_list = data.get('users', [])
+    # Try to find and delete user from database first
+    user = User.query.get(user_id)
+    if user:
+        if user.username == 'admin':
+            flash('Cannot delete admin user.', 'error')
+            return redirect(url_for('dashboard.users'))
+        
+        # Delete from database
+        db.session.delete(user)
+        db.session.commit()
+        
+        # Also remove their portfolio data
+        username = user.username
+    else:
+        # Fallback to JSON users for backward compatibility
+        data = load_data()
+        users_list = data.get('users', [])
+        target_user = next((u for u in users_list if str(u.get('id', '')) == str(user_id)), None)
+        if not target_user:
+            flash('User not found.', 'error')
+            return redirect(url_for('dashboard.users'))
 
-    target_user = next((u for u in users_list if u.get('id') == user_id), None)
-    if not target_user:
-        flash('User not found.', 'error')
-        return redirect(url_for('dashboard.users'))
+        if target_user['username'] == 'admin':
+            flash('Cannot delete admin user.', 'error')
+            return redirect(url_for('dashboard.users'))
 
-    if target_user['username'] == 'admin':
-        flash('Cannot delete admin user.', 'error')
-        return redirect(url_for('dashboard.users'))
-
-    # Remove from users list
-    data['users'] = [u for u in users_list if u.get('id') != user_id]
+        # Remove from users list
+        data['users'] = [u for u in users_list if str(u.get('id', '')) != str(user_id)]
+        save_data(data)
+        username = target_user['username']
 
     # Remove their portfolio data
-    if 'portfolios' in data and target_user['username'] in data['portfolios']:
-        del data['portfolios'][target_user['username']]
+    data = load_data()
+    if 'portfolios' in data and username in data['portfolios']:
+        del data['portfolios'][username]
+        save_data(data)
 
-    save_data(data)
-    flash(f'User {target_user["username"]} has been deleted.', 'success')
+    flash(f'User {username} has been deleted.', 'success')
     return redirect(url_for('dashboard.users'))
 
 
@@ -1696,7 +1727,7 @@ def toggle_user_verification(user_id):
         users_list = data.get('users', [])
         target_user = None
         for u in users_list:
-            if str(u.get('id')) == str(user_id):
+            if str(u.get('id', '')) == str(user_id):
                 target_user = u
                 break
         
@@ -1780,31 +1811,55 @@ def change_password():
         elif new_password != confirm_password:
             flash('New password and confirmation do not match', 'error')
         else:
+            ADMIN_CREDENTIALS = get_admin_credentials()
+
+            # Check if it's the main admin
+            if username == ADMIN_CREDENTIALS.get('username'):
+                if not forced and not check_password_hash(ADMIN_CREDENTIALS['password_hash'], current_password):
+                    flash('Current password is incorrect', 'error')
+                    return render_template('dashboard/change_password.html')
+                # Admin password change logic would go here if needed
+                flash('Admin password change not implemented', 'error')
+                return render_template('dashboard/change_password.html')
+
+            # Check database users first
+            db_user = User.query.filter_by(username=username).first()
+            if db_user:
+                # If not forced, verify current password
+                if not forced and not check_password_hash(db_user.password_hash, current_password):
+                    flash('Current password is incorrect', 'error')
+                    return render_template('dashboard/change_password.html')
+
+                # Update database user password
+                db_user.password_hash = generate_password_hash(new_password)
+                db_user.must_change_password = False
+                db.session.commit()
+
+                log_audit_event('password_changed', username=username, details='Password changed via change_password (database user)')
+                flash('Password changed successfully. Please login again.', 'success')
+                session.pop('force_change_password', None)
+                session.clear()
+                return redirect(url_for('auth.login'))
+
+            # Fallback: Check users in data.json for backward compatibility
             data = load_data()
             user_found = False
-            ADMIN_CREDENTIALS = get_admin_credentials()
 
             if 'users' in data:
                 for user in data['users']:
                     if user.get('username') == username:
                         user_found = True
                         # If not forced, verify current password
-                        if not forced:
-                            if username == ADMIN_CREDENTIALS.get('username'):
-                                if not check_password_hash(ADMIN_CREDENTIALS['password_hash'], current_password):
-                                    flash('Current password is incorrect', 'error')
-                                    return render_template('dashboard/change_password.html')
-                            else:
-                                if not check_password_hash(user.get('password_hash', ''), current_password):
-                                    flash('Current password is incorrect', 'error')
-                                    return render_template('dashboard/change_password.html')
+                        if not forced and not check_password_hash(user.get('password_hash', ''), current_password):
+                            flash('Current password is incorrect', 'error')
+                            return render_template('dashboard/change_password.html')
 
                         user['password_hash'] = generate_password_hash(new_password)
                         # Clear force flag after successful change
                         user['must_change_password'] = False
                         save_data(data)
 
-                        log_audit_event('password_changed', username=username, details='Password changed via change_password')
+                        log_audit_event('password_changed', username=username, details='Password changed via change_password (JSON user)')
                         flash('Password changed successfully. Please login again.', 'success')
                         session.pop('force_change_password', None)
                         session.clear()
