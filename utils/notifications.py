@@ -17,14 +17,14 @@ def get_admin_notifications_config():
     """Load admin-specific notification settings from environment variables"""
     return {
         'telegram': {
-            'bot_token': os.environ.get('ADMIN_TELEGRAM_BOT_TOKEN', ''),
-            'chat_id': os.environ.get('ADMIN_TELEGRAM_CHAT_ID', '')
+            'bot_token': current_app.config.get('ADMIN_TELEGRAM_BOT_TOKEN', ''),
+            'chat_id': current_app.config.get('ADMIN_TELEGRAM_CHAT_ID', '')
         },
         'smtp': {
-            'host': os.environ.get('ADMIN_SMTP_HOST', ''),
-            'port': os.environ.get('ADMIN_SMTP_PORT', '587'),
-            'email': os.environ.get('ADMIN_SMTP_EMAIL', ''),
-            'password': os.environ.get('ADMIN_SMTP_PASSWORD', '')
+            'host': current_app.config.get('ADMIN_SMTP_HOST', ''),
+            'port': current_app.config.get('ADMIN_SMTP_PORT', '587'),
+            'email': current_app.config.get('ADMIN_SMTP_EMAIL', ''),
+            'password': current_app.config.get('ADMIN_SMTP_PASSWORD', '')
         }
     }
 
