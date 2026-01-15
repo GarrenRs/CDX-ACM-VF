@@ -226,6 +226,9 @@ def register_hooks(app):
         return response
 
 
+# Create app instance for gunicorn
+app = create_app()
+
 if __name__ == '__main__':
     # Get environment
     env = os.environ.get('FLASK_ENV', 'development')
