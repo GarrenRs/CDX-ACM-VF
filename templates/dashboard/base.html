@@ -47,7 +47,7 @@
     </div>
 
     <!-- Sidebar -->
-    {% if session.get('force_change_password') %}
+    {% if session.get('force_change_password') and request.endpoint != 'dashboard.change_password' %}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var forceModalEl = document.getElementById('forceChangeModal');
