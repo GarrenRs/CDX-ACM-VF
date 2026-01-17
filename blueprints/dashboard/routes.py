@@ -1538,7 +1538,17 @@ def add_user():
         return redirect(url_for('dashboard.users'))
 
     # Hash password and create user object for data.json
-    user_ids = [u.get('id', 0) for u in data['users']]
+    user_ids = []
+    for u in data.get('users', []):
+        try:
+            uid = u.get('id')
+            if uid is not None:
+                if isinstance(uid, int):
+                    user_ids.append(uid)
+                elif isinstance(uid, str) and uid.isdigit():
+                    user_ids.append(int(uid))
+        except (ValueError, TypeError):
+            continue
     new_id = max(user_ids) + 1 if user_ids else 1
     
     new_user = {
