@@ -140,11 +140,11 @@
                         <ul class="profile-facts-grid list-unstyled mb-0">
                             <li class="profile-fact">
                                 <span class="fact-label">Professional</span>
-                                <span class="fact-value">{{ data.name or 'Dr_Codexx' }}{% if data.title %} — {{ data.title }}{% endif %}</span>
+                                <span class="fact-value">{{ data.name or 'Codexx Academy' }}{% if data.title %} — {{ data.title }}{% endif %}</span>
                             </li>
                             <li class="profile-fact">
                                 <span class="fact-label">Focus Area</span>
-                                <span class="fact-value">{{ data.focus_area if data.focus_area else (data.title or 'Digital Systems Architecture') }}</span>
+                                <span class="fact-value">{{ data.focus_area if data.focus_area else (data.title or 'Expert Professional') }}</span>
                             </li>
 
                             <!-- Horizontal divider separating top two facts from the bottom four -->
@@ -152,19 +152,19 @@
 
                             <li class="profile-fact">
                                 <span class="fact-label">Base</span>
-                                <span class="fact-value">{{ data.contact.location if data.contact else 'Algeria' }}</span>
+                                <span class="fact-value">{{ data.contact.location if data.contact else 'Global' }}</span>
                             </li>
                             <li class="profile-fact">
                                 <span class="fact-label">Direct</span>
-                                <span class="fact-value">{{ data.contact.email if data.contact else 'Raesondark@gmail.com' }}</span>
+                                <span class="fact-value">{{ data.contact.email if data.contact else 'contact@codexx.academy' }}</span>
                             </li>
                             <li class="profile-fact">
                                 <span class="fact-label">Response</span>
-                                <span class="fact-value">{{ data.contact.phone if data.contact else '+213549990984' }}</span>
+                                <span class="fact-value">{{ data.contact.phone if data.contact else 'Ready for Project' }}</span>
                             </li>
                             <li class="profile-fact">
                                 <span class="fact-label">Proof</span>
-                                <span class="fact-value">{{ data.projects|length if data.projects else 3 }} Case Studies</span>
+                                <span class="fact-value">{{ data.projects|length if data.projects else 0 }} Case Studies</span>
                             </li>
                         </ul>
                     </div>
@@ -260,7 +260,7 @@
 
             <div class="row mt-4">
                 <div class="col-12 text-center">
-                    <a href="{{ url_for('portfolio.cv_preview') }}" class="btn btn-gold-gradient fw-600">
+                    <a href="{{ url_for('portfolio.cv_preview', username=data.username) }}" class="btn btn-gold-gradient fw-600">
                         <i class="fas fa-file-alt me-2"></i>View Professional Credentials
                     </a>
                 </div>

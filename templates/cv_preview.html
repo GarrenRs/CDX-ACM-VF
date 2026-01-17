@@ -356,10 +356,10 @@
 <body>
     <div class="container">
         <div class="action-buttons no-print">
-            <a href="{{ url_for('pages.index') }}" class="btn btn-secondary btn-cv">
+            <a href="{{ url_for('portfolio.user_portfolio', username=data.username) }}" class="btn btn-secondary btn-cv">
                 <i class="fas fa-arrow-left me-2"></i>Back to Portfolio
             </a>
-            <a href="{{ url_for('portfolio.download_cv') }}" class="btn btn-primary btn-cv">
+            <a href="{{ url_for('portfolio.download_cv', username=data.username) }}" class="btn btn-primary btn-cv">
                 <i class="fas fa-download me-2"></i>Download PDF
             </a>
             <button onclick="window.print()" class="btn btn-success btn-cv">
