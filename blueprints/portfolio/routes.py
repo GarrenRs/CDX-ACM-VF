@@ -6,7 +6,7 @@ Handles: Portfolio display, project details, CV, contact forms
 import io
 from datetime import datetime
 from flask import render_template, session, redirect, url_for, request, flash, jsonify, send_file, current_app
-from utils.data import load_data, save_data
+from utils.data import load_data, save_data, get_default_portfolio_data
 from utils.helpers import track_visitor
 from utils.decorators import disable_in_demo
 from utils.security import check_rate_limit
@@ -22,11 +22,21 @@ def user_portfolio(username):
     users = all_data.get('users', [])
     
     user_entry = next((u for u in users if u['username'] == username), None)
+    
+    # Check if workspace exists in DB even if not in data.json
     if not user_entry and username != 'admin':
-        return render_template('404.html'), 404
+        from models import Workspace
+        workspace = Workspace.query.filter_by(slug=username).first()
+        if not workspace:
+            return render_template('404.html'), 404
+        # If workspace exists but not in data.json, we use generic data
+        if not user_data or not user_data.get('name'):
+            user_data = get_default_portfolio_data()
     
     if user_entry:
         user_data['is_verified'] = user_entry.get('is_verified', False)
+        user_data['username'] = username
+    else:
         user_data['username'] = username
     
     # Redirect admin users to home
@@ -74,12 +84,31 @@ def project_detail(username, project_id):
                            current_theme=current_theme)
 
 
-@portfolio_bp.route('/cv-preview')
+@portfolio_bp.route('/cv-preview/<username>')
 @disable_in_demo
-def cv_preview():
+def cv_preview(username):
     """CV preview page with PDF generation capability hints"""
-    username = session.get('username', 'admin')
     data = load_data(username=username)
+    
+    # Check if we have valid data from database or JSON
+    if not data or not data.get('name'):
+        from models import Workspace
+        workspace = Workspace.query.filter_by(slug=username).first()
+        if not workspace:
+            return render_template('404.html'), 404
+        # If workspace exists but data load failed or is empty, use defaults
+        data = get_default_portfolio_data()
+    
+    # Ensure username and other required fields are available in template
+    data['username'] = username
+    
+    # Ensure nested objects exist to avoid template errors
+    if 'contact' not in data:
+        data['contact'] = {}
+    if 'social' not in data:
+        data['social'] = {}
+    if 'settings' not in data:
+        data['settings'] = {'theme': 'luxury-gold'}
 
     pdf_methods = {
         'weasy_available': False,
@@ -114,12 +143,15 @@ def cv_preview():
     return render_template('cv_preview.html', data=data, pdf_methods=pdf_methods, current_theme=current_theme, services=services)
 
 
-@portfolio_bp.route('/download-cv')
+@portfolio_bp.route('/download-cv/<username>')
 @disable_in_demo
-def download_cv():
+def download_cv(username):
     """Download CV as PDF with graceful fallbacks and clear error messages."""
-    username = session.get('username', 'admin')
     data = load_data(username=username)
+    if not data:
+        return render_template('404.html'), 404
+    
+    data['username'] = username
     html_content = render_template('cv_preview.html', data=data, pdf_mode=True)
 
     # Try WeasyPrint first (recommended), but handle platform-specific dependency errors gracefully.
@@ -146,7 +178,7 @@ def download_cv():
         if 'libgobject-2.0-0' in msg or 'libgobject' in msg:
             # Provide actionable guidance for Windows users
             flash('PDF generation failed: missing GTK runtime (libgobject). On Windows install the MSYS2 GTK runtime (see https://weasyprint.readthedocs.io/en/latest/install.html#windows) or install wkhtmltopdf and python-pdfkit as an alternative (https://wkhtmltopdf.org/downloads.html).', 'error')
-            return redirect(url_for('portfolio.cv_preview'))
+            return redirect(url_for('portfolio.cv_preview', username=username))
         # Otherwise, continue to fallback
     except Exception as e:
         current_app.logger.error('WeasyPrint unexpected error: %s', str(e))
@@ -162,6 +194,8 @@ def download_cv():
             config = pdfkit.configuration(wkhtml=wkhtml_path)
         # Generate PDF bytes
         pdf_bytes = pdfkit.from_string(html_content, False, configuration=config)
+        if pdf_bytes is True:
+             raise Exception("pdfkit failed to generate PDF bytes")
         pdf_buffer = io.BytesIO(pdf_bytes)
         pdf_buffer.seek(0)
 
@@ -174,23 +208,23 @@ def download_cv():
     except ImportError:
         current_app.logger.warning('pdfkit not installed; no fallback available')
         flash('PDF generation library not available. Please install WeasyPrint (and its GTK runtime on Windows) or install wkhtmltopdf and python-pdfkit as an alternative.', 'error')
-        return redirect(url_for('portfolio.cv_preview'))
+        return redirect(url_for('portfolio.cv_preview', username=username))
     except OSError as ose:
         current_app.logger.error('wkhtmltopdf not found or failed: %s', str(ose))
         flash('wkhtmltopdf not found. Install wkhtmltopdf and ensure it is on the PATH, or install WeasyPrint with GTK runtime on Windows.', 'error')
-        return redirect(url_for('portfolio.cv_preview'))
+        return redirect(url_for('portfolio.cv_preview', username=username))
     except Exception as e:
         current_app.logger.error('PDF fallback error: %s', str(e))
         flash(f'Error generating PDF: {str(e)}', 'error')
-        return redirect(url_for('portfolio.cv_preview'))
+        return redirect(url_for('portfolio.cv_preview', username=username))
 
 
 @portfolio_bp.route('/contact', methods=['POST'])
 def contact():
     """Portfolio contact form processing - saves directly to database"""
+    from extensions import db
     try:
         from models import Message, Workspace
-        from extensions import db
         
         # Honeypot spam protection
         if request.form.get('website'):
@@ -224,20 +258,19 @@ def contact():
             return redirect(request.referrer or url_for('pages.index'))
 
         # Create message in database with all form fields
-        new_message = Message(
-            workspace_id=workspace.id,
-            name=name,
-            email=email,
-            message=message_content[:5000],
-            is_read=False,
-            category='portfolio',
-            sender_role='visitor',
-            request_type=request_type or None,
-            interest_area=interest_area or None,
-            seriousness=seriousness or None,
-            contact_pref=contact_pref or None,
-            company=company or None
-        )
+        new_message = Message()
+        new_message.workspace_id = workspace.id
+        new_message.name = name
+        new_message.email = email
+        new_message.message = message_content[:5000]
+        new_message.is_read = False
+        new_message.category = 'portfolio'
+        new_message.sender_role = 'visitor'
+        new_message.request_type = request_type or None
+        new_message.interest_area = interest_area or None
+        new_message.seriousness = seriousness or None
+        new_message.contact_pref = contact_pref or None
+        new_message.company = company or None
         
         db.session.add(new_message)
         db.session.commit()
